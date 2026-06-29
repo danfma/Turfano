@@ -47,49 +47,56 @@ public abstract record GeoJsonObject
 public abstract record Geometry : GeoJsonObject;
 
 public sealed record Point(
-    [property: JsonPropertyName("coordinates"), JsonPropertyOrder(1)] Position Coordinates) : Geometry
+    [property: JsonPropertyName("coordinates"), JsonPropertyOrder(1)] Position Coordinates
+) : Geometry
 {
     [JsonIgnore]
     public override string Type => nameof(Point);
 }
 
 public sealed record MultiPoint(
-    [property: JsonPropertyName("coordinates"), JsonPropertyOrder(1)] Position[] Coordinates) : Geometry
+    [property: JsonPropertyName("coordinates"), JsonPropertyOrder(1)] Position[] Coordinates
+) : Geometry
 {
     [JsonIgnore]
     public override string Type => nameof(MultiPoint);
 }
 
 public sealed record LineString(
-    [property: JsonPropertyName("coordinates"), JsonPropertyOrder(1)] Position[] Coordinates) : Geometry
+    [property: JsonPropertyName("coordinates"), JsonPropertyOrder(1)] Position[] Coordinates
+) : Geometry
 {
     [JsonIgnore]
     public override string Type => nameof(LineString);
 }
 
 public sealed record MultiLineString(
-    [property: JsonPropertyName("coordinates"), JsonPropertyOrder(1)] Position[][] Coordinates) : Geometry
+    [property: JsonPropertyName("coordinates"), JsonPropertyOrder(1)] Position[][] Coordinates
+) : Geometry
 {
     [JsonIgnore]
     public override string Type => nameof(MultiLineString);
 }
 
 public sealed record Polygon(
-    [property: JsonPropertyName("coordinates"), JsonPropertyOrder(1)] Position[][] Coordinates) : Geometry
+    [property: JsonPropertyName("coordinates"), JsonPropertyOrder(1)] Position[][] Coordinates
+) : Geometry
 {
     [JsonIgnore]
     public override string Type => nameof(Polygon);
 }
 
 public sealed record MultiPolygon(
-    [property: JsonPropertyName("coordinates"), JsonPropertyOrder(1)] Position[][][] Coordinates) : Geometry
+    [property: JsonPropertyName("coordinates"), JsonPropertyOrder(1)] Position[][][] Coordinates
+) : Geometry
 {
     [JsonIgnore]
     public override string Type => nameof(MultiPolygon);
 }
 
 public sealed record GeometryCollection(
-    [property: JsonPropertyName("geometries"), JsonPropertyOrder(1)] Geometry[] Geometries) : Geometry
+    [property: JsonPropertyName("geometries"), JsonPropertyOrder(1)] Geometry[] Geometries
+) : Geometry
 {
     [JsonIgnore]
     public override string Type => nameof(GeometryCollection);
@@ -101,7 +108,8 @@ public sealed record GeometryCollection(
 /// </summary>
 public sealed record Feature(
     [property: JsonPropertyName("geometry"), JsonPropertyOrder(2)] Geometry? Geometry = null,
-    [property: JsonPropertyName("properties"), JsonPropertyOrder(3)] JsonObject? Properties = null) : GeoJsonObject
+    [property: JsonPropertyName("properties"), JsonPropertyOrder(3)] JsonObject? Properties = null
+) : GeoJsonObject
 {
     [JsonIgnore]
     public override string Type => nameof(Feature);
@@ -114,7 +122,9 @@ public sealed record Feature(
 
 public sealed record FeatureCollection(
     [property: JsonPropertyName("features"), JsonPropertyOrder(1)]
-    [property: JsonConverter(typeof(FeatureArrayConverter))] Feature[] Features) : GeoJsonObject
+    [property: JsonConverter(typeof(FeatureArrayConverter))]
+        Feature[] Features
+) : GeoJsonObject
 {
     [JsonIgnore]
     public override string Type => nameof(FeatureCollection);
