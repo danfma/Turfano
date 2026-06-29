@@ -87,7 +87,7 @@ sobre os novos tipos, batendo com o `@turf`.
 
 **Independent Test**: testes por função vs `@turf`.
 
-- [ ] T011 [P] [US3] `Turf.RhumbBearing`/`RhumbDistance` em
+- [X] T011 [P] [US3] `Turf.RhumbBearing`/`RhumbDistance` em
   `src/Turfano/Parity/Measure.Rhumb.cs` (re-tipar; rumos > 180° já corretos da Fase 1).
 - [ ] T012 [P] [US3] `Turf.PointToLineDistance`/`PointToPolygonDistance`/
   `NearestPointOnLine` em `src/Turfano/Parity/Measure.PointDistances.cs`.
@@ -189,11 +189,17 @@ Já entrega as medições mais usadas + a correção de divergência.
   futuras `Point`/`Polygon`/`Feature`). `Geo` virou `partial` (única mudança em `Geo.cs`).
   A `Turfano.Units` entra via alias `Units`. **`Geo` é a fachada única da API de tipos
   novos** (construtores + measurement + futuras ondas).
-- **Entregue e verde (182/0)**: `Geo.Area`, `Geo.Distance`, `Geo.Bearing`, `Geo.Length`,
-  `Geo.Bbox`/`BboxPolygon`/`Square`/`Envelope`, `Geo.Centroid` (consertado → `[1,1]`,
-  SC-002), validados contra o `@turf` real. **US1 completa + US2 centroid.** AOT 0 warnings;
-  `Turf.*.cs` NTS intocados.
-- **Falta**: `Geo.Center`/`CenterOfMass`/`Midpoint`/`Destination`/`Along`/`RhumbDestination`
-  (US2), US3 inteira (rhumb/pointTo*/nearestPointOnLine/pointOnFeature/greatCircle/
-  polygonTangents), US4 (conversões), Polish. Padrão estabelecido: re-tipar em `Geo.*` +
-  ground-truth no harness + teste vs `@turf`.
+- **Entregue e verde (189/0)**: **US1** (Area/Distance/Bearing/Length/Bbox/BboxPolygon/
+  Square/Envelope), **US2** (Centroid consertado `[1,1]` + Center/CenterOfMass/Midpoint/
+  Destination/Along/RhumbDestination), **US4** (BearingToAzimuth/Convert*/...ToRadians/...
+  ToDegrees), **US3-rumo** (RhumbBearing/RhumbDistance) — tudo em `Geo.*`, validado vs
+  `@turf` real. AOT 0 warnings; `Turf.*.cs` NTS intocados.
+- **Bug pego pela validação**: o `RhumbDestination` NTS existente diverge do `@turf`
+  (`q = deltaPsi/sin(br)` em vez de `(phi2-phi1)/deltaPsi`); a versão `Geo` bate com o
+  `@turf`. Idem `rhumbDistance`/`rhumbBearing`: docs antigos diziam `97.994`/`9.71`; o
+  `@turf` real dá `97.129`/`-170.294`.
+- **Falta (US3, continuação)**: `Geo.PointToLineDistance`/`PointToPolygonDistance`/
+  `NearestPointOnLine`/`PointOnFeature`/`GreatCircle`/`PolygonTangents`. Notas: `GreatCircle`
+  e `PolygonTangents` precisam da fonte do `@turf` (`reference/node_modules/@turf/...`);
+  o GT de `polygonTangents` sai como **FeatureCollection** (ajustar o harness). Padrão:
+  re-tipar/portar em `Geo.*` + GT no harness + teste vs `@turf`. Depois: Polish (T017–T019).
