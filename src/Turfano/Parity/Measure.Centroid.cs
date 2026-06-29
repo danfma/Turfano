@@ -1,16 +1,13 @@
-using GeoJson = Turfano.GeoJson;
+namespace Turfano.GeoJson;
 
-namespace Turfano;
-
-public static partial class Turf
+public static partial class Geo
 {
     /// <summary>
-    /// Centroide (média aritmética dos vértices) de uma geometria GeoJSON, idêntico ao
-    /// `@turf/centroid`. **Conserto da Fase 2**: exclui o vértice de fechamento dos anéis
-    /// (`excludeWrapCoord`), então o polígono `[[0,0],[0,2],[1,1],[2,2],[2,0],[0,0]]` dá
-    /// `[1,1]` (e não `[0.833,0.833]` do código NTS-based).
+    /// Centroide (média aritmética dos vértices), idêntico ao `@turf/centroid`. **Conserto da
+    /// Fase 2**: exclui o vértice de fechamento dos anéis, então
+    /// `[[0,0],[0,2],[1,1],[2,2],[2,0],[0,0]]` dá `[1,1]` (e não `[0.833,0.833]` do NTS).
     /// </summary>
-    public static GeoJson.Point Centroid(GeoJson.Geometry geometry)
+    public static Point Centroid(Geometry geometry)
     {
         double xSum = 0,
             ySum = 0;
@@ -28,7 +25,7 @@ public static partial class Turf
         );
 
         return count == 0
-            ? new GeoJson.Point(new GeoJson.Position(0, 0))
-            : new GeoJson.Point(new GeoJson.Position(xSum / count, ySum / count));
+            ? new Point(new Position(0, 0))
+            : new Point(new Position(xSum / count, ySum / count));
     }
 }

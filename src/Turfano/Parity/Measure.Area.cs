@@ -1,29 +1,26 @@
-using GeoJson = Turfano.GeoJson;
 using Units = Turfano.Units;
 
-namespace Turfano;
+namespace Turfano.GeoJson;
 
-public static partial class Turf
+public static partial class Geo
 {
     /// <summary>
-    /// Área esférica (m²) de uma geometria GeoJSON, idêntica ao `@turf/area`
-    /// (mesma fórmula de anel e `earthRadius = 6371008.8`). Reusa `Factor`/`PiOver180`.
+    /// Área esférica de uma geometria, idêntica ao `@turf/area` (mesma fórmula de anel e
+    /// `earthRadius = 6371008.8`).
     /// </summary>
-    public static Units.Area Area(GeoJson.Geometry geometry) =>
+    public static Units.Area Area(Geometry geometry) =>
         geometry switch
         {
-            GeoJson.Polygon p => Units.Area.FromSquareMeters(PolygonAreaSqm(p.Coordinates)),
-            GeoJson.MultiPolygon mp => Units.Area.FromSquareMeters(
-                mp.Coordinates.Sum(PolygonAreaSqm)
-            ),
-            GeoJson.GeometryCollection gc => gc.Geometries.Aggregate(
+            Polygon p => Units.Area.FromSquareMeters(PolygonAreaSqm(p.Coordinates)),
+            MultiPolygon mp => Units.Area.FromSquareMeters(mp.Coordinates.Sum(PolygonAreaSqm)),
+            GeometryCollection gc => gc.Geometries.Aggregate(
                 Units.Area.Zero,
                 (acc, g) => acc + Area(g)
             ),
             _ => Units.Area.Zero,
         };
 
-    private static double PolygonAreaSqm(GeoJson.Position[][] rings)
+    private static double PolygonAreaSqm(Position[][] rings)
     {
         if (rings.Length == 0)
             return 0;
@@ -34,7 +31,7 @@ public static partial class Turf
         return total;
     }
 
-    private static double RingAreaSqm(GeoJson.Position[] coords)
+    private static double RingAreaSqm(Position[] coords)
     {
         var n = coords.Length - 1;
         if (n <= 2)
@@ -43,11 +40,11 @@ public static partial class Turf
         var total = 0.0;
         for (var i = 0; i < n; i++)
         {
-            var lowerX = coords[i].Lon * PiOver180;
-            var middleY = coords[(i + 1) % n].Lat * PiOver180;
-            var upperX = coords[(i + 2) % n].Lon * PiOver180;
+            var lowerX = coords[i].Lon * D2R;
+            var middleY = coords[(i + 1) % n].Lat * D2R;
+            var upperX = coords[(i + 2) % n].Lon * D2R;
             total += (upperX - lowerX) * Math.Sin(middleY);
         }
-        return total * Factor;
+        return total * AreaFactor;
     }
 }

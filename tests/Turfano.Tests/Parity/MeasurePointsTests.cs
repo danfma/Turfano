@@ -1,3 +1,4 @@
+using G = Turfano.GeoJson.Geo;
 using GeoJson = Turfano.GeoJson;
 using Pos = Turfano.GeoJson.Position;
 
@@ -23,8 +24,7 @@ public class MeasurePointsTests
                 },
             }
         );
-        // SC-002: exatamente [1,1] (o código NTS-based dava [0.833,0.833]).
-        await Assert.That(Turf.Centroid(irr).Coordinates).IsEqualTo(new Pos(1, 1));
+        await Assert.That(G.Centroid(irr).Coordinates).IsEqualTo(new Pos(1, 1));
 
         var sq = new GeoJson.Polygon(
             new[]
@@ -39,9 +39,9 @@ public class MeasurePointsTests
                 },
             }
         );
-        await Assert.That(Turf.Centroid(sq).Coordinates).IsEqualTo(new Pos(5, 5));
+        await Assert.That(G.Centroid(sq).Coordinates).IsEqualTo(new Pos(5, 5));
 
         var line = new GeoJson.LineString(new[] { new Pos(0, 0), new Pos(10, 10) });
-        await Assert.That(Turf.Centroid(line).Coordinates).IsEqualTo(new Pos(5, 5));
+        await Assert.That(G.Centroid(line).Coordinates).IsEqualTo(new Pos(5, 5));
     }
 }

@@ -1,20 +1,16 @@
-using GeoJson = Turfano.GeoJson;
 using Units = Turfano.Units;
 
-namespace Turfano;
+namespace Turfano.GeoJson;
 
-public static partial class Turf
+public static partial class Geo
 {
-    /// <summary>
-    /// Distância great-circle (haversine) entre duas posições, idêntica ao `@turf/distance`.
-    /// O resultado é uma <see cref="Units.Length"/> (use `.Kilometers`/`.Meters`/...).
-    /// </summary>
-    public static Units.Length Distance(GeoJson.Position from, GeoJson.Position to)
+    /// <summary>Distância great-circle (haversine) entre duas posições — `@turf/distance`.</summary>
+    public static Units.Length Distance(Position from, Position to)
     {
-        var dLat = (to.Lat - from.Lat) * PiOver180;
-        var dLon = (to.Lon - from.Lon) * PiOver180;
-        var lat1 = from.Lat * PiOver180;
-        var lat2 = to.Lat * PiOver180;
+        var dLat = (to.Lat - from.Lat) * D2R;
+        var dLon = (to.Lon - from.Lon) * D2R;
+        var lat1 = from.Lat * D2R;
+        var lat2 = to.Lat * D2R;
 
         var a =
             Math.Pow(Math.Sin(dLat / 2), 2)
@@ -24,11 +20,8 @@ public static partial class Turf
         return Units.Length.FromRadians(radians);
     }
 
-    /// <summary>
-    /// Rumo inicial (ou final, se <paramref name="final"/>) de `from` para `to`, em graus,
-    /// idêntico ao `@turf/bearing` (-180..180).
-    /// </summary>
-    public static Units.Angle Bearing(GeoJson.Position from, GeoJson.Position to, bool final = false)
+    /// <summary>Rumo (inicial ou final) de `from` para `to`, em graus — `@turf/bearing`.</summary>
+    public static Units.Angle Bearing(Position from, Position to, bool final = false)
     {
         if (final)
         {
@@ -36,10 +29,10 @@ public static partial class Turf
             return Units.Angle.FromDegrees((back.Degrees + 180) % 360);
         }
 
-        var lon1 = from.Lon * PiOver180;
-        var lon2 = to.Lon * PiOver180;
-        var lat1 = from.Lat * PiOver180;
-        var lat2 = to.Lat * PiOver180;
+        var lon1 = from.Lon * D2R;
+        var lon2 = to.Lon * D2R;
+        var lat1 = from.Lat * D2R;
+        var lat2 = to.Lat * D2R;
         var dLon = lon2 - lon1;
 
         var a = Math.Sin(dLon) * Math.Cos(lat2);
@@ -47,11 +40,23 @@ public static partial class Turf
         return Units.Angle.FromRadians(Math.Atan2(a, b));
     }
 
-    // NOTA (descoberta de design): um método `Length(...)` na classe `Turf` sombreia o TIPO
-    // `Length` (UnitsNet), usado sem qualificação nos partials NTS-based (`Length.FromMeters`,
-    // `Length EarthRadius`...), quebrando o build. Como não alteramos os arquivos antigos
-    // (FR-007), o comprimento sobre os novos tipos fica para quando a colocação for revista
-    // (fachada dedicada) ou os arquivos NTS saírem. Implementação pronta abaixo, comentada:
-    //
-    // public static Units.Length Length(GeoJson.LineString line) { ... soma de Distance ... }
+    /// <summary>Comprimento total de uma linha (soma das distâncias) — `@turf/length`.</summary>
+    public static Units.Length Length(LineString line)
+    {
+        var total = Units.Length.Zero;
+        var coords = line.Coordinates;
+        for (var i = 0; i < coords.Length - 1; i++)
+            total += Distance(coords[i], coords[i + 1]);
+        return total;
+    }
+
+    /// <summary>Comprimento total de uma multilinha.</summary>
+    public static Units.Length Length(MultiLineString lines)
+    {
+        var total = Units.Length.Zero;
+        foreach (var line in lines.Coordinates)
+            for (var i = 0; i < line.Length - 1; i++)
+                total += Distance(line[i], line[i + 1]);
+        return total;
+    }
 }

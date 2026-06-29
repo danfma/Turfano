@@ -49,11 +49,11 @@ sobre os novos tipos, batendo com o `@turf`.
 
 - [X] T003 [P] [US1] `Turf.Area(GeoJson.Geometry)` (esférica) em
   `src/Turfano/Parity/Measure.Area.cs` (re-tipar de `Turf.Area.cs`, devolve `Units.Area`).
-- [ ] T004 [P] [US1] `Turf.Distance`/`Turf.Bearing`/`Turf.Length` em
+- [X] T004 [P] [US1] `Turf.Distance`/`Turf.Bearing`/`Turf.Length` em
   `src/Turfano/Parity/Measure.Distance.cs` (re-tipar; `Units.Length`/`Units.Angle`).
 - [X] T005 [P] [US1] `Turf.Bbox`/`BboxPolygon`/`Square`/`Envelope` em
   `src/Turfano/Parity/Measure.Bbox.cs` (devolvem `GeoJson.BBox`/`GeoJson.Polygon`).
-- [ ] T006 [US1] Testes TUnit vs `@turf` em `tests/Turfano.Tests/Parity/MeasureScalarTests.cs`
+- [X] T006 [US1] Testes TUnit vs `@turf` em `tests/Turfano.Tests/Parity/MeasureScalarTests.cs`
   (area-âncora `32819945055.14`, distance/bearing/length/bbox), tolerância apertada.
 
 **Checkpoint**: medições escalares fiéis ao `@turf` (MVP da onda).
@@ -180,17 +180,20 @@ Já entrega as medições mais usadas + a correção de divergência.
 - Fora de escopo (não criar tarefas): outras ondas, remover NTS/UnitsNet, funções fora de
   measurement.
 
-## Implementation Notes (incremento MVP — em progresso)
+## Implementation Notes (incremento — em progresso)
 
-- **Entregue e verde (181/0)**: `Area`, `Distance`, `Bearing`, `Bbox`/`BboxPolygon`/
-  `Square`/`Envelope`, `Centroid` (consertado → `[1,1]`, SC-002), sobre `Turfano.GeoJson`/
-  `Turfano.Units`, validados contra o `@turf` real.
-- **DESCOBERTA DE DESIGN (bloqueia parte da US1/US2)**: um método `Turf.Length(...)`
-  **sombreia o TIPO `Length`** (UnitsNet) usado sem qualificação nos partials NTS-based,
-  quebrando o build. Idem potencial para outras funções homônimas de tipos. `Area` não
-  colide (já era método + usa `UnitsNet.Area` qualificado); `Bbox`≠`BBox`. **Decisão a
-  tomar antes de seguir**: rever a colocação (Decisão 1) — provavelmente uma **fachada
-  dedicada** para a API de tipos novos (ex.: classe própria) em vez de sobrecargas em
-  `Turf` — o que destrava `Length` e evita colisões nas próximas ondas.
-- **Falta**: `Length` (pós-decisão), `Center`/`CenterOfMass`/`Midpoint`/`Destination`/
-  `Along`/`RhumbDestination` (US2), US3 inteira, US4 (conversões), Polish.
+- **DECISÃO DE COLOCAÇÃO (resolvida)**: as funções de tipos novos vivem na **fachada
+  `Geo`** (partials em `Turfano.GeoJson`), não como sobrecargas em `Turf`. No namespace
+  `Turfano.GeoJson` os nomes `Point`/`Polygon`/`Length`/... resolvem para os tipos próprios
+  (o namespace local vence o global using do NTS), eliminando a colisão `Length` (e as
+  futuras `Point`/`Polygon`/`Feature`). `Geo` virou `partial` (única mudança em `Geo.cs`).
+  A `Turfano.Units` entra via alias `Units`. **`Geo` é a fachada única da API de tipos
+  novos** (construtores + measurement + futuras ondas).
+- **Entregue e verde (182/0)**: `Geo.Area`, `Geo.Distance`, `Geo.Bearing`, `Geo.Length`,
+  `Geo.Bbox`/`BboxPolygon`/`Square`/`Envelope`, `Geo.Centroid` (consertado → `[1,1]`,
+  SC-002), validados contra o `@turf` real. **US1 completa + US2 centroid.** AOT 0 warnings;
+  `Turf.*.cs` NTS intocados.
+- **Falta**: `Geo.Center`/`CenterOfMass`/`Midpoint`/`Destination`/`Along`/`RhumbDestination`
+  (US2), US3 inteira (rhumb/pointTo*/nearestPointOnLine/pointOnFeature/greatCircle/
+  polygonTangents), US4 (conversões), Polish. Padrão estabelecido: re-tipar em `Geo.*` +
+  ground-truth no harness + teste vs `@turf`.
