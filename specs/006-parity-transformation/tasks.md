@@ -90,11 +90,11 @@ foundational. Nada de produção atual é removido (suíte 203 segue verde).
   `Destination` do centro; raio em `Units.Length`).
 - [X] T012 [P] [US3] `Geo.Simplify` (Douglas-Peucker; decisão da Fase 2) em
   `src/Turfano/Parity/Generate.Simplify.cs` (conferir divergência com `simplify-js`).
-- [ ] T013 [P] [US3] `Geo.PolygonSmooth` (Chaikin) + `Geo.LineOffset` em
+- [X] T013 [P] [US3] `Geo.PolygonSmooth` (Chaikin) + `Geo.LineOffset` em
   `src/Turfano/Parity/Generate.SmoothOffset.cs` (portar o algoritmo do `@turf`).
-- [ ] T014 [P] [US3] `Geo.BezierSpline` em `src/Turfano/Parity/Generate.BezierSpline.cs`
+- [X] T014 [P] [US3] `Geo.BezierSpline` em `src/Turfano/Parity/Generate.BezierSpline.cs`
   (porte do algoritmo de spline do `@turf`).
-- [ ] T015 [US3] Testes vs `@turf` em `tests/Turfano.Tests/Parity/GenerateTests.cs`.
+- [X] T015 [US3] Testes vs `@turf` em `tests/Turfano.Tests/Parity/GenerateTests.cs`.
 
 **Checkpoint**: geração/suavização conforme o `@turf`.
 

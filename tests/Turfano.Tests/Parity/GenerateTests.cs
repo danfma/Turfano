@@ -47,4 +47,29 @@ public class GenerateTests
         await Assert.That(ring[1]).IsEqualTo(new Pos(0, 3));
         await Assert.That(ring[2]).IsEqualTo(new Pos(1, 4));
     }
+
+    [Test]
+    public async Task LineOffset_MatchesTurf()
+    {
+        var offset = (GeoJson.LineString)G.LineOffset(
+            new GeoJson.LineString(new[] { new Pos(0, 0), new Pos(0, 4) }),
+            Units.Length.FromKilometers(1)
+        );
+        await Assert.That(offset.Coordinates.Length).IsEqualTo(2);
+        await Assert.That(offset.Coordinates[0].Lon).IsEqualTo(0.00899320363724538).Within(1e-9);
+        await Assert.That(offset.Coordinates[0].Lat).IsEqualTo(0.0).Within(1e-9);
+        await Assert.That(offset.Coordinates[1].Lon).IsEqualTo(0.00899320363724538).Within(1e-9);
+        await Assert.That(offset.Coordinates[1].Lat).IsEqualTo(4.0).Within(1e-9);
+    }
+
+    [Test]
+    public async Task BezierSpline_MatchesTurf()
+    {
+        var line = new GeoJson.LineString(new[] { new Pos(0, 0), new Pos(2, 2), new Pos(4, 0) });
+        var spline = G.BezierSpline(line);
+        await Assert.That(spline.Coordinates.Length).IsEqualTo(501);
+        await Assert.That(spline.Coordinates[0]).IsEqualTo(new Pos(0, 0));
+        await Assert.That(spline.Coordinates[^1].Lon).IsEqualTo(4.0).Within(1e-6);
+        await Assert.That(spline.Coordinates[^1].Lat).IsEqualTo(0.0).Within(1e-6);
+    }
 }
