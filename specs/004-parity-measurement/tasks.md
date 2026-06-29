@@ -69,11 +69,11 @@ sobre os novos tipos, batendo com o `@turf`.
 
 - [X] T007 [US2] `Turf.Centroid(GeoJson.Geometry)` **CONSERTADO** (exclui o vértice de
   fechamento) em `src/Turfano/Parity/Measure.Centroid.cs`.
-- [ ] T008 [P] [US2] `Turf.Center`/`CenterOfMass`/`Midpoint` em
+- [X] T008 [P] [US2] `Turf.Center`/`CenterOfMass`/`Midpoint` em
   `src/Turfano/Parity/Measure.Center.cs` (portar o algoritmo do `@turf`).
-- [ ] T009 [P] [US2] `Turf.Destination`/`Along`/`RhumbDestination` em
+- [X] T009 [P] [US2] `Turf.Destination`/`Along`/`RhumbDestination` em
   `src/Turfano/Parity/Measure.Destination.cs` (re-tipar).
-- [ ] T010 [US2] Testes vs `@turf` em `tests/Turfano.Tests/Parity/MeasurePointsTests.cs`;
+- [X] T010 [US2] Testes vs `@turf` em `tests/Turfano.Tests/Parity/MeasurePointsTests.cs`;
   o teste de `Centroid([[0,0],[0,2],[1,1],[2,2],[2,0],[0,0]])` prova `[1,1]` (SC-002).
 
 **Checkpoint**: pontos derivados corretos; divergência da Fase 2 consertada.
@@ -106,10 +106,10 @@ sobre os novos tipos, batendo com o `@turf`.
 
 **Independent Test**: as conversões batem com o `@turf` (reuso de `Turfano.Units`).
 
-- [ ] T015 [US4] Expor `Turf.BearingToAzimuth`/`ConvertLength`/`ConvertArea`/
+- [X] T015 [US4] Expor `Turf.BearingToAzimuth`/`ConvertLength`/`ConvertArea`/
   `DegreesToRadians`/`RadiansToDegrees`/`LengthToRadians`/`RadiansToLength`/
   `LengthToDegrees` (reuso de `Turfano.Units`) em `src/Turfano/Parity/Units.cs`.
-- [ ] T016 [US4] Testes (ou confirmar cobertura pelos testes de `UnitsTests` da Fase 3).
+- [X] T016 [US4] Testes (ou confirmar cobertura pelos testes de `UnitsTests` da Fase 3).
 
 **Checkpoint**: conversões de unidade acessíveis na fachada.
 
