@@ -71,7 +71,7 @@ public class MeasureGeomTests
         );
         var t = G.PolygonTangents(new Pos(15, 5), square);
         // @turf: rtan=[10,10], ltan=[10,0]
-        await Assert.That(t.Rtan.Coordinates).IsEqualTo(new Pos(10, 10));
-        await Assert.That(t.Ltan.Coordinates).IsEqualTo(new Pos(10, 0));
+        await Assert.That(t.RightTangent.Coordinates).IsEqualTo(new Pos(10, 10));
+        await Assert.That(t.LeftTangent.Coordinates).IsEqualTo(new Pos(10, 0));
     }
 }

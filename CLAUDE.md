@@ -69,6 +69,10 @@ dotnet run --project benchmark/TimeAndMemoryUsage -c Release
 - Nullable reference types and `ImplicitUsings` are enabled. No explicit `LangVersion` is set, so the C#
   version defaults to each target framework's SDK default.
 - Match TurfJS method signatures and naming where reasonable; prefer pure functions and immutable data.
+- **Evite acrônimos crípticos** em nomes (variáveis, métodos, propriedades). Prefira nomes
+  por extenso e legíveis (ex.: `RadiansPerDegree` em vez de `D2R`, `RightTangent` em vez de
+  `Rtan`). Nomes de domínio bem conhecidos podem ser mantidos (ex.: `BBox`, `lon`/`lat`, e a
+  notação geodésica `phi`/`lambda` das fórmulas de rumo).
 - XML doc comments on public methods.
 - Tests use **TUnit** (not xUnit/Shouldly). The pattern is `[Test] public async Task` with
   `await Assert.That(actual).IsEqualTo(expected).Within(tolerance)`. Tests commonly embed the equivalent
@@ -77,8 +81,8 @@ dotnet run --project benchmark/TimeAndMemoryUsage -c Release
   `bun install`, `bun run <file>`, `bun test`.
 
 <!-- SPECKIT START -->
-Plano da feature ativa: `specs/004-parity-measurement/plan.md` (Fase 4 / Onda A —
-Measurement; ver o plano-mãe `plans/turfjs-parity-redesign.md`; Fases 1–3 já na `main`).
-Consulte esse plano e os artefatos da feature (`spec.md`, `research.md`, `data-model.md`,
-`contracts/`, `quickstart.md`) para contexto de implementação.
+Plano da feature ativa: `specs/005-parity-booleans/plan.md` (Fase 5 / Onda B — Booleans;
+ver o plano-mãe `plans/turfjs-parity-redesign.md`; Fases 1–4 já na `main`, incl. a Onda A
+de measurement na fachada `Geo`). Consulte esse plano e os artefatos da feature (`spec.md`,
+`research.md`, `data-model.md`, `contracts/`, `quickstart.md`) para contexto.
 <!-- SPECKIT END -->

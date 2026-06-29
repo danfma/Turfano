@@ -12,7 +12,7 @@ public sealed record NearestPointOnLineResult(
 
 public static partial class Geo
 {
-    private readonly record struct Vec3(double X, double Y, double Z);
+    private readonly record struct Vector3(double X, double Y, double Z);
 
     /// <summary>
     /// Ponto mais próximo de uma linha a um ponto — porte fiel do `@turf/nearest-point-on-line`
@@ -85,39 +85,39 @@ public static partial class Geo
             return (posB, true);
 
         var I1 = Normalize(Cross(targetAxis, segmentAxis));
-        var I2 = new Vec3(-I1.X, -I1.Y, -I1.Z);
+        var I2 = new Vector3(-I1.X, -I1.Y, -I1.Z);
         var I = Dot(C, I1) > Dot(C, I2) ? I1 : I2;
 
         var segmentAxisNorm = Normalize(segmentAxis);
-        var cmpAI = Dot(Cross(A, I), segmentAxisNorm);
-        var cmpIB = Dot(Cross(I, B), segmentAxisNorm);
-        if (cmpAI >= 0 && cmpIB >= 0)
+        var compareStartToIntersect = Dot(Cross(A, I), segmentAxisNorm);
+        var compareIntersectToEnd = Dot(Cross(I, B), segmentAxisNorm);
+        if (compareStartToIntersect >= 0 && compareIntersectToEnd >= 0)
             return (VectorToLngLat(I), false);
 
         return Dot(A, C) > Dot(B, C) ? (posA, false) : (posB, true);
     }
 
-    private static Vec3 LngLatToVector(Position a)
+    private static Vector3 LngLatToVector(Position a)
     {
-        var lat = a.Lat * D2R;
-        var lng = a.Lon * D2R;
-        return new Vec3(Math.Cos(lat) * Math.Cos(lng), Math.Cos(lat) * Math.Sin(lng), Math.Sin(lat));
+        var lat = a.Lat * RadiansPerDegree;
+        var lng = a.Lon * RadiansPerDegree;
+        return new Vector3(Math.Cos(lat) * Math.Cos(lng), Math.Cos(lat) * Math.Sin(lng), Math.Sin(lat));
     }
 
-    private static Position VectorToLngLat(Vec3 v)
+    private static Position VectorToLngLat(Vector3 v)
     {
         var z = Math.Min(Math.Max(v.Z, -1), 1);
-        return new Position(Math.Atan2(v.Y, v.X) / D2R, Math.Asin(z) / D2R);
+        return new Position(Math.Atan2(v.Y, v.X) / RadiansPerDegree, Math.Asin(z) / RadiansPerDegree);
     }
 
-    private static double Dot(Vec3 a, Vec3 b) => a.X * b.X + a.Y * b.Y + a.Z * b.Z;
+    private static double Dot(Vector3 a, Vector3 b) => a.X * b.X + a.Y * b.Y + a.Z * b.Z;
 
-    private static Vec3 Cross(Vec3 a, Vec3 b) =>
+    private static Vector3 Cross(Vector3 a, Vector3 b) =>
         new(a.Y * b.Z - a.Z * b.Y, a.Z * b.X - a.X * b.Z, a.X * b.Y - a.Y * b.X);
 
-    private static Vec3 Normalize(Vec3 v)
+    private static Vector3 Normalize(Vector3 v)
     {
         var m = Math.Sqrt(v.X * v.X + v.Y * v.Y + v.Z * v.Z);
-        return new Vec3(v.X / m, v.Y / m, v.Z / m);
+        return new Vector3(v.X / m, v.Y / m, v.Z / m);
     }
 }

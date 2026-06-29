@@ -8,7 +8,7 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     private const double EarthRadiusMeters = 6371008.8; // = @turf earthRadius
-    private const double D2R = Math.PI / 180.0;
+    private const double RadiansPerDegree = Math.PI / 180.0;
     private const double AreaFactor = EarthRadiusMeters * EarthRadiusMeters / 2.0;
 
     /// <summary>

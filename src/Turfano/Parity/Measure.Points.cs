@@ -7,8 +7,8 @@ public static partial class Geo
     /// <summary>Ponto de destino (great-circle) a partir de origem, distância e rumo — `@turf/destination`.</summary>
     public static Point Destination(Position origin, Units.Length distance, Units.Angle bearing)
     {
-        var lon1 = origin.Lon * D2R;
-        var lat1 = origin.Lat * D2R;
+        var lon1 = origin.Lon * RadiansPerDegree;
+        var lat1 = origin.Lat * RadiansPerDegree;
         var rad = distance.Radians;
         var br = bearing.Radians;
 
@@ -22,7 +22,7 @@ public static partial class Geo
                 Math.Cos(rad) - Math.Sin(lat1) * Math.Sin(lat2)
             );
 
-        return new Point(new Position(lon2 / D2R, lat2 / D2R));
+        return new Point(new Position(lon2 / RadiansPerDegree, lat2 / RadiansPerDegree));
     }
 
     /// <summary>Ponto médio geodésico entre dois pontos — `@turf/midpoint`.</summary>
@@ -111,8 +111,8 @@ public static partial class Geo
     /// <summary>Destino ao longo de uma linha de rumo constante — `@turf/rhumb-destination`.</summary>
     public static Point RhumbDestination(Position origin, Units.Length distance, Units.Angle bearing)
     {
-        var phi1 = origin.Lat * D2R;
-        var lambda1 = origin.Lon * D2R;
+        var phi1 = origin.Lat * RadiansPerDegree;
+        var lambda1 = origin.Lon * RadiansPerDegree;
         var br = bearing.Radians;
         var delta = distance.Meters / EarthRadiusMeters;
 
@@ -127,6 +127,6 @@ public static partial class Geo
         var lambda2 = lambda1 + delta * Math.Sin(br) / q;
         lambda2 = (lambda2 + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
 
-        return new Point(new Position(lambda2 / D2R, phi2 / D2R));
+        return new Point(new Position(lambda2 / RadiansPerDegree, phi2 / RadiansPerDegree));
     }
 }
