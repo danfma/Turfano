@@ -7,10 +7,10 @@ public static partial class Geo
     /// <summary>Distância great-circle (haversine) entre duas posições — `@turf/distance`.</summary>
     public static Units.Length Distance(Position from, Position to)
     {
-        var dLat = (to.Lat - from.Lat) * D2R;
-        var dLon = (to.Lon - from.Lon) * D2R;
-        var lat1 = from.Lat * D2R;
-        var lat2 = to.Lat * D2R;
+        var dLat = (to.Lat - from.Lat) * RadiansPerDegree;
+        var dLon = (to.Lon - from.Lon) * RadiansPerDegree;
+        var lat1 = from.Lat * RadiansPerDegree;
+        var lat2 = to.Lat * RadiansPerDegree;
 
         var a =
             Math.Pow(Math.Sin(dLat / 2), 2)
@@ -29,10 +29,10 @@ public static partial class Geo
             return Units.Angle.FromDegrees((back.Degrees + 180) % 360);
         }
 
-        var lon1 = from.Lon * D2R;
-        var lon2 = to.Lon * D2R;
-        var lat1 = from.Lat * D2R;
-        var lat2 = to.Lat * D2R;
+        var lon1 = from.Lon * RadiansPerDegree;
+        var lon2 = to.Lon * RadiansPerDegree;
+        var lat1 = from.Lat * RadiansPerDegree;
+        var lat2 = to.Lat * RadiansPerDegree;
         var dLon = lon2 - lon1;
 
         var a = Math.Sin(dLon) * Math.Cos(lat2);

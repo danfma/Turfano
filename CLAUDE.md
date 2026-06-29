@@ -69,6 +69,10 @@ dotnet run --project benchmark/TimeAndMemoryUsage -c Release
 - Nullable reference types and `ImplicitUsings` are enabled. No explicit `LangVersion` is set, so the C#
   version defaults to each target framework's SDK default.
 - Match TurfJS method signatures and naming where reasonable; prefer pure functions and immutable data.
+- **Evite acrônimos crípticos** em nomes (variáveis, métodos, propriedades). Prefira nomes
+  por extenso e legíveis (ex.: `RadiansPerDegree` em vez de `D2R`, `RightTangent` em vez de
+  `Rtan`). Nomes de domínio bem conhecidos podem ser mantidos (ex.: `BBox`, `lon`/`lat`, e a
+  notação geodésica `phi`/`lambda` das fórmulas de rumo).
 - XML doc comments on public methods.
 - Tests use **TUnit** (not xUnit/Shouldly). The pattern is `[Test] public async Task` with
   `await Assert.That(actual).IsEqualTo(expected).Within(tolerance)`. Tests commonly embed the equivalent

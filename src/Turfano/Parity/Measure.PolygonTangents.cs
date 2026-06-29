@@ -1,7 +1,7 @@
 namespace Turfano.GeoJson;
 
 /// <summary>Resultado de <see cref="Geo.PolygonTangents"/>: as tangentes direita e esquerda.</summary>
-public sealed record PolygonTangentsResult(Point Rtan, Point Ltan);
+public sealed record PolygonTangentsResult(Point RightTangent, Point LeftTangent);
 
 public static partial class Geo
 {

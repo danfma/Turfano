@@ -13,10 +13,10 @@ public static partial class Geo
         if (start.Lon == end.Lon && start.Lat == end.Lat)
             return new LineString(Enumerable.Repeat(start, n).ToArray());
 
-        var lon1 = start.Lon * D2R;
-        var lat1 = start.Lat * D2R;
-        var lon2 = end.Lon * D2R;
-        var lat2 = end.Lat * D2R;
+        var lon1 = start.Lon * RadiansPerDegree;
+        var lat1 = start.Lat * RadiansPerDegree;
+        var lon2 = end.Lon * RadiansPerDegree;
+        var lat2 = end.Lat * RadiansPerDegree;
 
         var w = lon1 - lon2;
         var h = lat1 - lat2;
@@ -31,10 +31,10 @@ public static partial class Geo
             var B = Math.Sin(f * g) / Math.Sin(g);
             var x = A * Math.Cos(lat1) * Math.Cos(lon1) + B * Math.Cos(lat2) * Math.Cos(lon2);
             var y = A * Math.Cos(lat1) * Math.Sin(lon1) + B * Math.Cos(lat2) * Math.Sin(lon2);
-            var zz = A * Math.Sin(lat1) + B * Math.Sin(lat2);
-            var lat = Math.Atan2(zz, Math.Sqrt(x * x + y * y));
+            var zComponent = A * Math.Sin(lat1) + B * Math.Sin(lat2);
+            var lat = Math.Atan2(zComponent, Math.Sqrt(x * x + y * y));
             var lon = Math.Atan2(y, x);
-            coords[i] = new Position(lon / D2R, lat / D2R);
+            coords[i] = new Position(lon / RadiansPerDegree, lat / RadiansPerDegree);
         }
 
         return new LineString(coords);

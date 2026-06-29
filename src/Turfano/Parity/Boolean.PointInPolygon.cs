@@ -19,7 +19,7 @@ public static partial class Geo
         var result = false;
         foreach (var poly in polys)
         {
-            var r = Pip(pt, poly);
+            var r = ClassifyPointInPolygon(pt, poly);
             if (r == 0)
                 return !ignoreBoundary; // na borda
             if (r == 1)
@@ -29,7 +29,7 @@ public static partial class Geo
     }
 
     // point-in-polygon-hao: 0 = borda, 1 = dentro, 2 = fora.
-    private static int Pip(Position p, Position[][] polygon)
+    private static int ClassifyPointInPolygon(Position p, Position[][] polygon)
     {
         double x = p.Lon,
             y = p.Lat;

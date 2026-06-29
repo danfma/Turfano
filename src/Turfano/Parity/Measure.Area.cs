@@ -40,9 +40,9 @@ public static partial class Geo
         var total = 0.0;
         for (var i = 0; i < n; i++)
         {
-            var lowerX = coords[i].Lon * D2R;
-            var middleY = coords[(i + 1) % n].Lat * D2R;
-            var upperX = coords[(i + 2) % n].Lon * D2R;
+            var lowerX = coords[i].Lon * RadiansPerDegree;
+            var middleY = coords[(i + 1) % n].Lat * RadiansPerDegree;
+            var upperX = coords[(i + 2) % n].Lon * RadiansPerDegree;
             total += (upperX - lowerX) * Math.Sin(middleY);
         }
         return total * AreaFactor;
