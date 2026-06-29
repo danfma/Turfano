@@ -8,8 +8,8 @@ public class ProjectionTest
     public async Task ConvertToAndFromMercatorShouldMatchTurfJs()
     {
         var point = new Point(-71, 41);
-        var mercatorPoint = Territory.ToMercator(point);
-        var wgs84Point = Territory.ToWgs84(mercatorPoint);
+        var mercatorPoint = Turf.ToMercator(point);
+        var wgs84Point = Turf.ToWgs84(mercatorPoint);
 
         await Assert.That(wgs84Point.X).IsEqualTo(point.X).Within(0.0001);
         await Assert.That(wgs84Point.Y).IsEqualTo(point.Y).Within(0.0001);
@@ -64,8 +64,8 @@ public class ProjectionTest
         ];
 
         var line = new LineString(coordinates.Select(c => new Coordinate(c[0], c[1])).ToArray());
-        var mercatorLine = Territory.ToMercator(line);
-        var wgs84Line = Territory.ToWgs84(mercatorLine);
+        var mercatorLine = Turf.ToMercator(line);
+        var wgs84Line = Turf.ToWgs84(mercatorLine);
 
         for (var i = 0; i < coordinates.Length; i++)
         {

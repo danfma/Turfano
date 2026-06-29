@@ -13,7 +13,7 @@ public class PointToLineDistanceTests
         );
 
         // Act
-        var distance = Territory.PointToLineDistance(point, line);
+        var distance = Turf.PointToLineDistance(point, line);
 
         // Assert
         await Assert.That(distance.Meters).IsEqualTo(0).Within(1e-10);
@@ -28,7 +28,7 @@ public class PointToLineDistanceTests
         var line = geometryFactory.CreateLineString(Array.Empty<Coordinate>());
 
         // Act
-        var distance = Territory.PointToLineDistance(point, line);
+        var distance = Turf.PointToLineDistance(point, line);
 
         // Assert
         await Assert.That(distance.Meters).IsEqualTo(0);
@@ -43,7 +43,7 @@ public class PointToLineDistanceTests
         var end = new Coordinate(2, 2);
 
         // Act
-        var distance = Territory.PointToSegmentDistance(point, start, end);
+        var distance = Turf.PointToSegmentDistance(point, start, end);
 
         // Assert
         await Assert.That(distance.Meters).IsEqualTo(0).Within(1e-10);

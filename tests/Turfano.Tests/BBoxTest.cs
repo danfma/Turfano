@@ -13,7 +13,7 @@ public class BBoxTest
 
         // turf.bbox(line) => [-82, 35, -74, 42]
 
-        var bbox = Territory.Bbox(line);
+        var bbox = Turf.Bbox(line);
 
         await Assert.That(bbox.West).IsEqualTo(-82);
         await Assert.That(bbox.South).IsEqualTo(35);

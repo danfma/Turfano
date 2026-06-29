@@ -13,7 +13,7 @@ public class RhumbDistanceTests
         var point = new Coordinate(-75.343, 39.984);
 
         // Act
-        var distance = Territory.RhumbDistance(point, point, LengthUnit.Kilometer);
+        var distance = Turf.RhumbDistance(point, point, LengthUnit.Kilometer);
 
         // Assert
         await Assert.That(distance.Kilometers).IsLessThan(0.0001);
@@ -27,7 +27,7 @@ public class RhumbDistanceTests
         var point2 = new Coordinate(-75.343, 35.984); // Same longitude, different latitude
 
         // Act
-        var distance = Territory.RhumbDistance(point1, point2, LengthUnit.Kilometer);
+        var distance = Turf.RhumbDistance(point1, point2, LengthUnit.Kilometer);
 
         // Assert - Distance should be close to expected value
         // Approx 445 km for 4° of latitude
@@ -42,7 +42,7 @@ public class RhumbDistanceTests
         var point2 = new Coordinate(0, -10);
 
         // Act
-        var distance = Territory.RhumbDistance(point1, point2, LengthUnit.Kilometer);
+        var distance = Turf.RhumbDistance(point1, point2, LengthUnit.Kilometer);
 
         // Assert - Distance should be close to expected value
         // Approx 2220 km for 20° of latitude along the prime meridian
@@ -57,7 +57,7 @@ public class RhumbDistanceTests
         var point2 = new Coordinate(-179, 0);
 
         // Act
-        var distance = Territory.RhumbDistance(point1, point2, LengthUnit.Kilometer);
+        var distance = Turf.RhumbDistance(point1, point2, LengthUnit.Kilometer);
 
         // Assert - Should be a short distance (2° of longitude at equator)
         // Not the long way around the world
@@ -72,7 +72,7 @@ public class RhumbDistanceTests
         var point2 = new Coordinate(-75.343, 40.984);
 
         // Act
-        var distance = Territory.RhumbDistance(point1, point2);
+        var distance = Turf.RhumbDistance(point1, point2);
 
         // Assert
         // Should be around 111 km or 111,000 meters

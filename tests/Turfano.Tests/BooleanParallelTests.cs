@@ -15,7 +15,7 @@ public class BooleanParallelTests
         );
 
         // Act
-        var result = Territory.BooleanParallel(line1, line2);
+        var result = Turf.BooleanParallel(line1, line2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -34,7 +34,7 @@ public class BooleanParallelTests
         );
 
         // Act
-        var result = Territory.BooleanParallel(line1, line2);
+        var result = Turf.BooleanParallel(line1, line2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -53,7 +53,7 @@ public class BooleanParallelTests
         );
 
         // Act
-        var result = Territory.BooleanParallel(line1, line2);
+        var result = Turf.BooleanParallel(line1, line2);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -79,8 +79,8 @@ public class BooleanParallelTests
         );
 
         // Act
-        var resultParallel = Territory.BooleanParallel(line1, line2);
-        var resultNotParallel = Territory.BooleanParallel(line1, line3);
+        var resultParallel = Turf.BooleanParallel(line1, line2);
+        var resultNotParallel = Turf.BooleanParallel(line1, line3);
 
         // Assert
         await Assert.That(resultParallel).IsTrue();
@@ -101,7 +101,7 @@ public class BooleanParallelTests
         );
 
         // Act
-        var result = Territory.BooleanParallel(line1, line2);
+        var result = Turf.BooleanParallel(line1, line2);
 
         // Assert
         await Assert.That(result).IsTrue(); // Only the first segment is compared
@@ -122,8 +122,8 @@ public class BooleanParallelTests
         );
 
         // Act
-        var resultWithDefaultThreshold = Territory.BooleanParallel(line1, line2); // Default threshold is 1 degree
-        var resultWithLargerThreshold = Territory.BooleanParallel(
+        var resultWithDefaultThreshold = Turf.BooleanParallel(line1, line2); // Default threshold is 1 degree
+        var resultWithLargerThreshold = Turf.BooleanParallel(
             line1,
             line2,
             options => options with { Threshold = 6 }
@@ -157,7 +157,7 @@ public class BooleanParallelTests
         );
 
         // Act
-        var result = Territory.BooleanParallel(line1, line2);
+        var result = Turf.BooleanParallel(line1, line2);
 
         // Assert
         await Assert.That(result).IsTrue(); // Should skip zero-length segments and compare the others

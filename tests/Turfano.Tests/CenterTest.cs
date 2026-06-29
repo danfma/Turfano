@@ -19,7 +19,7 @@ public class CenterTest
         );
 
         // Act
-        var center = Territory.Center(polygon);
+        var center = Turf.Center(polygon);
 
         // Assert
         await Assert.That(center.X).IsEqualTo(5);
@@ -33,7 +33,7 @@ public class CenterTest
         var lineString = new LineString([new Coordinate(0, 0), new Coordinate(10, 10)]);
 
         // Act
-        var center = Territory.Center(lineString);
+        var center = Turf.Center(lineString);
 
         // Assert
         await Assert.That(center.X).IsEqualTo(5);
@@ -47,7 +47,7 @@ public class CenterTest
         var point = new Point(5, 5);
 
         // Act
-        var center = Territory.Center(point);
+        var center = Turf.Center(point);
 
         // Assert
         await Assert.That(center.X).IsEqualTo(5);
@@ -61,7 +61,7 @@ public class CenterTest
         var points = new MultiPoint([new Point(0, 0), new Point(10, 10)]);
 
         // Act
-        var center = Territory.Center(points);
+        var center = Turf.Center(points);
 
         // Assert
         await Assert.That(center.X).IsEqualTo(5);
@@ -83,7 +83,7 @@ public class CenterTest
         );
 
         // Act
-        var center = Territory.Center(polygon);
+        var center = Turf.Center(polygon);
 
         // Assert
         await Assert.That(center.X).IsEqualTo(0);

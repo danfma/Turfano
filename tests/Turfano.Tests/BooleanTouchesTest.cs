@@ -29,7 +29,7 @@ public class BooleanTouchesTest
         );
 
         // Act
-        var result = Territory.BooleanTouches(polygon1, polygon2);
+        var result = Turf.BooleanTouches(polygon1, polygon2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -60,7 +60,7 @@ public class BooleanTouchesTest
         );
 
         // Act
-        var result = Territory.BooleanTouches(polygon1, polygon2);
+        var result = Turf.BooleanTouches(polygon1, polygon2);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -91,7 +91,7 @@ public class BooleanTouchesTest
         );
 
         // Act
-        var result = Territory.BooleanTouches(polygon1, polygon2);
+        var result = Turf.BooleanTouches(polygon1, polygon2);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -114,7 +114,7 @@ public class BooleanTouchesTest
         );
 
         // Act
-        var result = Territory.BooleanTouches(point, polygon);
+        var result = Turf.BooleanTouches(point, polygon);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -137,7 +137,7 @@ public class BooleanTouchesTest
         );
 
         // Act
-        var result = Territory.BooleanTouches(point, polygon);
+        var result = Turf.BooleanTouches(point, polygon);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -152,7 +152,7 @@ public class BooleanTouchesTest
         var lineString2 = new LineString([new Coordinate(5, 5), new Coordinate(10, 10)]);
 
         // Act
-        var result = Territory.BooleanTouches(lineString1, lineString2);
+        var result = Turf.BooleanTouches(lineString1, lineString2);
 
         // Assert
         await Assert.That(result).IsTrue();

@@ -29,7 +29,7 @@ public class BooleanEqualTest
         );
 
         // Act
-        var result = Territory.BooleanEqual(polygon1, polygon2);
+        var result = Turf.BooleanEqual(polygon1, polygon2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -60,7 +60,7 @@ public class BooleanEqualTest
         );
 
         // Act
-        var result = Territory.BooleanEqual(polygon1, polygon2);
+        var result = Turf.BooleanEqual(polygon1, polygon2);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -91,7 +91,7 @@ public class BooleanEqualTest
         );
 
         // Act
-        var result = Territory.BooleanEqual(polygon1, polygon2);
+        var result = Turf.BooleanEqual(polygon1, polygon2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -122,7 +122,7 @@ public class BooleanEqualTest
         );
 
         // Act
-        var result = Territory.BooleanEqual(polygon1, polygon2);
+        var result = Turf.BooleanEqual(polygon1, polygon2);
 
         // Assert
         // BooleanEqual uses EqualsExact, which requires the exact same coordinate order
@@ -137,7 +137,7 @@ public class BooleanEqualTest
         var point2 = new Point(5, 5);
 
         // Act
-        var result = Territory.BooleanEqual(point1, point2);
+        var result = Turf.BooleanEqual(point1, point2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -151,7 +151,7 @@ public class BooleanEqualTest
         var point2 = new Point(6, 6);
 
         // Act
-        var result = Territory.BooleanEqual(point1, point2);
+        var result = Turf.BooleanEqual(point1, point2);
 
         // Assert
         await Assert.That(result).IsFalse();

@@ -9,7 +9,7 @@ public class BBoxPolygonTest
 
         // turf.bboxPolygon(bbox) => [ [ [ 0, 0 ], [ 10, 0 ], [ 10, 10 ], [ 0, 10 ], [ 0, 0 ] ] ]
 
-        var polygon = Territory.BboxPolygon(bbox);
+        var polygon = Turf.BboxPolygon(bbox);
 
         await Assert.That(polygon.Coordinates.Length).IsEqualTo(5);
 

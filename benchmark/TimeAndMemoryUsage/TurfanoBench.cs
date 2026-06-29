@@ -22,6 +22,6 @@ public class TurfanoBench
     [Benchmark, BenchmarkCategory("Along")]
     public Point WalkInLineRing()
     {
-        return Territory.WalkAlong(_lineRing, _walkDistance);
+        return Turf.WalkAlong(_lineRing, _walkDistance);
     }
 }

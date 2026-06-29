@@ -29,7 +29,7 @@ public class BooleanWithinTest
         );
 
         // Act
-        var result = Territory.BooleanWithin(smallPolygon, largePolygon);
+        var result = Turf.BooleanWithin(smallPolygon, largePolygon);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -60,7 +60,7 @@ public class BooleanWithinTest
         );
 
         // Act
-        var result = Territory.BooleanWithin(largePolygon, smallPolygon);
+        var result = Turf.BooleanWithin(largePolygon, smallPolygon);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -83,7 +83,7 @@ public class BooleanWithinTest
         );
 
         // Act
-        var result = Territory.BooleanWithin(point, polygon);
+        var result = Turf.BooleanWithin(point, polygon);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -106,7 +106,7 @@ public class BooleanWithinTest
         );
 
         // Act
-        var result = Territory.BooleanWithin(point, polygon);
+        var result = Turf.BooleanWithin(point, polygon);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -129,7 +129,7 @@ public class BooleanWithinTest
         );
 
         // Act
-        var result = Territory.BooleanWithin(lineString, polygon);
+        var result = Turf.BooleanWithin(lineString, polygon);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -152,7 +152,7 @@ public class BooleanWithinTest
         );
 
         // Act
-        var result = Territory.BooleanWithin(lineString, polygon);
+        var result = Turf.BooleanWithin(lineString, polygon);
 
         // Assert
         await Assert.That(result).IsFalse();

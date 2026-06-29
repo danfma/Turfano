@@ -19,7 +19,7 @@ public class SimplifyTests
         );
 
         // Act
-        var simplified = Territory.Simplify(line, 0.05, highQuality: false);
+        var simplified = Turf.Simplify(line, 0.05, highQuality: false);
 
         // Assert
         await Assert.That(simplified.NumPoints).IsEqualTo(2); // Only the start and end points should remain
@@ -46,7 +46,7 @@ public class SimplifyTests
         );
 
         // Act
-        var simplified = Territory.Simplify(polygon, 0.3, highQuality: false);
+        var simplified = Turf.Simplify(polygon, 0.3, highQuality: false);
 
         // Assert
         await Assert.That(simplified.NumPoints).IsEqualTo(5); // Simplified to a simple rectangle (5 points including the closing point)
@@ -61,7 +61,7 @@ public class SimplifyTests
         var emptyLine = geometryFactory.CreateLineString(Array.Empty<Coordinate>());
 
         // Act
-        var simplified = Territory.Simplify(emptyLine, 0.1, highQuality: false);
+        var simplified = Turf.Simplify(emptyLine, 0.1, highQuality: false);
 
         // Assert
         await Assert.That(simplified.IsEmpty).IsTrue();
@@ -77,7 +77,7 @@ public class SimplifyTests
         );
 
         // Act
-        var simplified = Territory.Simplify(line, 0, highQuality: false);
+        var simplified = Turf.Simplify(line, 0, highQuality: false);
 
         // Assert
         await Assert.That(simplified.NumPoints).IsEqualTo(line.NumPoints);
@@ -103,7 +103,7 @@ public class SimplifyTests
         );
 
         // Act
-        var simplified = Territory.Simplify(polygon, 0.3, highQuality: true);
+        var simplified = Turf.Simplify(polygon, 0.3, highQuality: true);
 
         // Assert
         await Assert.That(simplified.IsValid).IsTrue();
@@ -126,14 +126,14 @@ public class SimplifyTests
         );
 
         // Act - using options overload with high quality
-        var simplifiedHQ = Territory.Simplify(
+        var simplifiedHQ = Turf.Simplify(
             line,
             0.05,
             options => options with { HighQuality = true }
         );
 
         // Also test the direct boolean parameter overload
-        var simplifiedHQDirect = Territory.Simplify(line, 0.05, true);
+        var simplifiedHQDirect = Turf.Simplify(line, 0.05, true);
 
         // Assert
         await Assert.That(simplifiedHQ.NumPoints).IsEqualTo(simplifiedHQDirect.NumPoints);
@@ -164,7 +164,7 @@ public class SimplifyTests
         var complexPolygon = geometryFactory.CreatePolygon(circlePoints.ToArray());
 
         // Act
-        var simplified = Territory.Simplify(complexPolygon, 0.2, highQuality: false);
+        var simplified = Turf.Simplify(complexPolygon, 0.2, highQuality: false);
 
         // Assert
         await Assert.That(simplified.NumPoints).IsLessThan(complexPolygon.NumPoints);

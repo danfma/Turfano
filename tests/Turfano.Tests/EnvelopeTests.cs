@@ -11,7 +11,7 @@ public class EnvelopeTests
         var bbox = new BBox(-75.343, 39.984, -70.534, 42.123);
 
         // Act
-        var polygon = Territory.Envelope(bbox);
+        var polygon = Turf.Envelope(bbox);
 
         // Assert
         await Assert.That(polygon).IsTypeOf<Polygon>();
@@ -50,7 +50,7 @@ public class EnvelopeTests
         var north = 42.123;
 
         // Act
-        var polygon = Territory.Envelope(west, south, east, north);
+        var polygon = Turf.Envelope(west, south, east, north);
 
         // Assert
         await Assert.That(polygon).IsTypeOf<Polygon>();
@@ -71,7 +71,7 @@ public class EnvelopeTests
         var point = geometryFactory.CreatePoint(new Coordinate(-75.343, 39.984));
 
         // Act
-        var polygon = Territory.Envelope(point);
+        var polygon = Turf.Envelope(point);
 
         // Assert
         await Assert.That(polygon).IsTypeOf<Polygon>();
@@ -102,7 +102,7 @@ public class EnvelopeTests
         );
 
         // Act
-        var polygon = Territory.Envelope(lineString);
+        var polygon = Turf.Envelope(lineString);
 
         // Assert
         await Assert.That(polygon).IsTypeOf<Polygon>();

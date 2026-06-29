@@ -10,7 +10,7 @@ public class PointOnFeatureTests
         var point = geometryFactory.CreatePoint(new Coordinate(10, 10));
 
         // Act
-        var result = Territory.PointOnFeature(point);
+        var result = Turf.PointOnFeature(point);
 
         // Assert
         await Assert.That(result).IsEqualTo(point);
@@ -33,7 +33,7 @@ public class PointOnFeatureTests
         );
 
         // Act
-        var result = Territory.PointOnFeature(polygon);
+        var result = Turf.PointOnFeature(polygon);
 
         // Assert
         // Should be at or near the centroid (5, 5)
@@ -54,7 +54,7 @@ public class PointOnFeatureTests
         );
 
         // Act
-        var result = Territory.PointOnFeature(multiPoint);
+        var result = Turf.PointOnFeature(multiPoint);
 
         // Assert
         await Assert.That(result.X).IsEqualTo(1);
@@ -92,7 +92,7 @@ public class PointOnFeatureTests
         var multiPoly = geometryFactory.CreateMultiPolygon(new[] { poly1, poly2 });
 
         // Act
-        var result = Territory.PointOnFeature(multiPoly);
+        var result = Turf.PointOnFeature(multiPoly);
 
         // Assert
         // Should be in the larger polygon (poly2)

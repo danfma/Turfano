@@ -17,7 +17,7 @@ public class BooleanPointOnLineTest
         var point = new Point(5, 5);
 
         // Act
-        var result = Territory.BooleanPointOnLine(point, line);
+        var result = Turf.BooleanPointOnLine(point, line);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -36,7 +36,7 @@ public class BooleanPointOnLineTest
         var point = new Point(5, 6);
 
         // Act
-        var result = Territory.BooleanPointOnLine(point, line);
+        var result = Turf.BooleanPointOnLine(point, line);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -55,7 +55,7 @@ public class BooleanPointOnLineTest
         var point = new Point(2.5, 2.5);
 
         // Act
-        var result = Territory.BooleanPointOnLine(point, line);
+        var result = Turf.BooleanPointOnLine(point, line);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -74,7 +74,7 @@ public class BooleanPointOnLineTest
         var point = new Point(0, 0);
 
         // Act
-        var result = Territory.BooleanPointOnLine(point, line);
+        var result = Turf.BooleanPointOnLine(point, line);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -91,7 +91,7 @@ public class BooleanPointOnLineTest
         var point = new Point(12.5, 12.5);
 
         // Act
-        var result = Territory.BooleanPointOnLine(point, line2);
+        var result = Turf.BooleanPointOnLine(point, line2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -108,8 +108,8 @@ public class BooleanPointOnLineTest
         var point = new Point(7, 7);
 
         // Act
-        var onLine1 = Territory.BooleanPointOnLine(point, line1);
-        var onLine2 = Territory.BooleanPointOnLine(point, line2);
+        var onLine1 = Turf.BooleanPointOnLine(point, line1);
+        var onLine2 = Turf.BooleanPointOnLine(point, line2);
 
         // Assert
         await Assert.That(onLine1).IsFalse();

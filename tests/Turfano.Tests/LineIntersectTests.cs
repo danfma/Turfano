@@ -12,7 +12,7 @@ public class LineIntersectTests
 
         var line2 = factory.CreateLineString([new Coordinate(0, 2), new Coordinate(2, 0)]);
 
-        var result = Territory.LineIntersect(line1, line2);
+        var result = Turf.LineIntersect(line1, line2);
 
         await Assert.That(result).IsNotNull();
         await Assert.That(result.NumGeometries).IsEqualTo(1);
@@ -32,7 +32,7 @@ public class LineIntersectTests
 
         var line2 = factory.CreateLineString([new Coordinate(0, 1), new Coordinate(2, 1)]);
 
-        var result = Territory.LineIntersect(line1, line2);
+        var result = Turf.LineIntersect(line1, line2);
 
         await Assert.That(result).IsNotNull();
         await Assert.That(result.NumGeometries).IsEqualTo(0);
@@ -46,9 +46,9 @@ public class LineIntersectTests
         var line = factory.CreateLineString([new Coordinate(0, 0), new Coordinate(2, 2)]);
 
         // Test with null inputs
-        var result1 = Territory.LineIntersect(line, null!);
-        var result2 = Territory.LineIntersect(null!, line);
-        var result3 = Territory.LineIntersect(null!, null!);
+        var result1 = Turf.LineIntersect(line, null!);
+        var result2 = Turf.LineIntersect(null!, line);
+        var result3 = Turf.LineIntersect(null!, null!);
 
         await Assert.That(result1).IsNotNull();
         await Assert.That(result1.NumGeometries).IsEqualTo(0);

@@ -66,7 +66,7 @@ public class PolygonSmoothTest
             ])
         );
 
-        var smoothed = Territory.Smooth(polygon, 3);
+        var smoothed = Turf.Smooth(polygon, 3);
 
         double[][][] expected =
         [

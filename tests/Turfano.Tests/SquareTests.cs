@@ -11,7 +11,7 @@ public class SquareTests
         var bbox = new BBox(-20, -20, 20, 20);
 
         // Act
-        var squared = Territory.Square(bbox);
+        var squared = Turf.Square(bbox);
 
         // Assert
         await Assert.That(squared.West).IsEqualTo(-20);
@@ -27,7 +27,7 @@ public class SquareTests
         var bbox = new BBox(-20, -10, 20, 10);
 
         // Act
-        var squared = Territory.Square(bbox);
+        var squared = Turf.Square(bbox);
 
         // Assert
         await Assert.That(squared.West).IsEqualTo(-20);
@@ -45,7 +45,7 @@ public class SquareTests
         var bbox = new BBox(-10, -20, 10, 20);
 
         // Act
-        var squared = Territory.Square(bbox);
+        var squared = Turf.Square(bbox);
 
         // Assert
         await Assert.That(squared.South).IsEqualTo(-20);
@@ -63,7 +63,7 @@ public class SquareTests
         var bbox = new BBox(-20, -20, -10, 0);
 
         // Act
-        var squared = Territory.Square(bbox);
+        var squared = Turf.Square(bbox);
 
         // Assert
         await Assert.That(squared.North).IsEqualTo(0);
@@ -84,7 +84,7 @@ public class SquareTests
         // Arrange: directly provide west, south, east, north
 
         // Act
-        var squared = Territory.Square(-20, -10, 20, 10);
+        var squared = Turf.Square(-20, -10, 20, 10);
 
         // Assert
         await Assert.That(squared.West).IsEqualTo(-20);

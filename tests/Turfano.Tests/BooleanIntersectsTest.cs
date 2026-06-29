@@ -29,7 +29,7 @@ public class BooleanIntersectsTest
         );
 
         // Act
-        var result = Territory.BooleanIntersects(polygon1, polygon2);
+        var result = Turf.BooleanIntersects(polygon1, polygon2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -60,7 +60,7 @@ public class BooleanIntersectsTest
         );
 
         // Act
-        var result = Territory.BooleanIntersects(polygon1, polygon2);
+        var result = Turf.BooleanIntersects(polygon1, polygon2);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -83,7 +83,7 @@ public class BooleanIntersectsTest
         );
 
         // Act
-        var result = Territory.BooleanIntersects(point, polygon);
+        var result = Turf.BooleanIntersects(point, polygon);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -106,7 +106,7 @@ public class BooleanIntersectsTest
         );
 
         // Act
-        var result = Territory.BooleanIntersects(point, polygon);
+        var result = Turf.BooleanIntersects(point, polygon);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -121,7 +121,7 @@ public class BooleanIntersectsTest
         var lineString2 = new LineString([new Coordinate(0, 10), new Coordinate(10, 0)]);
 
         // Act
-        var result = Territory.BooleanIntersects(lineString1, lineString2);
+        var result = Turf.BooleanIntersects(lineString1, lineString2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -136,7 +136,7 @@ public class BooleanIntersectsTest
         var lineString2 = new LineString([new Coordinate(6, 6), new Coordinate(10, 10)]);
 
         // Act
-        var result = Territory.BooleanIntersects(lineString1, lineString2);
+        var result = Turf.BooleanIntersects(lineString1, lineString2);
 
         // Assert
         await Assert.That(result).IsFalse();

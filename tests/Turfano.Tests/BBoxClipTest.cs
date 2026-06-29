@@ -20,7 +20,7 @@ public class BBoxClipTest
             }
         );
 
-        var clipped = Territory.BBoxClip(lineString, bbox);
+        var clipped = Turf.BBoxClip(lineString, bbox);
 
         // Assert
         await Assert.That(clipped).IsNotNull();
@@ -90,7 +90,7 @@ public class BBoxClipTest
             }
         );
 
-        var clipped = Territory.BBoxClip(multiLineString, bbox);
+        var clipped = Turf.BBoxClip(multiLineString, bbox);
 
         // Assert
         await Assert.That(clipped).IsNotNull();
@@ -136,7 +136,7 @@ public class BBoxClipTest
             ])
         );
 
-        var clipped = Territory.BBoxClip(polygon, bbox);
+        var clipped = Turf.BBoxClip(polygon, bbox);
 
         // Assert
         await Assert.That(clipped).IsNotNull();
@@ -185,8 +185,8 @@ public class BBoxClipTest
         await Assert.That(coords[0].Y).IsEqualTo(coords[coords.Length - 1].Y);
 
         // Verify area is preserved within the bounded region
-        var originalArea = Territory.Area(polygon);
-        var clippedArea = Territory.Area(clippedPolygon);
+        var originalArea = Turf.Area(polygon);
+        var clippedArea = Turf.Area(clippedPolygon);
         await Assert.That(clippedArea).IsLessThan(originalArea); // Clipped polygon should have smaller area
     }
 }

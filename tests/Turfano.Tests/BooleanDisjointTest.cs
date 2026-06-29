@@ -29,7 +29,7 @@ public class BooleanDisjointTest
         );
 
         // Act
-        var result = Territory.BooleanDisjoint(polygon1, polygon2);
+        var result = Turf.BooleanDisjoint(polygon1, polygon2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -60,7 +60,7 @@ public class BooleanDisjointTest
         );
 
         // Act
-        var result = Territory.BooleanDisjoint(polygon1, polygon2);
+        var result = Turf.BooleanDisjoint(polygon1, polygon2);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -83,7 +83,7 @@ public class BooleanDisjointTest
         var point = new Point(10, 10);
 
         // Act
-        var result = Territory.BooleanDisjoint(polygon, point);
+        var result = Turf.BooleanDisjoint(polygon, point);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -106,7 +106,7 @@ public class BooleanDisjointTest
         var point = new Point(2.5, 2.5);
 
         // Act
-        var result = Territory.BooleanDisjoint(polygon, point);
+        var result = Turf.BooleanDisjoint(polygon, point);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -121,7 +121,7 @@ public class BooleanDisjointTest
         var lineString2 = new LineString([new Coordinate(10, 0), new Coordinate(15, 5)]);
 
         // Act
-        var result = Territory.BooleanDisjoint(lineString1, lineString2);
+        var result = Turf.BooleanDisjoint(lineString1, lineString2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -136,7 +136,7 @@ public class BooleanDisjointTest
         var lineString2 = new LineString([new Coordinate(0, 5), new Coordinate(5, 0)]);
 
         // Act
-        var result = Territory.BooleanDisjoint(lineString1, lineString2);
+        var result = Turf.BooleanDisjoint(lineString1, lineString2);
 
         // Assert
         await Assert.That(result).IsFalse();

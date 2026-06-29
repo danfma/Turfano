@@ -21,7 +21,7 @@ public class BooleanContainsTest
         var point = new Point(1.5, 1.5);
 
         // Act
-        var result = Territory.BooleanContains(polygon, point);
+        var result = Turf.BooleanContains(polygon, point);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -44,7 +44,7 @@ public class BooleanContainsTest
         var point = new Point(3, 3);
 
         // Act
-        var result = Territory.BooleanContains(polygon, point);
+        var result = Turf.BooleanContains(polygon, point);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -75,7 +75,7 @@ public class BooleanContainsTest
         );
 
         // Act
-        var result = Territory.BooleanContains(largePolygon, smallPolygon);
+        var result = Turf.BooleanContains(largePolygon, smallPolygon);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -105,7 +105,7 @@ public class BooleanContainsTest
         var point = new Point(3, 3);
 
         // Act
-        var result = Territory.BooleanContains(polygon, point);
+        var result = Turf.BooleanContains(polygon, point);
 
         // Assert
         await Assert.That(result).IsFalse();

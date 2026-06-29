@@ -20,7 +20,7 @@ public class PointToPolygonDistanceTests
         );
 
         // Act
-        var distance = Territory.PointToPolygonDistance(point, polygon);
+        var distance = Turf.PointToPolygonDistance(point, polygon);
 
         // Assert
         await Assert.That(distance.Meters).IsEqualTo(0);
@@ -44,7 +44,7 @@ public class PointToPolygonDistanceTests
         );
 
         // Act
-        var distance = Territory.PointToPolygonDistance(point, polygon);
+        var distance = Turf.PointToPolygonDistance(point, polygon);
 
         // Assert
         await Assert.That(distance.Meters).IsEqualTo(0).Within(1e-10);
@@ -82,7 +82,7 @@ public class PointToPolygonDistanceTests
         var multiPolygon = geometryFactory.CreateMultiPolygon(new[] { poly1, poly2 });
 
         // Act
-        var distance = Territory.PointToPolygonDistance(point, multiPolygon);
+        var distance = Turf.PointToPolygonDistance(point, multiPolygon);
 
         // Assert
         await Assert.That(distance.Meters).IsEqualTo(0);

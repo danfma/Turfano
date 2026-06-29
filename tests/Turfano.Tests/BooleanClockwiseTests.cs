@@ -19,7 +19,7 @@ public class BooleanClockwiseTests
         };
 
         // Act
-        var isClockwise = Territory.BooleanClockwise(coordinates);
+        var isClockwise = Turf.BooleanClockwise(coordinates);
 
         // Assert
         await Assert.That(isClockwise).IsTrue();
@@ -40,7 +40,7 @@ public class BooleanClockwiseTests
         };
 
         // Act
-        var isClockwise = Territory.BooleanClockwise(coordinates);
+        var isClockwise = Turf.BooleanClockwise(coordinates);
 
         // Assert
         await Assert.That(isClockwise).IsFalse();
@@ -62,7 +62,7 @@ public class BooleanClockwiseTests
         var ring = geometryFactory.CreateLinearRing(coordinates);
 
         // Act
-        var isClockwise = Territory.BooleanClockwise(ring);
+        var isClockwise = Turf.BooleanClockwise(ring);
 
         // Assert
         await Assert.That(isClockwise).IsTrue();
@@ -85,7 +85,7 @@ public class BooleanClockwiseTests
         var polygon = geometryFactory.CreatePolygon(ring);
 
         // Act
-        var isClockwise = Territory.BooleanClockwise(polygon);
+        var isClockwise = Turf.BooleanClockwise(polygon);
 
         // Assert
         await Assert.That(isClockwise).IsFalse();
@@ -104,9 +104,7 @@ public class BooleanClockwiseTests
         };
 
         // Act & Assert
-        await Assert
-            .That(() => Territory.BooleanClockwise(coordinates))
-            .Throws<ArgumentException>();
+        await Assert.That(() => Turf.BooleanClockwise(coordinates)).Throws<ArgumentException>();
     }
 
     [Test]
@@ -123,8 +121,6 @@ public class BooleanClockwiseTests
         };
 
         // Act & Assert
-        await Assert
-            .That(() => Territory.BooleanClockwise(coordinates))
-            .Throws<ArgumentException>();
+        await Assert.That(() => Turf.BooleanClockwise(coordinates)).Throws<ArgumentException>();
     }
 }

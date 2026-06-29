@@ -22,7 +22,7 @@ public class BooleanPointInPolygonTest
         var point = new Point(2.5, 2.5);
 
         // Act
-        var result = Territory.BooleanPointInPolygon(point, polygon);
+        var result = Turf.BooleanPointInPolygon(point, polygon);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -48,7 +48,7 @@ public class BooleanPointInPolygonTest
         var point = new Point(10, 10);
 
         // Act
-        var result = Territory.BooleanPointInPolygon(point, polygon);
+        var result = Turf.BooleanPointInPolygon(point, polygon);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -74,7 +74,7 @@ public class BooleanPointInPolygonTest
         var point = new Point(0, 2.5);
 
         // Act
-        var result = Territory.BooleanPointInPolygon(point, polygon);
+        var result = Turf.BooleanPointInPolygon(point, polygon);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -100,7 +100,7 @@ public class BooleanPointInPolygonTest
         var point = new Point(0, 2.5);
 
         // Act
-        var result = Territory.BooleanPointInPolygon(point, polygon, ignoreBoundary: true);
+        var result = Turf.BooleanPointInPolygon(point, polygon, ignoreBoundary: true);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -133,7 +133,7 @@ public class BooleanPointInPolygonTest
         var point = new Point(3, 3);
 
         // Act
-        var result = Territory.BooleanPointInPolygon(point, polygon);
+        var result = Turf.BooleanPointInPolygon(point, polygon);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -170,7 +170,7 @@ public class BooleanPointInPolygonTest
         var point = new Point(2, 3); // On the hole boundary
 
         // Act
-        var result = Territory.BooleanPointInPolygon(point, polygon);
+        var result = Turf.BooleanPointInPolygon(point, polygon);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -207,7 +207,7 @@ public class BooleanPointInPolygonTest
         var point = new Point(12.5, 12.5);
 
         // Act
-        var result = Territory.BooleanPointInPolygon(point, multiPolygon);
+        var result = Turf.BooleanPointInPolygon(point, multiPolygon);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -241,9 +241,9 @@ public class BooleanPointInPolygonTest
         var outsidePoint = new Point(15, 15);
 
         // Act & Assert
-        await Assert.That(Territory.BooleanPointInPolygon(insidePoint, polygon)).IsTrue();
-        await Assert.That(Territory.BooleanPointInPolygon(insideConcavityPoint, polygon)).IsFalse();
-        await Assert.That(Territory.BooleanPointInPolygon(outsidePoint, polygon)).IsFalse();
+        await Assert.That(Turf.BooleanPointInPolygon(insidePoint, polygon)).IsTrue();
+        await Assert.That(Turf.BooleanPointInPolygon(insideConcavityPoint, polygon)).IsFalse();
+        await Assert.That(Turf.BooleanPointInPolygon(outsidePoint, polygon)).IsFalse();
 
         // Verify with NTS directly for consistency
         await Assert.That(polygon.Contains(insidePoint)).IsTrue();
@@ -260,11 +260,11 @@ public class BooleanPointInPolygonTest
 
         // Act & Assert
         await Assert
-            .That(() => Territory.BooleanPointInPolygon(point, nullPolygon!))
+            .That(() => Turf.BooleanPointInPolygon(point, nullPolygon!))
             .Throws<ArgumentNullException>();
 
         await Assert
-            .That(() => Territory.BooleanPointInPolygon(null!, new Polygon(new LinearRing([]))))
+            .That(() => Turf.BooleanPointInPolygon(null!, new Polygon(new LinearRing([]))))
             .Throws<ArgumentNullException>();
     }
 
@@ -286,7 +286,7 @@ public class BooleanPointInPolygonTest
         var polygonFeature = new Feature(polygon, new AttributesTable());
 
         // Act
-        var result = Territory.BooleanPointInPolygon(pointFeature, polygonFeature);
+        var result = Turf.BooleanPointInPolygon(pointFeature, polygonFeature);
 
         // Assert
         await Assert.That(result).IsTrue();

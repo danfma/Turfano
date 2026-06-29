@@ -32,7 +32,7 @@ public class AreaTest
             ])
         );
 
-        var area = Territory.Area(polygon);
+        var area = Turf.Area(polygon);
 
         await Assert.That(area.SquareMeters).IsEqualTo(32819945055.137398).Within(0.001);
     }

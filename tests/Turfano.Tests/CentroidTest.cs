@@ -19,7 +19,7 @@ public class CentroidTest
         );
 
         // Act
-        var centroid = Territory.Centroid(polygon);
+        var centroid = Turf.Centroid(polygon);
 
         // Assert
         // The implementation calculates the centroid as the average of all coordinates
@@ -59,7 +59,7 @@ public class CentroidTest
         );
 
         // Act
-        var centroid = Territory.Centroid(polygon);
+        var centroid = Turf.Centroid(polygon);
 
         // Assert
         // Simple average of all coordinates is (0+0+0+2+1+1+2+2+2+0+0+0)/6 = 5/6 = 0.8333...
@@ -74,7 +74,7 @@ public class CentroidTest
         var lineString = new LineString([new Coordinate(0, 0), new Coordinate(10, 10)]);
 
         // Act
-        var centroid = Territory.Centroid(lineString);
+        var centroid = Turf.Centroid(lineString);
 
         // Assert
         await Assert.That(centroid.X).IsEqualTo(5).Within(0.00001);
@@ -88,7 +88,7 @@ public class CentroidTest
         var multiPoint = new MultiPoint([new Point(0, 0), new Point(10, 10), new Point(5, 5)]);
 
         // Act
-        var centroid = Territory.Centroid(multiPoint);
+        var centroid = Turf.Centroid(multiPoint);
 
         // Assert
         await Assert.That(centroid.X).IsEqualTo(5).Within(0.00001);
@@ -118,7 +118,7 @@ public class CentroidTest
         var polygon = new Polygon(exteriorRing, [interiorRing]);
 
         // Act
-        var centroid = Territory.Centroid(polygon);
+        var centroid = Turf.Centroid(polygon);
 
         // Assert
         // The current implementation calculates the average of all coordinates, including the hole

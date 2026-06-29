@@ -29,7 +29,7 @@ public class BooleanOverlapTest
         );
 
         // Act
-        var result = Territory.BooleanOverlap(polygon1, polygon2);
+        var result = Turf.BooleanOverlap(polygon1, polygon2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -60,7 +60,7 @@ public class BooleanOverlapTest
         );
 
         // Act
-        var result = Territory.BooleanOverlap(polygon1, polygon2);
+        var result = Turf.BooleanOverlap(polygon1, polygon2);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -91,7 +91,7 @@ public class BooleanOverlapTest
         );
 
         // Act
-        var result = Territory.BooleanOverlap(polygon1, polygon2);
+        var result = Turf.BooleanOverlap(polygon1, polygon2);
 
         // Assert
         // BooleanOverlap returns false when one geometry completely contains the other
@@ -107,7 +107,7 @@ public class BooleanOverlapTest
         var lineString2 = new LineString([new Coordinate(3, 3), new Coordinate(8, 8)]);
 
         // Act
-        var result = Territory.BooleanOverlap(lineString1, lineString2);
+        var result = Turf.BooleanOverlap(lineString1, lineString2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -122,7 +122,7 @@ public class BooleanOverlapTest
         var lineString2 = new LineString([new Coordinate(6, 6), new Coordinate(10, 10)]);
 
         // Act
-        var result = Territory.BooleanOverlap(lineString1, lineString2);
+        var result = Turf.BooleanOverlap(lineString1, lineString2);
 
         // Assert
         await Assert.That(result).IsFalse();

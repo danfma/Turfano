@@ -17,7 +17,7 @@ public class CleanCoordsTest
         ]);
 
         // Act
-        var cleaned = Territory.CleanCoords(lineString);
+        var cleaned = Turf.CleanCoords(lineString);
 
         // Assert
         // The implementation removes both duplicates and collinear points
@@ -42,7 +42,7 @@ public class CleanCoordsTest
         ]);
 
         // Act
-        var cleaned = Territory.CleanCoords(lineString);
+        var cleaned = Turf.CleanCoords(lineString);
 
         // Assert
         await Assert.That(cleaned.Coordinates.Length).IsEqualTo(2);
@@ -69,7 +69,7 @@ public class CleanCoordsTest
         );
 
         // Act
-        var cleaned = (Polygon)Territory.CleanCoords(polygon);
+        var cleaned = (Polygon)Turf.CleanCoords(polygon);
 
         // Assert
         await Assert.That(cleaned.ExteriorRing.Coordinates.Length).IsEqualTo(5);
@@ -103,7 +103,7 @@ public class CleanCoordsTest
         );
 
         // Act
-        var cleaned = (Polygon)Territory.CleanCoords(polygon);
+        var cleaned = (Polygon)Turf.CleanCoords(polygon);
 
         // Assert
         await Assert.That(cleaned.ExteriorRing.Coordinates.Length).IsEqualTo(5);
@@ -144,7 +144,7 @@ public class CleanCoordsTest
         var polygon = new Polygon(exteriorRing, [interiorRing]);
 
         // Act
-        var cleaned = (Polygon)Territory.CleanCoords(polygon);
+        var cleaned = (Polygon)Turf.CleanCoords(polygon);
 
         // Assert
         await Assert.That(cleaned.ExteriorRing.Coordinates.Length).IsEqualTo(5);
@@ -165,7 +165,7 @@ public class CleanCoordsTest
         ]);
 
         // Act
-        var cleaned = (MultiPoint)Territory.CleanCoords(multiPoint);
+        var cleaned = (MultiPoint)Turf.CleanCoords(multiPoint);
 
         // Assert
         await Assert.That(cleaned.NumGeometries).IsEqualTo(3);

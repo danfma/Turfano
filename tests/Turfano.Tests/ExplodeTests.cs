@@ -10,7 +10,7 @@ public class ExplodeTests
         var point = geometryFactory.CreatePoint(new Coordinate(1, 2));
 
         // Act
-        var result = Territory.Explode(point);
+        var result = Turf.Explode(point);
 
         // Assert
         await Assert.That(result.NumGeometries).IsEqualTo(1);
@@ -30,7 +30,7 @@ public class ExplodeTests
         ]);
 
         // Act
-        var result = Territory.Explode(line);
+        var result = Turf.Explode(line);
 
         // Assert
         await Assert.That(result.NumGeometries).IsEqualTo(3);
@@ -57,7 +57,7 @@ public class ExplodeTests
         ]);
 
         // Act
-        var result = Territory.Explode(polygon);
+        var result = Turf.Explode(polygon);
 
         // Assert
         await Assert.That(result.NumGeometries).IsEqualTo(5);
@@ -80,7 +80,7 @@ public class ExplodeTests
         var collection = geometryFactory.CreateGeometryCollection([point, line]);
 
         // Act
-        var result = Territory.Explode(collection);
+        var result = Turf.Explode(collection);
 
         // Assert
         await Assert.That(result.NumGeometries).IsEqualTo(3); // 1 point + 2 points from the line
@@ -105,7 +105,7 @@ public class ExplodeTests
         var emptyPoint = geometryFactory.CreatePoint();
 
         // Act
-        var result = Territory.Explode(emptyPoint);
+        var result = Turf.Explode(emptyPoint);
 
         // Assert
         await Assert.That(result.NumGeometries).IsEqualTo(0);
@@ -137,7 +137,7 @@ public class ExplodeTests
         var multiPolygon = geometryFactory.CreateMultiPolygon([poly1, poly2]);
 
         // Act
-        var result = Territory.Explode(multiPolygon);
+        var result = Turf.Explode(multiPolygon);
 
         // Assert
         await Assert.That(result.NumGeometries).IsEqualTo(10); // 5 points from poly1 + 5 points from poly2

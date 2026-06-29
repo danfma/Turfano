@@ -21,7 +21,7 @@ public class BooleanCrossesTest
         );
 
         // Act
-        var result = Territory.BooleanCrosses(lineString, polygon);
+        var result = Turf.BooleanCrosses(lineString, polygon);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -44,7 +44,7 @@ public class BooleanCrossesTest
         );
 
         // Act
-        var result = Territory.BooleanCrosses(lineString, polygon);
+        var result = Turf.BooleanCrosses(lineString, polygon);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -67,7 +67,7 @@ public class BooleanCrossesTest
         );
 
         // Act
-        var result = Territory.BooleanCrosses(lineString, polygon);
+        var result = Turf.BooleanCrosses(lineString, polygon);
 
         // Assert
         await Assert.That(result).IsFalse();
@@ -82,7 +82,7 @@ public class BooleanCrossesTest
         var lineString2 = new LineString([new Coordinate(0, 10), new Coordinate(10, 0)]);
 
         // Act
-        var result = Territory.BooleanCrosses(lineString1, lineString2);
+        var result = Turf.BooleanCrosses(lineString1, lineString2);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -97,7 +97,7 @@ public class BooleanCrossesTest
         var lineString2 = new LineString([new Coordinate(6, 6), new Coordinate(10, 10)]);
 
         // Act
-        var result = Territory.BooleanCrosses(lineString1, lineString2);
+        var result = Turf.BooleanCrosses(lineString1, lineString2);
 
         // Assert
         await Assert.That(result).IsFalse();

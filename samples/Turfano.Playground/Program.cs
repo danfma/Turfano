@@ -11,8 +11,8 @@ var unitY = new Coordinate(-122.39923954010011, 37.79706837753342 + 10);
 var lngLine = new LineString([reference, unitX]);
 var latLine = new LineString([reference, unitY]);
 
-var lngPoint = Territory.WalkAlong(lngLine, Length.FromMeters(point.X));
-var latPoint = Territory.WalkAlong(latLine, Length.FromMeters(point.Y));
+var lngPoint = Turf.WalkAlong(lngLine, Length.FromMeters(point.X));
+var latPoint = Turf.WalkAlong(latLine, Length.FromMeters(point.Y));
 var finalPoint = new Coordinate(lngPoint.X, latPoint.Y);
 
 Console.WriteLine($"Longitude point: {lngPoint}");

@@ -15,7 +15,7 @@ public class RhumbDestinationTests
         var bearing = Angle.FromDegrees(90); // Due east
 
         // Act
-        var destination = Territory.RhumbDestination(origin, distance, bearing);
+        var destination = Turf.RhumbDestination(origin, distance, bearing);
 
         // Assert
         // Should move eastward (increase longitude) along same latitude
@@ -23,7 +23,7 @@ public class RhumbDestinationTests
         await Assert.That(destination.X).IsGreaterThan(origin.X); // Longitude should increase
 
         // Validate distance between points is approximately what we specified
-        var calculatedDistance = Territory.RhumbDistance(origin, destination, LengthUnit.Kilometer);
+        var calculatedDistance = Turf.RhumbDistance(origin, destination, LengthUnit.Kilometer);
         await Assert.That(calculatedDistance.Kilometers).IsBetween(99, 101);
     }
 
@@ -36,7 +36,7 @@ public class RhumbDestinationTests
         var bearing = Angle.FromDegrees(0); // Due north
 
         // Act
-        var destination = Territory.RhumbDestination(origin, distance, bearing);
+        var destination = Turf.RhumbDestination(origin, distance, bearing);
 
         // Assert
         // Should move northward (increase latitude) along same longitude
@@ -44,7 +44,7 @@ public class RhumbDestinationTests
         await Assert.That(destination.Y).IsGreaterThan(origin.Y); // Latitude should increase
 
         // Validate distance between points is approximately what we specified
-        var calculatedDistance = Territory.RhumbDistance(origin, destination, LengthUnit.Kilometer);
+        var calculatedDistance = Turf.RhumbDistance(origin, destination, LengthUnit.Kilometer);
         await Assert.That(calculatedDistance.Kilometers).IsBetween(99, 101);
     }
 
@@ -57,7 +57,7 @@ public class RhumbDestinationTests
         var bearing = Angle.FromDegrees(180); // Due south
 
         // Act
-        var destination = Territory.RhumbDestination(origin, distance, bearing);
+        var destination = Turf.RhumbDestination(origin, distance, bearing);
 
         // Assert
         // Should move southward, crossing the equator
@@ -65,7 +65,7 @@ public class RhumbDestinationTests
         await Assert.That(destination.Y).IsLessThan(0); // Latitude should be negative (south of equator)
 
         // Validate distance between points is approximately what we specified
-        var calculatedDistance = Territory.RhumbDistance(origin, destination, LengthUnit.Kilometer);
+        var calculatedDistance = Turf.RhumbDistance(origin, destination, LengthUnit.Kilometer);
         await Assert.That(calculatedDistance.Kilometers).IsBetween(1190, 1210);
     }
 
@@ -75,7 +75,7 @@ public class RhumbDestinationTests
         // Arrange: Using direct coordinate inputs instead of Coordinate objects
 
         // Act
-        var destination = Territory.RhumbDestination(
+        var destination = Turf.RhumbDestination(
             -75.343,
             39.984,
             Length.FromKilometers(100),
