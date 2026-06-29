@@ -349,14 +349,14 @@ quando houver demanda.
 ---
 
 ## Phase 6: Onda C — Transformation & Coordinate Mutation (paridade)
-Status: Not started
+Status: Complete
 
 → `/speckit-specify parity-wave-transformation`.
 
-- [ ] Mutation: `cleanCoords`, `flip`, `rewind`, `round`, `truncate`.
-- [ ] Transform: `transformRotate`, `transformScale` (já corrigido na Fase 1; reportar
+- [x] Mutation: `cleanCoords`, `flip`, `rewind`, `round`, `truncate`.
+- [x] Transform: `transformRotate`, `transformScale` (já corrigido na Fase 1; reportar
   sobre novos tipos), `transformTranslate`, `clone`.
-- [ ] `bezierSpline`, `polygonSmooth`, `lineOffset`, `circle`, `simplify`
+- [x] `bezierSpline`, `polygonSmooth`, `lineOffset`, `circle`, `simplify`
   (conforme decisão da Fase 2).
 
 ### Verification Plan
@@ -364,7 +364,31 @@ Status: Not started
   em X **e** Y.
 
 ### Phase Summary
-_(escrever quando a fase concluir)_
+
+Concluída em 2026-06-29 (branch `006-parity-transformation`, Spec Kit completo). As **14
+funções** de transformação/mutação existem na fachada **`Geo`**, validadas contra o `@turf`.
+Suíte 203 → **215, 0 falhas**; build net8/9/10; AOT 0 warnings; `Turf.*.cs` NTS/UnitsNet
+**intocados**; nomes .NET (sem acrônimos crípticos — convenção reforçada nesta sessão).
+
+Entregue (`src/Turfano/Parity/{Mutate,Transform,Generate}.*.cs`, tudo em `Geo.*`):
+- **Mutação**: `Flip`, `Round`, `Truncate`, `CleanCoords` (cleanLine via `BooleanPointOnLine`),
+  `Rewind` (via `BooleanClockwise`).
+- **Transform**: `TransformScale` **GEODÉSICO** (rhumb a partir do centroide — correção da
+  divergência da Fase 1/2, SC-002), `TransformTranslate`, `TransformRotate`, `Clone`.
+- **Geração**: `Circle` (N `Destination`), `Simplify` (Douglas-Peucker `simplify-js`),
+  `PolygonSmooth` (Chaikin), `LineOffset` (perpendicular + junção), `BezierSpline` (porte da
+  classe `Spline`).
+
+**Correção-chave**: `TransformScale` agora é **geodésico** como o `@turf` (o teste pina os
+valores exatos, ex.: `[-1.0006097…, 3]`), não mais cartesiano (não colapsa).
+
+**A validação pegou suposições erradas** (a disciplina valeu de novo): `truncate` na verdade
+**arredonda** (`Math.round`, apesar do nome); `cleanCoords` remove **colineares** (não só
+duplicados); `rewind` default orienta o externo **anti-horário**. Segui o `@turf`.
+
+Follow-ups conscientes (não bloqueiam): origens nomeadas (`sw`/`se`/...) de `transformScale`
+e a matriz completa de tipos de algumas funções podem ser refinadas com as fixtures
+completas do `@turf` quando houver demanda.
 
 ---
 
