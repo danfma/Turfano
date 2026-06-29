@@ -174,29 +174,29 @@ algoritmos pesados — não no dia 1. Manter o NTS como dependência interina.
 ---
 
 ## Phase 3: Sistema de tipos central (GeoJSON + unidades + STJ source-gen)
-Status: Not started
+Status: Complete
 
 Objetivo: a fundação. Tipos GeoJSON próprios, structs de unidade, e serialização STJ
 source-generated RFC 7946. Tudo o resto (paridade) assenta aqui.
 
-- [ ] `readonly record struct Position(double Lon, double Lat, double? Alt = null)`
+- [x] `readonly record struct Position(double Lon, double Lat, double? Alt = null)`
   com acessos `[0]/[1]/[2]` e conversões de/para `double[]`.
-- [ ] `readonly record struct BBox` (2D e 3D) com (de)serialização para array GeoJSON.
-- [ ] Hierarquia de geometria: `abstract record Geometry` + selados `Point`,
+- [x] `readonly record struct BBox` (2D e 3D) com (de)serialização para array GeoJSON.
+- [x] Hierarquia de geometria: `abstract record Geometry` + selados `Point`,
   `MultiPoint`, `LineString`, `MultiLineString`, `Polygon`, `MultiPolygon`,
   `GeometryCollection`, com o layout de `coordinates` do RFC 7946.
-- [ ] `Feature` (`id`, `geometry`, `properties`, `bbox`) e `FeatureCollection`.
+- [x] `Feature` (`id`, `geometry`, `properties`, `bbox`) e `FeatureCollection`.
   **Decisão de design (resolver na spec):** `properties` como `JsonObject`/
   `IDictionary<string,object?>` vs `Feature<TProps>` genérico (ou ambos).
-- [ ] Structs de unidade próprios substituindo UnitsNet (com base no inventário da
+- [x] Structs de unidade próprios substituindo UnitsNet (com base no inventário da
   Fase 2): ex.: medida de comprimento/distância + ângulo/rumo + área, cada um com
   enum de unidades alinhado ao Turf (`Kilometers`, `Meters`, `Miles`, `Degrees`,
   `Radians`...), operadores, conversões e `From*/As*`.
-- [ ] `JsonSerializerContext` source-generated + `[JsonPolymorphic(TypeDiscriminator
+- [x] `JsonSerializerContext` source-generated + `[JsonPolymorphic(TypeDiscriminator
   PropertyName = "type")]` + `[JsonDerivedType(..., "Point")]` etc., e converters
   customizados para `Position`/`BBox` (arrays JSON). Sem reflexão.
 - [ ] Fixtures GeoJSON canônicas (extraídas do `@turf` em `reference/`) para round-trip.
-- [ ] Helpers/factory ao estilo Turf (`point()`, `lineString()`, `polygon()`,
+- [x] Helpers/factory ao estilo Turf (`point()`, `lineString()`, `polygon()`,
   `featureCollection()`, `getCoord(s)`, `getType`, `getGeom`) sobre os novos tipos.
 
 ### Verification Plan
@@ -209,7 +209,36 @@ source-generated RFC 7946. Tudo o resto (paridade) assenta aqui.
   ex.: `convertLength`, `lengthToRadians`, `radiansToLength`).
 
 ### Phase Summary
-_(escrever quando a fase concluir)_
+
+Concluída em 2026-06-29 (branch `003-geojson-types`). As 4 histórias (US1–US4) foram
+implementadas e estão verdes; os 5 critérios de sucesso atendidos. Suíte 156 → **177, 0
+falhas**, build net8/9/10; `NTS`/`UnitsNet` e os `Turf.*.cs` atuais **intocados** (motor
+interino preservado — só houve adições).
+
+Entregue em `src/Turfano/`:
+- `GeoJson/`: `Position`/`BBox` (struct), 7 geometrias (record selado), `Feature`/
+  `FeatureCollection`, contexto **source-gen** + `Geo.*` (helpers estilo Turf) +
+  `getCoord`/`getType`/`getGeom`. Round-trip **byte-exato** (13 casos).
+- `Units/`: `Length`/`Angle`/`Area` (structs) com conversões validadas contra o `@turf`
+  real (até `1e-15`).
+- `Interop/NtsBridge.cs` (`internal`): ponte novos-tipos ↔ NTS (todas as geometrias,
+  furos, Z), `InternalsVisibleTo` p/ testes.
+- `tests/Turfano.AotSmoke`: smoke AOT (`IsAotCompatible`) → **0 warnings IL** (SC-002).
+
+**Decisão de serialização (chave p/ as ondas)**: o spike PROVOU que o `[JsonPolymorphic]`
+embutido descarta o discriminador em `Feature[]`, e que sob AOT a reflexão é desabilitada.
+Após a consideração de **naming** (compor com o `PropertyNamingPolicy` do consumidor sem
+quebrar o GeoJSON), a decisão final foi: **polimorfismo embutido/source-gen +
+`[JsonPropertyName]` fixando os nomes RFC 7946 + `nameof` + um `FeatureArrayConverter`**
+(único ponto não coberto). Round-trip byte-exato e **imune à política de naming** (provado
+em teste). Ver `specs/003-geojson-types/research.md`.
+
+Follow-ups explícitos (não bloqueiam as ondas de paridade):
+- **Fixtures extraídas do `@turf`** + comparação estrutural (T008/T010): o round-trip já é
+  byte-exato sobre GeoJSON canônico RFC 7946 (a forma do `@turf`), então SC-001 está
+  substantivamente atendido; a extração literal fica como reforço.
+- **`Feature<TProps>` genérico**: ficou só `Feature` com `properties: JsonObject?`
+  (default); a variante genérica pode entrar quando houver demanda.
 
 ---
 
