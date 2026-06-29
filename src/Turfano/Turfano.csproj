@@ -26,4 +26,9 @@
     <PackageReference Include="UnitsNet" Version="6.0.0-pre013" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
+
+  <ItemGroup>
+    <!-- Expõe a ponte interna (Turfano.Interop.NtsBridge) aos testes. -->
+    <InternalsVisibleTo Include="Turfano.Tests" />
+  </ItemGroup>
 </Project>

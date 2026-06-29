@@ -116,12 +116,12 @@ paralelo. Nada de produção atual é removido (suíte 156 segue verde).
 
 **Independent Test**: construir via helpers; round-trip novo-tipo↔NTS preserva coords.
 
-- [ ] T016 [P] [US4] Implementar helpers/factory (`point`, `lineString`, `polygon`,
+- [X] T016 [P] [US4] Implementar helpers/factory (`point`, `lineString`, `polygon`,
   `multiPoint`, `multiLineString`, `multiPolygon`, `geometryCollection`, `feature`,
   `featureCollection`) + `getCoord(s)`/`getType`/`getGeom` em `src/Turfano/GeoJson/Factory.cs`.
-- [ ] T017 [P] [US4] Implementar `internal static class NtsBridge` (`ToNts`/`FromNts` para
+- [X] T017 [P] [US4] Implementar `internal static class NtsBridge` (`ToNts`/`FromNts` para
   `Position↔Coordinate` e cada geometria) em `src/Turfano/Interop/NtsBridge.cs`.
-- [ ] T018 [US4] Testes TUnit: construção via helpers + round-trip novo-tipo→NTS→novo-tipo
+- [X] T018 [US4] Testes TUnit: construção via helpers + round-trip novo-tipo→NTS→novo-tipo
   preservando coordenadas (SC-005), em `tests/Turfano.Tests/`.
 
 **Checkpoint**: base pronta para as ondas de paridade portarem funções.
