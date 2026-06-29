@@ -25,7 +25,7 @@ paralelo. Nada de produção atual é removido (suíte 156 segue verde).
 
 ## Phase 1: Setup
 
-- [ ] T001 Criar as pastas `src/Turfano/GeoJson/`, `src/Turfano/Units/`,
+- [X] T001 Criar as pastas `src/Turfano/GeoJson/`, `src/Turfano/Units/`,
   `src/Turfano/Interop/` (namespace `Turfano`) e confirmar baseline:
   `dotnet build Turfano.slnx -c Debug` (0 erros) + suíte 156/0.
 
@@ -40,17 +40,17 @@ paralelo. Nada de produção atual é removido (suíte 156 segue verde).
   `JsonConverter<Position>` serializando como array. Confirmar suporte OU adotar o
   **fallback** (converter polimórfico manual, `research.md`). Registrar a decisão num
   comentário/arquivo. **Nenhuma tarefa de tipos avança antes disto.**
-- [ ] T003 [P] Implementar `Position` (`readonly record struct`) + `PositionConverter`
+- [X] T003 [P] Implementar `Position` (`readonly record struct`) + `PositionConverter`
   (array `[lon,lat,alt?]`, preserva dimensão) em `src/Turfano/GeoJson/Position.cs`.
-- [ ] T004 [P] Implementar `BBox` (`readonly record struct`, 2D/3D) + `BBoxConverter`
+- [X] T004 [P] Implementar `BBox` (`readonly record struct`, 2D/3D) + `BBoxConverter`
   em `src/Turfano/GeoJson/BBox.cs`.
-- [ ] T005 Implementar a hierarquia `GeoJsonObject` → `Geometry` → `Point`, `MultiPoint`,
+- [X] T005 Implementar a hierarquia `GeoJsonObject` → `Geometry` → `Point`, `MultiPoint`,
   `LineString`, `MultiLineString`, `Polygon`, `MultiPolygon`, `GeometryCollection`
   (`coordinates` RFC 7946) em `src/Turfano/GeoJson/`. (depende de T003/T004)
-- [ ] T006 Implementar `Feature` (`Id` string|número, `Geometry`, `Properties`
+- [X] T006 Implementar `Feature` (`Id` string|número, `Geometry`, `Properties`
   `JsonObject?`, `Bbox`) + `Feature<TProps>` + `FeatureCollection` em
   `src/Turfano/GeoJson/`. (depende de T005)
-- [ ] T007 Implementar `GeoJsonSerializerContext` (source-gen) ligando o polimorfismo e os
+- [X] T007 Implementar `GeoJsonSerializerContext` (source-gen) ligando o polimorfismo e os
   converters, conforme a decisão do T002, em `src/Turfano/GeoJson/`. (depende de T002/T005/T006)
 
 **Checkpoint**: tipos compilam e (de)serializam um GeoJSON simples.
@@ -66,7 +66,7 @@ paralelo. Nada de produção atual é removido (suíte 156 segue verde).
 - [ ] T008 [US1] Coletar fixtures GeoJSON canônicas (do `@turf` via `reference/`):
   Point/Line/Polygon/Multi*/GC, `Feature` (props/bbox/id), `FeatureCollection`,
   `Position` 2D e 3D. Salvar em `tests/Turfano.Tests/fixtures/` (ou recurso embutido).
-- [ ] T009 [US1] Testes de round-trip TUnit em `tests/Turfano.Tests/GeoJsonRoundTripTests.cs`:
+- [X] T009 [US1] Testes de round-trip TUnit em `tests/Turfano.Tests/GeoJsonRoundTripTests.cs`:
   desserializar → reserializar → comparar forma (`type`/`coordinates`/`properties`/`bbox`)
   com a saída do `@turf`.
 - [ ] T010 [US1] Ajustar a serialização até o round-trip casar 100% das fixtures (SC-001).
