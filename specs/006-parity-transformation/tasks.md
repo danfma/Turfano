@@ -86,9 +86,9 @@ foundational. Nada de produção atual é removido (suíte 203 segue verde).
 
 **Independent Test**: comparar com o `@turf` por fixture.
 
-- [ ] T011 [P] [US3] `Geo.Circle` em `src/Turfano/Parity/Generate.Circle.cs` (N passos de
+- [X] T011 [P] [US3] `Geo.Circle` em `src/Turfano/Parity/Generate.Circle.cs` (N passos de
   `Destination` do centro; raio em `Units.Length`).
-- [ ] T012 [P] [US3] `Geo.Simplify` (Douglas-Peucker; decisão da Fase 2) em
+- [X] T012 [P] [US3] `Geo.Simplify` (Douglas-Peucker; decisão da Fase 2) em
   `src/Turfano/Parity/Generate.Simplify.cs` (conferir divergência com `simplify-js`).
 - [ ] T013 [P] [US3] `Geo.PolygonSmooth` (Chaikin) + `Geo.LineOffset` em
   `src/Turfano/Parity/Generate.SmoothOffset.cs` (portar o algoritmo do `@turf`).
