@@ -117,12 +117,12 @@ sobre os novos tipos, batendo com o `@turf`.
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-- [ ] T017 Verificação final (SC-004/005): `dotnet build Turfano.slnx -c Debug`
+- [X] T017 Verificação final (SC-004/005): `dotnet build Turfano.slnx -c Debug`
   (0 erros, net8/9/10) + suíte (177 + novos, 0 falhas) +
   `dotnet build tests/Turfano.AotSmoke -c Release` (0 warnings IL) +
   `git diff --stat main -- 'src/Turfano/Turf.*.cs'` vazio.
-- [ ] T018 [P] Remover o harness efêmero `reference/_measure.mjs`.
-- [ ] T019 Atualizar `plans/turfjs-parity-redesign.md`: Fase 4 (Onda A) → `Complete` +
+- [X] T018 [P] Remover o harness efêmero `reference/_measure.mjs`.
+- [X] T019 Atualizar `plans/turfjs-parity-redesign.md`: Fase 4 (Onda A) → `Complete` +
   Phase Summary.
 
 ---
