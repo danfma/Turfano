@@ -243,18 +243,18 @@ Follow-ups explícitos (não bloqueiam as ondas de paridade):
 ---
 
 ## Phase 4: Onda A — Measurement (paridade)
-Status: Not started
+Status: Complete
 
 Re-fundar as funções de medição sobre os novos tipos, fiéis aos algoritmos do Turf.
 → Abrir `/speckit-specify parity-wave-measurement` ao iniciar esta fase.
 
-- [ ] `area` (esférica, igual ao Turf), `bbox`, `bboxPolygon`, `square`, `envelope`.
-- [ ] `distance`, `bearing`, `rhumbBearing`, `rhumbDistance`, `length`.
-- [ ] `destination`, `rhumbDestination`, `along`, `midpoint`, `center`,
+- [x] `area` (esférica, igual ao Turf), `bbox`, `bboxPolygon`, `square`, `envelope`.
+- [x] `distance`, `bearing`, `rhumbBearing`, `rhumbDistance`, `length`.
+- [x] `destination`, `rhumbDestination`, `along`, `midpoint`, `center`,
   `centerOfMass`, `centroid` (média de vértices, como o Turf).
-- [ ] `pointOnFeature`, `pointToLineDistance`, `pointToPolygonDistance`,
+- [x] `pointOnFeature`, `pointToLineDistance`, `pointToPolygonDistance`,
   `nearestPointOnLine`, `greatCircle`, `polygonTangents`.
-- [ ] Conversões de unidade do Turf: `bearingToAzimuth`, `convertArea`,
+- [x] Conversões de unidade do Turf: `bearingToAzimuth`, `convertArea`,
   `convertLength`, `degreesToRadians`, `radiansToDegrees`, `lengthToRadians`,
   `lengthToDegrees`, `radiansToLength`, `toMercator`, `toWgs84`.
 
@@ -263,7 +263,42 @@ Re-fundar as funções de medição sobre os novos tipos, fiéis aos algoritmos 
   `1e-6` onde aplicável). Sem tolerâncias frouxas tipo `.Within(6)`.
 
 ### Phase Summary
-_(escrever quando a fase concluir)_
+
+Concluída em 2026-06-29 (branch `004-parity-measurement`, Spec Kit completo). **As 24
+funções de measurement** portadas para os novos tipos, validadas contra o `@turf` real.
+Suíte 177 → **193, 0 falhas**; build net8/9/10; AOT 0 warnings; `Turf.*.cs` NTS/UnitsNet
+**intocados** (motor interino preservado — só adições).
+
+**Decisão de arquitetura (importante p/ as próximas ondas)**: a API de funções sobre os
+tipos novos vive na **fachada `Geo`** (`partials` em `Turfano.GeoJson`), não como
+sobrecargas em `Turf`. No namespace `Turfano.GeoJson` os nomes de tipo (`Point`/`Polygon`/
+`Length`/...) vencem o global using do NTS, eliminando colisões método×tipo (`Length` etc.).
+`Geo` é a **fachada única** dos tipos novos (construtores + measurement + futuras ondas).
+Padrão de trabalho consolidado: **re-tipar/portar em `Geo.*` + ground-truth no harness Bun +
+teste vs `@turf` real** (tolerância apertada).
+
+Entregue (`src/Turfano/Parity/`, tudo em `Geo.*`):
+- Escalares: `Area` (esférica), `Distance`, `Bearing`, `Length`, `Bbox`/`BboxPolygon`/
+  `Square`/`Envelope`.
+- Pontos: `Centroid` (**consertado**: exclui o vértice de fechamento → `[1,1]`), `Center`,
+  `CenterOfMass`, `Midpoint`, `Destination`, `Along`, `RhumbDestination`.
+- Rumo/distâncias: `RhumbBearing`, `RhumbDistance`, `PointToLineDistance`,
+  `PointToPolygonDistance`, `NearestPointOnLine`, `PointOnFeature`, `GreatCircle`,
+  `PolygonTangents`.
+- Conversões: `BearingToAzimuth`, `ConvertLength`/`ConvertArea`, `DegreesToRadians`/
+  `RadiansToDegrees`/`LengthToRadians`/`RadiansToLength`/`LengthToDegrees`.
+
+**Bugs/divergências do código NTS pegos pela validação** (a versão `Geo` bate com o `@turf`;
+a NTS fica intocada): `RhumbDestination` (`q` errado), `nearestPointOnLine`/
+`pointToLineDistance` (projeção **planar** vs o **geodésico 3D** do `@turf`), `centroid`
+(vértice de fechamento). Docs antigos diziam `9.71°`/`97.994` onde o `@turf` dá
+`-170.294°`/`97.129`. **Reforça a disciplina: validar contra o `@turf`, não confiar no
+código existente.**
+
+Edge cases/follow-ups conscientes (não bloqueiam): `toMercator`/`toWgs84` (são **projeção**,
+não measurement — ficam para uma onda de projeção); furos/MultiPolygon em
+`PointToPolygonDistance`/`PolygonTangents` e o split por antimeridiano de `GreatCircle`
+(MultiLineString) usam o caminho simples — refinar quando houver demanda.
 
 ---
 

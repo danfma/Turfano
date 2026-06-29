@@ -6,7 +6,7 @@ namespace Turfano.GeoJson;
 /// Construtores ao estilo TurfJS + invariantes, sobre os tipos GeoJSON próprios. Reduz o
 /// atrito de portar código JS (`point()`, `lineString()`, ...).
 /// </summary>
-public static class Geo
+public static partial class Geo
 {
     public static Point Point(double lon, double lat, double? alt = null) =>
         new(new Position(lon, lat, alt));
