@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/benchmark/">
+    <Project Path="benchmark/TimeAndMemoryUsage/TimeAndMemoryUsage.csproj" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples\Turfano.Playground\Turfano.Playground.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests\Turfano.Tests\Turfano.Tests.csproj" />
+  </Folder>
+  <Project Path="src\Turfano\Turfano.csproj" />
+</Solution>
