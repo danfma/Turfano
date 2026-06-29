@@ -155,3 +155,16 @@ geodésico — a correção-chave). As duas P1.
 - Reusar helpers das Ondas A/B: `Distance`/`Bearing`/`Destination`/`Rhumb*`/`BooleanClockwise`/
   `EachSegment`/`EachPosition`.
 - Fora de escopo: demais ondas, remover NTS/UnitsNet, funções fora de transformation/mutation.
+
+## Implementation Notes (incremento — em progresso)
+
+- **Entregue e verde (213/0) — 12 de 14**: **US1** (Flip/Round/Truncate/CleanCoords/Rewind),
+  **US2** (TransformScale **geodésico** → SC-002 / TransformTranslate / TransformRotate /
+  Clone), **US3** (Circle / Simplify / PolygonSmooth). Tudo em `Geo.*`, validado vs `@turf`
+  real. AOT 0 warnings; `Turf.*.cs` NTS intocados; nomes .NET.
+- **Achados confirmados pela validação**: `truncate` na verdade **arredonda** (`Math.round`);
+  `cleanCoords` remove dups **e colineares**; `rewind` default deixa o externo anti-horário.
+- **Falta (US3 — os 2 mais pesados)**: `Geo.LineOffset` (`@turf/line-offset`, ~128 linhas:
+  deslocamento perpendicular + junções) e `Geo.BezierSpline` (`@turf/bezier-spline`, ~162
+  linhas: interpolação de spline). Padrão: ler a fonte do `@turf`, portar em `Geo.*` + GT no
+  harness + teste vs `@turf`. Depois: Polish (T016–T018).
