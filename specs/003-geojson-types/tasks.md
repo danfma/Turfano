@@ -100,9 +100,9 @@ paralelo. Nada de produção atual é removido (suíte 156 segue verde).
 
 **Independent Test**: publicar AOT/trimming → 0 warnings nos tipos do Turfano.
 
-- [ ] T014 [US3] Criar app de teste mínimo (ex.: `tests/Turfano.AotSmoke/`) que
+- [X] T014 [US3] Criar app de teste mínimo (ex.: `tests/Turfano.AotSmoke/`) que
   (de)serializa os tipos do Turfano via `GeoJsonSerializerContext`.
-- [ ] T015 [US3] `dotnet publish tests/Turfano.AotSmoke -c Release -p:PublishAot=true`
+- [X] T015 [US3] `dotnet publish tests/Turfano.AotSmoke -c Release -p:PublishAot=true`
   (ou `-p:PublishTrimmed=true`) e confirmar **0 warnings** de trimming/reflexão (IL2/IL3)
   nos tipos do Turfano (SC-002).
 
@@ -130,9 +130,9 @@ paralelo. Nada de produção atual é removido (suíte 156 segue verde).
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-- [ ] T019 Verificação final (SC-004): `dotnet build Turfano.slnx -c Debug` (0 erros,
+- [X] T019 Verificação final (SC-004): `dotnet build Turfano.slnx -c Debug` (0 erros,
   net8/9/10) + `dotnet run --project tests/Turfano.Tests -c Debug` (156 + novos, 0 falhas).
-- [ ] T020 [P] Remover/parametrizar os harnesses efêmeros em `reference/`
+- [X] T020 [P] Remover/parametrizar os harnesses efêmeros em `reference/`
   (`_units.mjs` etc.), conforme a decisão de versionamento.
 - [ ] T021 Atualizar `plans/turfjs-parity-redesign.md`: Fase 3 → `Complete` + Phase
   Summary; **confirmar ou revisar** a decisão de `Feature.properties`

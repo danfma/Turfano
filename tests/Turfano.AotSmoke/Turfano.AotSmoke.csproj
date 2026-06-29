@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <!-- Liga os analisadores de AOT/trimming/single-file: qualquer reflexão nas rotas
+         exercitadas (serialização GeoJSON) vira warning IL2xxx/IL3xxx no build. -->
+    <IsAotCompatible>true</IsAotCompatible>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Turfano\Turfano.csproj" />
+  </ItemGroup>
+</Project>
