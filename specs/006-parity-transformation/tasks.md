@@ -25,14 +25,14 @@ foundational. Nada de produção atual é removido (suíte 203 segue verde).
 
 ## Phase 1: Setup
 
-- [ ] T001 Confirmar baseline `dotnet build Turfano.slnx -c Debug` (0 erros) + suíte 203/0;
+- [X] T001 Confirmar baseline `dotnet build Turfano.slnx -c Debug` (0 erros) + suíte 203/0;
   reusar `src/Turfano/Parity/` e `tests/Turfano.Tests/Parity/`.
 
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-- [ ] T002 Criar o harness Bun `reference/_transform.mjs` que emite, por função/fixture, a
+- [X] T002 Criar o harness Bun `reference/_transform.mjs` que emite, por função/fixture, a
   saída do `@turf` (geometrias serializadas p/ comparação estrutural; números p/ tolerância),
   incl. `transformScale` (geodésico), `circle`, `simplify`, `rewind`, `truncate` (FR-002).
 
@@ -46,14 +46,14 @@ foundational. Nada de produção atual é removido (suíte 203 segue verde).
 
 **Independent Test**: comparação estrutural com o `@turf` por função.
 
-- [ ] T003 [P] [US1] `Geo.Flip` + `Geo.Round` (+ `Geo.Truncate`) em
+- [X] T003 [P] [US1] `Geo.Flip` + `Geo.Round` (+ `Geo.Truncate`) em
   `src/Turfano/Parity/Mutate.FlipRoundTruncate.cs` (operações de coordenada; reusar
   `EachPosition`/reconstrução de geometria).
-- [ ] T004 [P] [US1] `Geo.CleanCoords` em `src/Turfano/Parity/Mutate.CleanCoords.cs`
+- [X] T004 [P] [US1] `Geo.CleanCoords` em `src/Turfano/Parity/Mutate.CleanCoords.cs`
   (remove duplicados consecutivos + colineares redundantes; algoritmo do `@turf`).
-- [ ] T005 [P] [US1] `Geo.Rewind` em `src/Turfano/Parity/Mutate.Rewind.cs` (orienta anéis;
+- [X] T005 [P] [US1] `Geo.Rewind` em `src/Turfano/Parity/Mutate.Rewind.cs` (orienta anéis;
   reusar `BooleanClockwise`; conferir a convenção do `@turf` no GT).
-- [ ] T006 [US1] Testes vs `@turf` em `tests/Turfano.Tests/Parity/MutateTests.cs`
+- [X] T006 [US1] Testes vs `@turf` em `tests/Turfano.Tests/Parity/MutateTests.cs`
   (flip `[1,2]→[2,1]`, truncate, cleanCoords, rewind).
 
 **Checkpoint**: mutações fiéis ao `@turf` (MVP, baixo risco).
@@ -66,14 +66,14 @@ foundational. Nada de produção atual é removido (suíte 203 segue verde).
 
 **Independent Test**: comparar com o `@turf`; `transformScale` prova a semântica geodésica.
 
-- [ ] T007 [US2] `Geo.TransformScale` **GEODÉSICO** (rhumbDistance/rhumbBearing/
+- [X] T007 [US2] `Geo.TransformScale` **GEODÉSICO** (rhumbDistance/rhumbBearing/
   rhumbDestination a partir da origem) em `src/Turfano/Parity/Transform.Scale.cs`
   (conferir a origem default no `@turf`). **SC-002**.
-- [ ] T008 [P] [US2] `Geo.TransformTranslate` em `src/Turfano/Parity/Transform.Translate.cs`
+- [X] T008 [P] [US2] `Geo.TransformTranslate` em `src/Turfano/Parity/Transform.Translate.cs`
   (mover cada ponto por distância/rumo; reusar `Destination`/`Rhumb*` conforme o `@turf`).
-- [ ] T009 [P] [US2] `Geo.TransformRotate` + `Geo.Clone` em
+- [X] T009 [P] [US2] `Geo.TransformRotate` + `Geo.Clone` em
   `src/Turfano/Parity/Transform.RotateClone.cs` (rotacionar em torno do pivô; cópia profunda).
-- [ ] T010 [US2] Testes vs `@turf` em `tests/Turfano.Tests/Parity/TransformTests.cs`;
+- [X] T010 [US2] Testes vs `@turf` em `tests/Turfano.Tests/Parity/TransformTests.cs`;
   `transformScale` bate com o `@turf` (geodésico, não colapsa).
 
 **Checkpoint**: transformações fiéis; divergência da Fase 1/2 (`transformScale`) consertada.
