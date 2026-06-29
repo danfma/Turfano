@@ -76,7 +76,7 @@ com a semântica do `@turf` (não DE-9IM do NTS).
   interseção de segmentos).
 - [X] T009 [US2] `Geo.BooleanContains` + `Geo.BooleanWithin` (argumentos trocados) em
   `src/Turfano/Parity/Boolean.Contains.cs` (porte do `@turf`).
-- [ ] T010 [P] [US2] `Geo.BooleanCrosses` + `Geo.BooleanTouches` em
+- [X] T010 [P] [US2] `Geo.BooleanCrosses` + `Geo.BooleanTouches` em
   `src/Turfano/Parity/Boolean.CrossesTouches.cs` (porte do `@turf`, por combinação de
   dimensão).
 - [X] T011 [P] [US2] `Geo.BooleanOverlap` em `src/Turfano/Parity/Boolean.Overlap.cs`

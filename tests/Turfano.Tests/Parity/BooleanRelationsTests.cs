@@ -62,6 +62,13 @@ public class BooleanRelationsTests
     }
 
     [Test]
+    public async Task Touches_MatchTurf()
+    {
+        await Assert.That(G.BooleanTouches(A(), D())).IsTrue(); // compartilham a aresta x=4
+        await Assert.That(G.BooleanTouches(A(), B())).IsFalse(); // sobrepõem área, não só tocam
+    }
+
+    [Test]
     public async Task Valid_MatchTurf()
     {
         await Assert.That(G.BooleanValid(A())).IsTrue();
