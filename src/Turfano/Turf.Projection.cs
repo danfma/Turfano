@@ -41,7 +41,7 @@ public static partial class Turf
 
     private sealed class Wgs84ToMercatorConverterFilter : ICoordinateFilter
     {
-        private const double D2R = Math.PI / 180.0;
+        private const double RadiansPerDegree = Math.PI / 180.0;
         private const double A = 6378137.0;
         private const double MaxExtent = 20037508.342789244;
 
@@ -53,8 +53,8 @@ public static partial class Turf
             var adjusted =
                 Math.Abs(coord.X) <= 180 ? coord.X : coord.X - Math.Sign(coord.X) * 360.0;
 
-            var x = A * adjusted * D2R;
-            var y = A * Math.Log(Math.Tan(Math.PI * 0.25 + 0.5 * coord.Y * D2R));
+            var x = A * adjusted * RadiansPerDegree;
+            var y = A * Math.Log(Math.Tan(Math.PI * 0.25 + 0.5 * coord.Y * RadiansPerDegree));
 
             // if xy value is beyond maxextent (e.g. poles), return maxextent
             if (x > MaxExtent)
@@ -77,12 +77,12 @@ public static partial class Turf
     private sealed class MercatorToWgs84ConverterFilter : ICoordinateFilter
     {
         private const double A = 6378137.0;
-        private const double R2D = 180.0 / Math.PI;
+        private const double DegreesPerRadian = 180.0 / Math.PI;
 
         public void Filter(Coordinate coord)
         {
-            coord.X = coord.X * R2D / A;
-            coord.Y = (Math.PI * 0.5 - 2.0 * Math.Atan(Math.Exp(-coord.Y / A))) * R2D;
+            coord.X = coord.X * DegreesPerRadian / A;
+            coord.Y = (Math.PI * 0.5 - 2.0 * Math.Atan(Math.Exp(-coord.Y / A))) * DegreesPerRadian;
         }
     }
 }
