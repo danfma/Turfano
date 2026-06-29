@@ -25,14 +25,14 @@ produção atual é removido (suíte 193 segue verde).
 
 ## Phase 1: Setup
 
-- [ ] T001 Confirmar baseline `dotnet build Turfano.slnx -c Debug` (0 erros) + suíte 193/0;
+- [X] T001 Confirmar baseline `dotnet build Turfano.slnx -c Debug` (0 erros) + suíte 193/0;
   reusar `src/Turfano/Parity/` e `tests/Turfano.Tests/Parity/`.
 
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-- [ ] T002 Criar o harness Bun `reference/_boolean.mjs` que, por `boolean*`, (a) emite o
+- [X] T002 Criar o harness Bun `reference/_boolean.mjs` que, por `boolean*`, (a) emite o
   resultado do `@turf` em casos-âncora e (b) **varre as fixtures `test/true`/`test/false`**
   dos pacotes `@turf/boolean-*`, emitindo `(nome, args, esperado)` em JSON (FR-002).
 
@@ -47,16 +47,16 @@ produção atual é removido (suíte 193 segue verde).
 
 **Independent Test**: fixtures true/false do `@turf`; o de point-in-polygon prova a borda.
 
-- [ ] T003 [US1] `Geo.BooleanPointInPolygon` (porte do `inRing`/`inBBox` do `@turf` com
+- [X] T003 [US1] `Geo.BooleanPointInPolygon` (porte do `inRing`/`inBBox` do `@turf` com
   tratamento de borda + `ignoreBoundary`) em `src/Turfano/Parity/Boolean.PointInPolygon.cs`.
-- [ ] T004 [P] [US1] `Geo.BooleanPointOnLine` (+ `ignoreEndVertices`/`epsilon`) em
+- [X] T004 [P] [US1] `Geo.BooleanPointOnLine` (+ `ignoreEndVertices`/`epsilon`) em
   `src/Turfano/Parity/Boolean.PointOnLine.cs` (reusar `IsLeft`/projeção de segmento).
-- [ ] T005 [P] [US1] `Geo.BooleanClockwise` (área sinalizada do anel) +
+- [X] T005 [P] [US1] `Geo.BooleanClockwise` (área sinalizada do anel) +
   `Geo.BooleanParallel` (diferença de rumo dos segmentos) em
   `src/Turfano/Parity/Boolean.ClockwiseParallel.cs`.
-- [ ] T006 [P] [US1] `Geo.BooleanConcave` (porte do `@turf`) em
+- [X] T006 [P] [US1] `Geo.BooleanConcave` (porte do `@turf`) em
   `src/Turfano/Parity/Boolean.Concave.cs`.
-- [ ] T007 [US1] Testes vs `@turf` + fixtures em
+- [X] T007 [US1] Testes vs `@turf` + fixtures em
   `tests/Turfano.Tests/Parity/BooleanPointTests.cs`; SC-002: ponto na borda →
   `true`/`false` conforme `ignoreBoundary`.
 
