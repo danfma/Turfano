@@ -115,28 +115,28 @@ não é critério de sucesso).
 ---
 
 ## Phase 2: Avaliação NTS × TurfJS + benchmark (spike, decisão op-a-op)
-Status: Not started
+Status: Complete
 
 Objetivo: produzir dados para decidir, por operação, entre **portar o algoritmo do
 Turf**, **manter o NTS interinamente** ou **aproximar**. Não escreve código de
 produção — gera um documento de decisão e protótipos descartáveis.
 
-- [ ] Catalogar, por função já implementada, se hoje é (a) wrapper fino de NTS,
+- [x] Catalogar, por função já implementada, se hoje é (a) wrapper fino de NTS,
   (b) implementação própria, ou (c) algoritmo ingênuo. Registrar em
   `docs/nts-evaluation.md`.
-- [ ] Para cada wrapper de NTS, documentar a **divergência conhecida vs TurfJS**
+- [x] Para cada wrapper de NTS, documentar a **divergência conhecida vs TurfJS**
   (ex.: `area` planar×esférica; `centroid` área×média; `booleanPointInPolygon` e
   demais `Boolean*` semântica de fronteira; `simplify` Douglas-Peucker vs TPS).
-- [ ] Para as ops pesadas (union/difference/intersect, buffer, convex, simplify,
+- [x] Para as ops pesadas (union/difference/intersect, buffer, convex, simplify,
   tin, voronoi, concave, tesselate, bezierSpline), mapear: qual lib/algoritmo o
   **TurfJS** usa (polyclip-ts, d3-geo, etc.), magnitude da divergência e **custo de
   porte para C#**. Preencher uma matriz de decisão (portar / NTS-interino / aproximar).
-- [ ] Protótipo de benchmark comparando **tipos de valor próprios** (Position struct +
+- [x] Protótipo de benchmark comparando **tipos de valor próprios** (Position struct +
   geometria) vs NTS nas rotas quentes (`Distance`, `Area`, `WalkAlong`), com
   `MemoryDiagnoser`, sobre o projeto `benchmark/`.
-- [ ] Inventariar o uso real de **UnitsNet** no código (esperado: só `Length`, `Angle`,
+- [x] Inventariar o uso real de **UnitsNet** no código (esperado: só `Length`, `Angle`,
   `Area`) para dimensionar os structs de unidade próprios.
-- [ ] Escrever a recomendação final (manter/remover NTS por op) em `docs/nts-evaluation.md`.
+- [x] Escrever a recomendação final (manter/remover NTS por op) em `docs/nts-evaluation.md`.
 
 ### Verification Plan
 - `docs/nts-evaluation.md` existe e contém: tabela função→(tipo, divergência) e a
@@ -147,7 +147,29 @@ produção — gera um documento de decisão e protótipos descartáveis.
   anexada ao doc.
 
 ### Phase Summary
-_(escrever quando a fase concluir)_
+
+Concluída em 2026-06-29 (branch `002-nts-evaluation`). Entregável:
+`docs/nts-evaluation.md` — classificação de todas as funções, divergências **medidas**
+vs TurfJS (harness Bun + dump .NET), matriz de decisão op-a-op, benchmark e inventário de
+UnitsNet. Zero mudança em `src/` de produção (SC-006); suíte 156/0.
+
+Conclusões que destravam a Fase 3:
+- **Tipos próprios valem a pena**: ~3,4× menos alocação e ~3,4× mais rápido em Area
+  (struct vs NTS+UnitsNet); só 3 quantidades UnitsNet usadas (`Length`/`Angle`/`Area`).
+- **A divergência do NTS é menor do que o receio** (medido): overlay dá área idêntica ao
+  `polyclip-ts`; o `buffer` do Turf **é** o JTS/NTS; `convex`/`simplify`/`distance`/
+  `bearing`/`area`/booleanos batem → **manter NTS interino** em overlay/buffer/convex/
+  simplify.
+- **Portar (correção)**: `tin`/`voronoi`/`concave`/`tesselate`/`isolines`/`isobands` —
+  hoje ingênuos/incorretos — com os algoritmos reais do Turf (Delaunay/d3-voronoi/earcut/
+  marching-squares).
+- **Divergências pontuais a corrigir nas ondas**: `Centroid` (conta o vértice de
+  fechamento — outro valor de teste presumido-errado, padrão do `RhumbBearing`/9.71°);
+  `BooleanOverlap` (aresta compartilhada: Turf `true` × NTS `false`); `GetAngle`
+  (convenção de bearing); `TransformScale/Rotate/Translate` (cartesiano vs geodésico).
+
+**Decisão**: a remoção total do NTS é viável, mas só compensa **depois** do porte dos 6
+algoritmos pesados — não no dia 1. Manter o NTS como dependência interina.
 
 ---
 
