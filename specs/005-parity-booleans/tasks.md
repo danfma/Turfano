@@ -155,3 +155,20 @@ prova a divergência consertada). É o coração da onda.
   verde; AOT-safe.
 - Reusar helpers da Onda A: `PointInPolygon`/`InRing`, `NearestPointOnLine`, `IsLeft`.
 - Fora de escopo: demais ondas, remover NTS/UnitsNet, funções fora de booleans.
+
+## Implementation Notes (incremento — em progresso)
+
+- **Entregue e verde (196/0)**: **US1** — `Geo.BooleanPointInPolygon` (Hao, com borda +
+  `ignoreBoundary` → SC-002), `BooleanPointOnLine` (+`ignoreEndVertices`/`epsilon`),
+  `BooleanClockwise`, `BooleanParallel`, `BooleanConcave` — **portados do `@turf`** (não
+  re-tipados do NTS). AOT 0 warnings; `Turf.*.cs` NTS intocados.
+- **Convenção aplicada (correção do usuário)**: sem acrônimos crípticos — `RadiansPerDegree`,
+  `RightTangent`, `ClassifyPointInPolygon`, etc. (ver `CLAUDE.md` ## Conventions e
+  `tasks/lessons.md`). Vale para as próximas funções.
+- **Falta (US2 relações + US3) — porte real, pesado**: tamanho dos fontes `@turf` a portar:
+  `boolean-touches` **646** linhas, `boolean-contains` **244**, `boolean-within` **198**,
+  `boolean-disjoint` 142, `boolean-valid` 92, `boolean-overlap` 54, `boolean-intersects` 24
+  (= `!disjoint`), `boolean-equal` 22. Estratégia: começar por `disjoint`+`intersects` (e os
+  helpers de interseção de segmento `isLineOnLine`/`isLineInPoly`), depois `contains`/
+  `within`, `overlap`, `crosses`, `equal`, e por fim `touches` (o maior). Validar cada um vs
+  `@turf` + fixtures `true/false`. Depois: Polish (T016–T018).
