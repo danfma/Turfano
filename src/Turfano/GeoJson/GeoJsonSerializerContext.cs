@@ -3,14 +3,9 @@ using System.Text.Json.Serialization;
 namespace Turfano.GeoJson;
 
 /// <summary>
-/// Contexto System.Text.Json source-generated para os tipos GeoJSON. Fornece o
-/// `TypeInfoResolver` exigido em ambientes com reflexão desabilitada (Native AOT /
-/// trimming) e ativa o <see cref="GeoJsonConverter"/> registrado em
-/// <see cref="GeoJsonObject"/>.
+/// Contexto System.Text.Json source-generated dos tipos GeoJSON. Fornece o
+/// `TypeInfoResolver` (exigido sob Native AOT / trimming) e ativa o polimorfismo embutido
+/// (discriminador `type`) declarado em <see cref="GeoJsonObject"/>/<see cref="Geometry"/>.
 /// </summary>
-[JsonSourceGenerationOptions(DefaultIgnoreCondition = JsonIgnoreCondition.Never)]
 [JsonSerializable(typeof(GeoJsonObject))]
-[JsonSerializable(typeof(Geometry))]
-[JsonSerializable(typeof(Feature))]
-[JsonSerializable(typeof(FeatureCollection))]
 public partial class GeoJsonSerializerContext : JsonSerializerContext;

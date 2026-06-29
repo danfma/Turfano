@@ -38,9 +38,25 @@ Spike executado (3 iterações, file-based .NET 10, ambiente com reflexão desab
    no tipo base** + um **`JsonSerializerContext` source-gen** (`[JsonSerializable(
    typeof(GeoJsonObject))]`) que fornece o resolver exigido pelo AOT.
 
-**Decisão final**: adotar o **converter polimórfico manual + contexto source-gen**
-(não o `[JsonPolymorphic]` embutido). É AOT-safe por construção e dá controle total do
-discriminador. As tarefas T003–T007 seguem este desenho.
+**Decisão (revisada — ver abaixo)**: inicialmente adotou-se o converter manual; após a
+consideração de **naming**, a decisão final mudou para o polimorfismo embutido.
+
+### ✅ Revisão / decisão FINAL (built-in + naming fixo)
+
+Levantou-se um ponto decisivo: a serialização deve **compor com o `JsonSerializerOptions`
+do consumidor** (ex.: salvar uma geometria dentro de um objeto do usuário que tem uma
+`PropertyNamingPolicy`). O converter manual **ignora** isso (codifica os nomes na unha);
+o polimorfismo **embutido** compõe com o STJ, mas **sem proteção** deixaria a política do
+consumidor renomear `coordinates`→`Coordinates` (GeoJSON inválido).
+
+Provado (spike + testes): a combinação **`[JsonPolymorphic]` embutido + `[JsonPropertyName]`
+fixando os nomes do RFC 7946 + um `FeatureArrayConverter` (AOT-safe via `JsonTypeInfo`)
+só na propriedade `Feature[]`** entrega tudo: round-trip byte-exato, AOT sem warnings, e
+**imunidade de naming** (teste serializa um `Polygon` com `SnakeCaseUpper` e os nomes
+ficam fixos). Os valores do discriminador usam `nameof(Tipo)`.
+
+**Decisão final**: polimorfismo **embutido (source-gen) + `[JsonPropertyName]` + `nameof`**.
+O converter manual foi **descartado**. Implementado em `src/Turfano/GeoJson/`.
 
 ## Decisão — `Position`/`BBox` como structs serializadas como array
 
