@@ -53,40 +53,64 @@ porque o conteúdo depende do resultado das Fases 2 e 3.
 ---
 
 ## Phase 1: Correção de bugs (entrega independente)
-Status: Not started
+Status: Complete
 
 Objetivo: corrigir defeitos objetivos no código atual (ainda NTS/UnitsNet-based),
 com testes que faltam, e liberar como release de manutenção antes do redesign.
 
-- [ ] Corrigir `src/Turfano/Angles.cs`: `TwoPi` deve ser `Angle.FromRadians(2 * Math.PI)`
+- [x] Corrigir `src/Turfano/Angles.cs`: `TwoPi` deve ser `Angle.FromRadians(2 * Math.PI)`
   (hoje é `Math.PI`, igual a `Pi`).
-- [ ] Revisar todos os usos de `Angles.Pi`/`Angles.TwoPi` (`Turf.RhumbBearing.cs`,
+- [x] Revisar todos os usos de `Angles.Pi`/`Angles.TwoPi` (`Turf.RhumbBearing.cs`,
   `Turf.Angle.cs`/`GetAngle`) e confirmar a correção da matemática de wraparound
   (`deltaLambda`, `bear180`).
-- [ ] Corrigir `src/Turfano/Turf.TransformScale.cs:49`: a precedência de
+- [x] Corrigir `src/Turfano/Turf.TransformScale.cs:49`: a precedência de
   `dy * options.FactorY ?? factor` colapsa o eixo Y para a constante `factor` quando
   `FactorY == null`. Trocar por `dy * (options.FactorY ?? factor)`.
-- [ ] Varrer outros usos do padrão `a * x.Nullable ?? b` no projeto (grep) e validar
+- [x] Varrer outros usos do padrão `a * x.Nullable ?? b` no projeto (grep) e validar
   precedência.
-- [ ] Adicionar testes de `RhumbBearing` (hoje **sem nenhum teste**) com valores de
+- [x] Adicionar testes de `RhumbBearing` (hoje **sem nenhum teste**) com valores de
   referência do TurfJS, cobrindo rumos > 180° e cruzamento do antimeridiano.
-- [ ] Adicionar testes de `TransformScale` (hoje **sem nenhum teste**) cobrindo o caso
+- [x] Adicionar testes de `TransformScale` (hoje **sem nenhum teste**) cobrindo o caso
   padrão (sem `FactorY`) e com `FactorY`/`FactorZ`/`Origin`.
-- [ ] Adicionar teste do caminho `Explementary` de `GetAngle`.
+- [x] Adicionar teste do caminho `Explementary` de `GetAngle`.
 - [ ] (Cosmético, opcional) Remover comentários obsoletos `// filepath:
   /Users/danfma/Develop/private/...` dos ~17 arquivos afetados.
 
 ### Verification Plan
+
 - `dotnet build Turfano.slnx -c Debug` → `0 Error(s)`.
 - `dotnet run --project tests/Turfano.Tests -c Debug` → todos os testes verdes,
   incluindo os novos de `RhumbBearing`/`TransformScale`/`GetAngle`.
 - Teste-âncora `RhumbBearing`: para `from=(-75.343,39.984)`, `to=(-75.534,39.123)`,
-  esperar `≈ 9.71°` (valor TurfJS), `.Within(0.01)`.
+  esperar `≈ -170.29°` (valor real do TurfJS; `9.71°` era o sentido inverso/saída do
+  bug), `.Within(0.1)`.
 - Confirmar que o teste de `TransformScale` no caso padrão FALHA antes do patch e
   PASSA depois (diff de comportamento).
 
 ### Phase Summary
-_(escrever quando a fase concluir)_
+
+Concluída em 2026-06-29 na feature branch `001-fix-current-bugs` (Spec Kit completo:
+spec → plan → tasks → implement). Correções de produção (cirúrgicas):
+
+- `Angles.TwoPi` agora é `2π` (era `π`). Esse único fix corrigiu, de uma vez,
+  `RhumbBearing` (normalização de `deltaLambda` + cálculo de `bear180`) e o caminho
+  `Explementary` de `GetAngle`.
+- `Turf.TransformScale`: `dy * (options.FactorY ?? factor)` — o eixo Y deixou de
+  colapsar no caso padrão. Varredura FR-009: nenhuma outra ocorrência do padrão.
+
+Testes novos (TDD, ancorados no TurfJS real via `reference/`): `RhumbBearingTests` (5),
+`TransformScaleTests` (4), `GetAngleTests` (1). Suíte: 146 → **156, 0 falhas**; build
+limpo em net8/9/10.
+
+Descobertas registradas para o redesign (fora do escopo desta fase):
+- O XML-doc de `RhumbBearing` documentava `9.71°` (sentido inverso/valor do bug); o
+  valor correto do TurfJS é `-170.294°`.
+- `GetAngle` diverge do TurfJS na base (~0.18°) por usar `Bearing(start→mid)`/`(end→mid)`
+  em vez de `bearing(mid→start)`/`(mid→end)` — tratar na onda Measurement/Booleans.
+- `TransformScale` é cartesiano; o TurfJS é geodésico — tratar na onda Transformation.
+
+Item cosmético (remover comentários `// filepath:`) deliberadamente adiado (opcional,
+não é critério de sucesso).
 
 ---
 

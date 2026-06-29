@@ -46,7 +46,7 @@ public static partial class Turf
 
             // Scale the vector
             var scaledX = dx * factor;
-            var scaledY = dy * options.FactorY ?? factor;
+            var scaledY = dy * (options.FactorY ?? factor);
 
             // Translate the scaled vector back from the origin
             scaledCoords[i] = new Coordinate(origin.X + scaledX, origin.Y + scaledY);
