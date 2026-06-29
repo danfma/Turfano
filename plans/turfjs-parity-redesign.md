@@ -303,14 +303,14 @@ não measurement — ficam para uma onda de projeção); furos/MultiPolygon em
 ---
 
 ## Phase 5: Onda B — Booleans / Assertions (paridade)
-Status: Not started
+Status: Complete
 
 Semântica **do Turf**, não do NTS (especialmente fronteira/`ignoreBoundary`).
 → `/speckit-specify parity-wave-booleans`.
 
-- [ ] `booleanPointInPolygon`, `booleanPointOnLine`, `booleanClockwise`,
+- [x] `booleanPointInPolygon`, `booleanPointOnLine`, `booleanClockwise`,
   `booleanConcave`, `booleanParallel`.
-- [ ] `booleanContains`, `booleanWithin`, `booleanDisjoint`, `booleanIntersects`,
+- [x] `booleanContains`, `booleanWithin`, `booleanDisjoint`, `booleanIntersects`,
   `booleanCrosses`, `booleanOverlap`, `booleanTouches`, `booleanEqual`,
   `booleanValid`.
 
@@ -319,7 +319,32 @@ Semântica **do Turf**, não do NTS (especialmente fronteira/`ignoreBoundary`).
   fixtures) reproduzida e verde.
 
 ### Phase Summary
-_(escrever quando a fase concluir)_
+
+Concluída em 2026-06-29 (branch `005-parity-booleans`, Spec Kit completo). As **14 funções
+`boolean*`** existem na fachada **`Geo`**, **portadas do `@turf`** (não re-tipadas dos
+`Turf.Boolean*.cs` NTS, que delegam a predicados NTS divergentes na fronteira). Suíte 193 →
+**203, 0 falhas**; build net8/9/10; AOT 0 warnings; `Turf.*.cs` NTS/UnitsNet **intocados**.
+
+Entregue (`src/Turfano/Parity/Boolean.*.cs`, tudo em `Geo.*`):
+- Ponto/orientação: `BooleanPointInPolygon` (Hao, com **borda + `ignoreBoundary`**),
+  `BooleanPointOnLine` (+`ignoreEndVertices`/`epsilon`), `BooleanClockwise`,
+  `BooleanParallel`, `BooleanConcave`.
+- Relações: `BooleanDisjoint`/`BooleanIntersects` (achata multi + interseção de segmento
+  portada do `@turf/line-intersect`), `BooleanContains`/`BooleanWithin`, `BooleanOverlap`,
+  `BooleanCrosses`, `BooleanTouches`, `BooleanEqual`.
+- Validade: `BooleanValid`.
+
+**A validação vs `@turf` pegou enganos da MINHA spec** (de novo, a disciplina valeu):
+`overlap` de polígonos que compartilham aresta é **true** (não false); `valid` de um anel em
+"laço"/bowtie é **true** (o `@turf` não detecta auto-interseção do anel externo). Segui o
+`@turf`, não a suposição.
+
+**Follow-ups conscientes (não bloqueiam)**: os predicados relacionais cobrem os **combos de
+tipo núcleo** validados (Polygon/Polygon, Point/Polygon, Line/Polygon, etc.), **não a matriz
+completa** do `@turf` (MultiPoint, todas as combinações de linha em `touches`/`crosses`); e
+`BooleanEqual` é comparação ordenada (o `geojson-equality` do `@turf` também normaliza
+rotação/direção de anéis). Refinar com as fixtures completas dos pacotes `@turf/boolean-*`
+quando houver demanda.
 
 ---
 

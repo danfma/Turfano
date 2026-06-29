@@ -107,11 +107,11 @@ com a semântica do `@turf` (não DE-9IM do NTS).
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
-- [ ] T016 Verificação final (SC-004/005): build `Turfano.slnx` (0 erros, net8/9/10) +
+- [X] T016 Verificação final (SC-004/005): build `Turfano.slnx` (0 erros, net8/9/10) +
   suíte (193 + novos, 0 falhas) + smoke AOT (0 warnings IL) +
   `git diff --stat main -- 'src/Turfano/Turf.*.cs'` vazio.
-- [ ] T017 [P] Remover o harness efêmero `reference/_boolean.mjs`.
-- [ ] T018 Atualizar `plans/turfjs-parity-redesign.md`: Fase 5 (Onda B) → `Complete` +
+- [X] T017 [P] Remover o harness efêmero `reference/_boolean.mjs`.
+- [X] T018 Atualizar `plans/turfjs-parity-redesign.md`: Fase 5 (Onda B) → `Complete` +
   Phase Summary.
 
 ---
