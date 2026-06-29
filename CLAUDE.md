@@ -77,6 +77,8 @@ dotnet run --project benchmark/TimeAndMemoryUsage -c Release
   `bun install`, `bun run <file>`, `bun test`.
 
 <!-- SPECKIT START -->
-For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan
+Plano da feature ativa: `specs/001-fix-current-bugs/plan.md` (Fase 1 do redesign —
+ver o plano-mãe `plans/turfjs-parity-redesign.md`). Consulte esse plano e os artefatos
+da feature (`spec.md`, `research.md`, `data-model.md`, `contracts/`, `quickstart.md`)
+para contexto de implementação.
 <!-- SPECKIT END -->
