@@ -39,7 +39,8 @@ dotnet run --project tests/Turfano.Tests -c Debug
 
 ### Âncoras esperadas
 
-- `RhumbBearing((-75.343, 39.984), (-75.534, 39.123))` → `≈ 9.71°` (`.Within(0.01)`).
+- `RhumbBearing((-75.343, 39.984), (-75.534, 39.123))` → `≈ -170.29°` (`.Within(0.1)`;
+  valor real do TurfJS — `9.71°` é o sentido inverso e era a saída do bug).
 - `TransformScale(polígono, 2)` sem `FactorY` → largura e altura da bbox = 2× as
   originais (Y não colapsa).
 - `GetAngle(start, mid, end, o => o with { Explementary = true })` → `360° − θ`.

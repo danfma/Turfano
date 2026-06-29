@@ -91,7 +91,7 @@ src/Turfano/
 └── Turf.Angle.cs             # VALIDAR: GetAngle caminho Explementary (sem alterar)
 
 tests/Turfano.Tests/
-├── RhumbBearingTests.cs      # NOVO: rumos >180°, antimeridiano, âncora 9.71°
+├── RhumbBearingTests.cs      # NOVO: rumos >180°, antimeridiano, âncora -170.29°
 ├── TransformScaleTests.cs    # NOVO: caso padrão (falha antes / passa depois) + FactorY/Z/Origin
 └── GetAngleTests.cs          # NOVO: caminho Explementary (360° − θ)
 ```

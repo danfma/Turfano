@@ -18,7 +18,8 @@ public static Angle RhumbBearing(
   sentido horário a partir do norte), equivalente ao `@turf/rhumb-bearing`.
 - Correto para rumos cujo `bearing360 > 180°` (antes retornava sinal/magnitude errados).
 - `configure(o => o with { Final = true })` retorna o rumo final (do destino).
-- **Âncora**: `RhumbBearing((-75.343, 39.984), (-75.534, 39.123)) ≈ 9.71°`.
+- **Âncora**: `RhumbBearing((-75.343, 39.984), (-75.534, 39.123)) ≈ -170.29°` (TurfJS
+  real; `9.71°` é o sentido inverso `to→start` e era a saída do bug).
 
 ## `Turf.TransformScale` (sobrecargas Geometry/Point/LineString/Polygon)
 

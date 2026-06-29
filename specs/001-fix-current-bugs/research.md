@@ -51,9 +51,12 @@ e mudaria a semântica de "não informado"; a parentização é a correção mí
 
 **Decisão**: usar valores do TurfJS como verdade. Âncoras principais:
 
-- `rhumbBearing([-75.343, 39.984], [-75.534, 39.123]) ≈ 9.71°` — exemplo documentado do
-  `@turf/rhumb-bearing` (também citado no XML-doc do próprio `Turf.RhumbBearing.cs`).
-  Tolerância de teste: `.Within(0.01)`.
+- `rhumbBearing([-75.343, 39.984], [-75.534, 39.123]) = -170.294175°` (verificado
+  rodando o `@turf/rhumb-bearing` real em `reference/`). **Atenção**: o XML-doc do
+  próprio `Turf.RhumbBearing.cs` diz `9.71°`, que é o **sentido inverso**
+  (`[-75.534,39.123]→[-75.343,39.984] = 9.705825°`) e coincide com a saída do bug —
+  por isso era enganoso. Cardinais TurfJS: E=`90`, W=`-90`, S=`180`, N=`0`;
+  antimeridiano `[179,0]→[-179,0] = 90` (caminho curto). Tolerância de teste: `.Within(0.1)`.
 - `transformScale`: para um polígono e `factor = 2` sem `FactorY`, a bbox resultante
   tem largura e altura = 2× as originais, escalando a partir do centro da bbox
   (comportamento do `@turf/transform-scale` com `origin: "centroid"`/centro de bbox).

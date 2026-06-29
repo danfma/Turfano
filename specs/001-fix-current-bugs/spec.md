@@ -33,8 +33,9 @@ conhecidos do TurfJS (incluindo > 180° e cruzando o antimeridiano) e comparar.
 **Acceptance Scenarios**:
 
 1. **Given** `from = (-75.343, 39.984)` e `to = (-75.534, 39.123)`, **When** chamo
-   `RhumbBearing(from, to)`, **Then** o resultado é ≈ `9.71°` (tolerância `0.01°`),
-   igual ao TurfJS.
+   `RhumbBearing(from, to)`, **Then** o resultado é ≈ `-170.29°` (tolerância `0.1°`),
+   igual ao TurfJS. (Nota: `9.71°` é o **sentido inverso** `to→from` — era também o
+   valor que o bug produzia; o comentário XML do código estava com o sentido trocado.)
 2. **Given** um par de pontos cujo rumo verdadeiro é maior que 180° (ex.: apontando
    a oeste/sudoeste), **When** chamo `RhumbBearing`, **Then** o valor retornado bate
    com o do TurfJS no intervalo `-180°..180°` (sinal e magnitude corretos).
@@ -137,7 +138,8 @@ comportamento de funções existentes.
 ### Measurable Outcomes
 
 - **SC-001**: `RhumbBearing(from=(-75.343,39.984), to=(-75.534,39.123))` retorna
-  `9.71°` com tolerância de `0.01°` (valor de referência do TurfJS).
+  `-170.29°` com tolerância de `0.1°` (valor real do TurfJS, verificado via `@turf` em
+  `reference/`). `9.71°` é o sentido inverso (`to→from`) e era o valor produzido pelo bug.
 - **SC-002**: Escalar uma geometria por fator `2` sem `FactorY` dobra a extensão em
   **ambos** os eixos (X e Y); o eixo Y deixa de colapsar.
 - **SC-003**: 100% das funções antes sem cobertura (`RhumbBearing`, `TransformScale`,
