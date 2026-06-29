@@ -24,14 +24,14 @@ após o harness. Nada de produção atual é removido (suíte 177 segue verde).
 
 ## Phase 1: Setup
 
-- [ ] T001 Criar `src/Turfano/Parity/` e `tests/Turfano.Tests/Parity/`; confirmar baseline
+- [X] T001 Criar `src/Turfano/Parity/` e `tests/Turfano.Tests/Parity/`; confirmar baseline
   `dotnet build Turfano.slnx -c Debug` (0 erros) + suíte 177/0.
 
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-- [ ] T002 Criar o harness Bun `reference/_measure.mjs` que importa `@turf` e emite, por
+- [X] T002 Criar o harness Bun `reference/_measure.mjs` que importa `@turf` e emite, por
   função/fixture, os valores de ground-truth (area, distance, bearing, length, bbox,
   centroid, center, centerOfMass, midpoint, destination, along, rhumb*, pointTo*,
   nearestPointOnLine, greatCircle, polygonTangents) em JSON. Reproduzível (FR-002).
@@ -47,11 +47,11 @@ sobre os novos tipos, batendo com o `@turf`.
 
 **Independent Test**: rodar os testes de measurement escalar — todos batem com o `@turf`.
 
-- [ ] T003 [P] [US1] `Turf.Area(GeoJson.Geometry)` (esférica) em
+- [X] T003 [P] [US1] `Turf.Area(GeoJson.Geometry)` (esférica) em
   `src/Turfano/Parity/Measure.Area.cs` (re-tipar de `Turf.Area.cs`, devolve `Units.Area`).
 - [ ] T004 [P] [US1] `Turf.Distance`/`Turf.Bearing`/`Turf.Length` em
   `src/Turfano/Parity/Measure.Distance.cs` (re-tipar; `Units.Length`/`Units.Angle`).
-- [ ] T005 [P] [US1] `Turf.Bbox`/`BboxPolygon`/`Square`/`Envelope` em
+- [X] T005 [P] [US1] `Turf.Bbox`/`BboxPolygon`/`Square`/`Envelope` em
   `src/Turfano/Parity/Measure.Bbox.cs` (devolvem `GeoJson.BBox`/`GeoJson.Polygon`).
 - [ ] T006 [US1] Testes TUnit vs `@turf` em `tests/Turfano.Tests/Parity/MeasureScalarTests.cs`
   (area-âncora `32819945055.14`, distance/bearing/length/bbox), tolerância apertada.
@@ -67,7 +67,7 @@ sobre os novos tipos, batendo com o `@turf`.
 
 **Independent Test**: rodar os testes — o de `centroid` prova `[1,1]`.
 
-- [ ] T007 [US2] `Turf.Centroid(GeoJson.Geometry)` **CONSERTADO** (exclui o vértice de
+- [X] T007 [US2] `Turf.Centroid(GeoJson.Geometry)` **CONSERTADO** (exclui o vértice de
   fechamento) em `src/Turfano/Parity/Measure.Centroid.cs`.
 - [ ] T008 [P] [US2] `Turf.Center`/`CenterOfMass`/`Midpoint` em
   `src/Turfano/Parity/Measure.Center.cs` (portar o algoritmo do `@turf`).
@@ -179,3 +179,18 @@ Já entrega as medições mais usadas + a correção de divergência.
   verde.
 - Fora de escopo (não criar tarefas): outras ondas, remover NTS/UnitsNet, funções fora de
   measurement.
+
+## Implementation Notes (incremento MVP — em progresso)
+
+- **Entregue e verde (181/0)**: `Area`, `Distance`, `Bearing`, `Bbox`/`BboxPolygon`/
+  `Square`/`Envelope`, `Centroid` (consertado → `[1,1]`, SC-002), sobre `Turfano.GeoJson`/
+  `Turfano.Units`, validados contra o `@turf` real.
+- **DESCOBERTA DE DESIGN (bloqueia parte da US1/US2)**: um método `Turf.Length(...)`
+  **sombreia o TIPO `Length`** (UnitsNet) usado sem qualificação nos partials NTS-based,
+  quebrando o build. Idem potencial para outras funções homônimas de tipos. `Area` não
+  colide (já era método + usa `UnitsNet.Area` qualificado); `Bbox`≠`BBox`. **Decisão a
+  tomar antes de seguir**: rever a colocação (Decisão 1) — provavelmente uma **fachada
+  dedicada** para a API de tipos novos (ex.: classe própria) em vez de sobrecargas em
+  `Turf` — o que destrava `Length` e evita colisões nas próximas ondas.
+- **Falta**: `Length` (pós-decisão), `Center`/`CenterOfMass`/`Midpoint`/`Destination`/
+  `Along`/`RhumbDestination` (US2), US3 inteira, US4 (conversões), Polish.
