@@ -89,12 +89,12 @@ sobre os novos tipos, batendo com o `@turf`.
 
 - [X] T011 [P] [US3] `Turf.RhumbBearing`/`RhumbDistance` em
   `src/Turfano/Parity/Measure.Rhumb.cs` (re-tipar; rumos > 180° já corretos da Fase 1).
-- [ ] T012 [P] [US3] `Turf.PointToLineDistance`/`PointToPolygonDistance`/
+- [X] T012 [P] [US3] `Turf.PointToLineDistance`/`PointToPolygonDistance`/
   `NearestPointOnLine` em `src/Turfano/Parity/Measure.PointDistances.cs`.
-- [ ] T013 [P] [US3] `Turf.PointOnFeature`/`GreatCircle`/`PolygonTangents` em
+- [X] T013 [P] [US3] `Turf.PointOnFeature`/`GreatCircle`/`PolygonTangents` em
   `src/Turfano/Parity/Measure.Surface.cs` (conferir o algoritmo exato do `@turf` em
   `reference/node_modules/@turf/{great-circle,polygon-tangents}`).
-- [ ] T014 [US3] Testes vs `@turf` em `tests/Turfano.Tests/Parity/MeasureGeomTests.cs`.
+- [X] T014 [US3] Testes vs `@turf` em `tests/Turfano.Tests/Parity/MeasureGeomTests.cs`.
 
 **Checkpoint**: categoria measurement de geometrias completa.
 
