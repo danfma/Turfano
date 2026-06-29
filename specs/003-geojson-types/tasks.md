@@ -81,13 +81,13 @@ paralelo. Nada de produção atual é removido (suíte 156 segue verde).
 
 **Independent Test**: testes de conversão batem com o `@turf`. (independente da US1)
 
-- [ ] T011 [P] [US2] Implementar os 3 structs (`Length`/`Distance`, `Angle`/`Bearing`,
+- [X] T011 [P] [US2] Implementar os 3 structs (`Length`/`Distance`, `Angle`/`Bearing`,
   `Area`) + `enum`s de unidade (estilo Turf) + `From*`/`As*` + operadores em
   `src/Turfano/Units/`.
-- [ ] T012 [P] [US2] Harness Bun efêmero `reference/_units.mjs` emitindo
+- [X] T012 [P] [US2] Harness Bun efêmero `reference/_units.mjs` emitindo
   `convertLength`/`convertArea`/`lengthToRadians`/`radiansToLength`/`lengthToDegrees`/
   `degreesToRadians`/`radiansToDegrees`/`bearingToAzimuth` do `@turf`.
-- [ ] T013 [US2] Testes TUnit `tests/Turfano.Tests/UnitsTests.cs` comparando as conversões
+- [X] T013 [US2] Testes TUnit `tests/Turfano.Tests/UnitsTests.cs` comparando as conversões
   com o `@turf` dentro de `1e-9` relativo (SC-003).
 
 **Checkpoint**: unidades prontas para as funções de medição (Fase 4+).
