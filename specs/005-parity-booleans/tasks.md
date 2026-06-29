@@ -71,17 +71,17 @@ com a semântica do `@turf` (não DE-9IM do NTS).
 
 **Independent Test**: fixtures true/false do `@turf` por relação.
 
-- [ ] T008 [US2] `Geo.BooleanIntersects` + `Geo.BooleanDisjoint` (duais) em
+- [X] T008 [US2] `Geo.BooleanIntersects` + `Geo.BooleanDisjoint` (duais) em
   `src/Turfano/Parity/Boolean.Intersects.cs` (porte do `@turf`; reusar point-in-polygon e
   interseção de segmentos).
-- [ ] T009 [US2] `Geo.BooleanContains` + `Geo.BooleanWithin` (argumentos trocados) em
+- [X] T009 [US2] `Geo.BooleanContains` + `Geo.BooleanWithin` (argumentos trocados) em
   `src/Turfano/Parity/Boolean.Contains.cs` (porte do `@turf`).
 - [ ] T010 [P] [US2] `Geo.BooleanCrosses` + `Geo.BooleanTouches` em
   `src/Turfano/Parity/Boolean.CrossesTouches.cs` (porte do `@turf`, por combinação de
   dimensão).
 - [ ] T011 [P] [US2] `Geo.BooleanOverlap` em `src/Turfano/Parity/Boolean.Overlap.cs`
   (semântica do `@turf`: só-fronteira → `false`).
-- [ ] T012 [P] [US2] `Geo.BooleanEqual` (igualdade estilo `geojson-equality`, ordem/
+- [X] T012 [P] [US2] `Geo.BooleanEqual` (igualdade estilo `geojson-equality`, ordem/
   precisão) em `src/Turfano/Parity/Boolean.Equal.cs`.
 - [ ] T013 [US2] Testes vs `@turf` + fixtures em
   `tests/Turfano.Tests/Parity/BooleanRelationsTests.cs`.
