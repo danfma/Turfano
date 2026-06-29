@@ -77,8 +77,8 @@ dotnet run --project benchmark/TimeAndMemoryUsage -c Release
   `bun install`, `bun run <file>`, `bun test`.
 
 <!-- SPECKIT START -->
-Plano da feature ativa: `specs/002-nts-evaluation/plan.md` (Fase 2 do redesign —
-ver o plano-mãe `plans/turfjs-parity-redesign.md`; a Fase 1 já está na `main`).
-Consulte esse plano e os artefatos da feature (`spec.md`, `research.md`, `data-model.md`,
-`contracts/`, `quickstart.md`) para contexto de implementação.
+Plano da feature ativa: `specs/003-geojson-types/plan.md` (Fase 3 do redesign — a
+fundação de tipos; ver o plano-mãe `plans/turfjs-parity-redesign.md`; Fases 1–2 já na
+`main`). Consulte esse plano e os artefatos da feature (`spec.md`, `research.md`,
+`data-model.md`, `contracts/`, `quickstart.md`) para contexto de implementação.
 <!-- SPECKIT END -->
