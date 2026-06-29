@@ -134,7 +134,7 @@ paralelo. Nada de produção atual é removido (suíte 156 segue verde).
   net8/9/10) + `dotnet run --project tests/Turfano.Tests -c Debug` (156 + novos, 0 falhas).
 - [X] T020 [P] Remover/parametrizar os harnesses efêmeros em `reference/`
   (`_units.mjs` etc.), conforme a decisão de versionamento.
-- [ ] T021 Atualizar `plans/turfjs-parity-redesign.md`: Fase 3 → `Complete` + Phase
+- [X] T021 Atualizar `plans/turfjs-parity-redesign.md`: Fase 3 → `Complete` + Phase
   Summary; **confirmar ou revisar** a decisão de `Feature.properties`
   (`JsonObject?` + `Feature<TProps>`).
 
