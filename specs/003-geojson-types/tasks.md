@@ -35,7 +35,7 @@ paralelo. Nada de produção atual é removido (suíte 156 segue verde).
 
 **⚠️ Bloqueia US1/US3/US4. Começar pelo SPIKE.**
 
-- [ ] T002 **SPIKE (gate)** em `tests/Turfano.Tests/`: validar STJ **source-generated** +
+- [X] T002 **SPIKE (gate)** em `tests/Turfano.Tests/`: validar STJ **source-generated** +
   polimorfismo **multinível** (`GeoJsonObject` e `Geometry`, discriminador `"type"`) +
   `JsonConverter<Position>` serializando como array. Confirmar suporte OU adotar o
   **fallback** (converter polimórfico manual, `research.md`). Registrar a decisão num

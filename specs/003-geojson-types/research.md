@@ -22,6 +22,26 @@ mantendo source-gen para o resto.
 **Alternativas**: reflexão STJ (rejeitada — quebra AOT); discriminador `$type` padrão do
 STJ (rejeitado — GeoJSON exige `type`).
 
+### ✅ Veredito do spike (T002 — PROVADO com evidência, 2026-06-29)
+
+Spike executado (3 iterações, file-based .NET 10, ambiente com reflexão desabilitada):
+
+1. **`[JsonPolymorphic]` embutido NÃO serve**: ele **descarta o discriminador `type`** em
+   coleções tipadas como concreto (`Feature[]` dentro de `FeatureCollection` saiu sem
+   `"type":"Feature"`). Round-trip de `FeatureCollection` FALHOU.
+2. **Sob AOT a reflexão é desabilitada**: um `JsonConverter` manual **sozinho** lança
+   `JsonSerializerIsReflectionDisabled` — é obrigatório um `TypeInfoResolver`
+   (contexto source-gen) presente nas options.
+3. **Desenho que FUNCIONA (todos os round-trips exatos, incl. `FeatureCollection`)**:
+   `JsonConverter<GeoJsonObject>` **manual** (read despacha por `type`; write emite
+   `type` + propriedades manualmente — sem reflexão) **registrado via `[JsonConverter]`
+   no tipo base** + um **`JsonSerializerContext` source-gen** (`[JsonSerializable(
+   typeof(GeoJsonObject))]`) que fornece o resolver exigido pelo AOT.
+
+**Decisão final**: adotar o **converter polimórfico manual + contexto source-gen**
+(não o `[JsonPolymorphic]` embutido). É AOT-safe por construção e dá controle total do
+discriminador. As tarefas T003–T007 seguem este desenho.
+
 ## Decisão — `Position`/`BBox` como structs serializadas como array
 
 `readonly record struct Position(double Lon, double Lat, double? Alt = null)` com
