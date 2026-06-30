@@ -436,21 +436,45 @@ algumas conversões pode ser refinada com as fixtures completas quando houver de
 ---
 
 ## Phase 8: Onda E — Overlay / Clipping (paridade, depende da Fase 2)
-Status: Not started
+Status: Complete
 
 As ops onde o NTS mais diverge do Turf. Implementação conforme a matriz da Fase 2
 (portar polyclip-ts / manter NTS-interino / aproximar).
 → `/speckit-specify parity-wave-overlay`.
 
-- [ ] `union`, `difference`, `intersect`, `dissolve`.
-- [ ] `bboxClip`, `buffer`.
+- [x] `union`, `difference`, `intersect`, `dissolve`.
+- [x] `bboxClip`, `buffer`.
 
 ### Verification Plan
 - Fixtures do Turf para overlay; resultados batem com o Turf dentro da tolerância
   decidida na Fase 2 (ou divergência documentada e aceita).
 
 ### Phase Summary
-_(escrever quando a fase concluir)_
+
+Concluída em 2026-06-30 (branch `008-parity-overlay`, Spec Kit completo). As **6 funções**
+de overlay/clipping existem na fachada **`Geo`**, validadas contra o `@turf`. Suíte 226 →
+**232, 0 falhas**; build net8/9/10; AOT da **serialização** 0 warnings; `Turf.*.cs` NTS/
+UnitsNet **intocados**; nomes .NET.
+
+**Estratégia (oposta às ondas anteriores, baseada na MEDIÇÃO da Fase 2)**:
+- **Overlay** (`Union`/`Difference`/`Intersect`/`Dissolve`): **motor NTS** via `NtsBridge`
+  (planar em graus = `polyclip-ts`). Validado por **ÁREA** vs o `@turf` (union `3.456e11`,
+  intersect `4.94e10`, difference `1.48e11` — dentro de `1e4` absoluto). Vazio → `null`.
+- **Buffer**: reproduz o `@turf` — projeta para **azimutal-equidistante** centrada na
+  geometria (descoberta: equivale a `Distance`/`Bearing`/`Destination` great-circle da Onda A),
+  **NTS `Buffer`** no plano em metros (o `buffer` do `@turf` **é** o JTS=NTS), e desprojeta.
+  Área bate (~`3.12e10`, point 100 km, steps 8).
+- **bboxClip**: **portado** (Cohen-Sutherland `lineclip` + Sutherland-Hodgman), sem NTS.
+  Estrutura igual ao `@turf` (linha e polígono).
+
+**Decisão de motor registrada**: overlay/buffer ficam **NTS-interino** (escondido na
+`NtsBridge`; NTS **não** aparece nas assinaturas) — é a decisão **medida** da Fase 2, não um
+débito. Por isso podem não ser AOT-safe; o smoke de AOT exercita só a **serialização** (segue
+0 warnings). Único porte: `bboxClip`.
+
+Follow-ups conscientes (não bloqueiam): `buffer` usa a AEQD via great-circle (equivalente à
+d3-geo do `@turf`; área casa, vértices podem diferir em micro); refinar com mais fixtures
+quando houver demanda.
 
 ---
 

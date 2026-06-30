@@ -81,9 +81,10 @@ dotnet run --project benchmark/TimeAndMemoryUsage -c Release
   `bun install`, `bun run <file>`, `bun test`.
 
 <!-- SPECKIT START -->
-Plano da feature ativa: `specs/007-parity-features-meta/plan.md` (Fase 7 / Onda D — Feature
-Conversion, Joins & Meta; ver o plano-mãe `plans/turfjs-parity-redesign.md`; Fases 1–6 já na
-`main`, incl. as Ondas A — measurement, B — booleans e C — transformation, na fachada `Geo`).
-Consulte esse plano e os artefatos da feature (`spec.md`, `research.md`, `data-model.md`,
-`contracts/`, `quickstart.md`) para contexto.
+Plano da feature ativa: `specs/008-parity-overlay/plan.md` (Fase 8 / Onda E — Overlay &
+Clipping; ver o plano-mãe `plans/turfjs-parity-redesign.md`; Fases 1–7 já na `main`, incl. as
+Ondas A–D na fachada `Geo`). Esta onda usa o **motor NTS interino** (via `Turfano.Interop.
+NtsBridge`) para overlay/buffer — decisão medida da Fase 2 (`docs/nts-evaluation.md`) — e
+porta só o `bboxClip`. Consulte o plano e os artefatos (`spec.md`, `research.md`,
+`data-model.md`, `contracts/`, `quickstart.md`).
 <!-- SPECKIT END -->
