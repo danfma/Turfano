@@ -68,15 +68,15 @@ meta) (FR-002, SC-001/002).
 **Independent Test**: comparação estrutural/numérica com o `@turf`; fronteira em
 `pointsWithinPolygon`.
 
-- [ ] T008 [US2] `Geo.PointsWithinPolygon` + `Geo.Tag` em `src/Turfano/Parity/Join.cs`
+- [X] T008 [US2] `Geo.PointsWithinPolygon` + `Geo.Tag` em `src/Turfano/Parity/Join.cs`
   (reusar `BooleanPointInPolygon` — fronteira do `@turf`, SC-003).
-- [ ] T009 [P] [US2] `Geo.NearestPoint` em `src/Turfano/Parity/Misc.NearestPoint.cs`
+- [X] T009 [P] [US2] `Geo.NearestPoint` em `src/Turfano/Parity/Misc.NearestPoint.cs`
   (min `Distance` sobre a coleção).
-- [ ] T010 [P] [US2] `Geo.LineSlice` + `Geo.LineSliceAlong` em
+- [X] T010 [P] [US2] `Geo.LineSlice` + `Geo.LineSliceAlong` em
   `src/Turfano/Parity/Misc.LineSlice.cs` (reusar `NearestPointOnLine`/`Along`/`Distance`).
-- [ ] T011 [P] [US2] `Geo.LineChunk` + `Geo.Kinks` em `src/Turfano/Parity/Misc.ChunkKinks.cs`
+- [X] T011 [P] [US2] `Geo.LineChunk` + `Geo.Kinks` em `src/Turfano/Parity/Misc.ChunkKinks.cs`
   (`Along` em passos; auto-interseção via `SegmentsIntersect`).
-- [ ] T012 [US2] Testes vs `@turf` em `tests/Turfano.Tests/Parity/JoinMiscTests.cs`.
+- [X] T012 [US2] Testes vs `@turf` em `tests/Turfano.Tests/Parity/JoinMiscTests.cs`.
 
 **Checkpoint**: joins e utilitários de linha fiéis ao `@turf`.
 
