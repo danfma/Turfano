@@ -89,12 +89,12 @@ meta) (FR-002, SC-001/002).
 
 **Independent Test**: testes de iteração comparando coord/índices com o `@turf`.
 
-- [ ] T013 [US3] `Geo.CoordEach`/`CoordReduce` + `Geo.SegmentEach`/`SegmentReduce` +
+- [X] T013 [US3] `Geo.CoordEach`/`CoordReduce` + `Geo.SegmentEach`/`SegmentReduce` +
   `Geo.FlattenEach` em `src/Turfano/Parity/Meta.Iteration.cs` (assinatura/índices do `@turf`;
   `excludeWrapCoord`). **SC-002**.
-- [ ] T014 [P] [US3] `Geo.FeatureEach` + `Geo.GeomEach` + `Geo.PropEach` em
+- [X] T014 [P] [US3] `Geo.FeatureEach` + `Geo.GeomEach` + `Geo.PropEach` em
   `src/Turfano/Parity/Meta.Each.cs`.
-- [ ] T015 [US3] Testes de iteração/índices vs `@turf` em
+- [X] T015 [US3] Testes de iteração/índices vs `@turf` em
   `tests/Turfano.Tests/Parity/MetaTests.cs`.
 
 **Checkpoint**: meta-funções públicas iterando como o `@turf`.
