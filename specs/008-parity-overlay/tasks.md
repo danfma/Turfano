@@ -25,7 +25,7 @@ assinaturas. Harness (T002) foundational. Nada de produção atual é removido (
 
 ## Phase 1: Setup
 
-- [ ] T001 Confirmar baseline `dotnet build Turfano.slnx -c Debug` (0 erros) + suíte 226/0;
+- [X] T001 Confirmar baseline `dotnet build Turfano.slnx -c Debug` (0 erros) + suíte 226/0;
   reusar `src/Turfano/Parity/` e `tests/Turfano.Tests/Parity/`. Confirmar a API da
   `Turfano.Interop.NtsBridge` (`ToNts`/`FromNts`).
 
@@ -33,7 +33,7 @@ assinaturas. Harness (T002) foundational. Nada de produção atual é removido (
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-- [ ] T002 Criar o harness Bun `reference/_overlay.mjs` que emite, por função/fixture, a
+- [X] T002 Criar o harness Bun `reference/_overlay.mjs` que emite, por função/fixture, a
   **ÁREA** do resultado do `@turf` (`union`/`difference`/`intersect`/`buffer`/`dissolve`) e a
   **estrutura** (`bboxClip`). Reproduzível (FR-003).
 
