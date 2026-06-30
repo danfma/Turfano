@@ -393,15 +393,15 @@ completas do `@turf` quando houver demanda.
 ---
 
 ## Phase 7: Onda D — Feature Conversion, Joins, Meta (paridade)
-Status: Not started
+Status: Complete
 
 → `/speckit-specify parity-wave-features-meta`.
 
-- [ ] Conversão: `explode`, `combine`, `flatten`, `lineToPolygon`, `polygonToLine`,
+- [x] Conversão: `explode`, `combine`, `flatten`, `lineToPolygon`, `polygonToLine`,
   `polygonize`.
-- [ ] Joins: `tag`, `pointsWithinPolygon`.
-- [ ] Misc: `kinks`, `lineChunk`, `lineSlice`, `lineSliceAlong`, `nearestPoint`.
-- [ ] Meta (públicos, hoje `internal`): `coordEach/coordReduce`, `featureEach`,
+- [x] Joins: `tag`, `pointsWithinPolygon`.
+- [x] Misc: `kinks`, `lineChunk`, `lineSlice`, `lineSliceAlong`, `nearestPoint`.
+- [x] Meta (públicos, hoje `internal`): `coordEach/coordReduce`, `featureEach`,
   `geomEach`, `propEach`, `segmentEach/segmentReduce`, `flattenEach`. Reexpor com a
   visibilidade correta.
 
@@ -409,7 +409,29 @@ Status: Not started
 - Fixtures do Turf; meta-funções com testes de iteração/índices iguais aos do Turf.
 
 ### Phase Summary
-_(escrever quando a fase concluir)_
+
+Concluída em 2026-06-30 (branch `007-parity-features-meta`, Spec Kit completo). As **19
+funções** de conversão/joins/misc/meta existem na fachada **`Geo`**, validadas contra o
+`@turf`. Suíte 215 → **226, 0 falhas**; build net8/9/10; AOT 0 warnings; `Turf.*.cs` NTS/
+UnitsNet **intocados**; nomes .NET.
+
+Entregue (`src/Turfano/Parity/{Convert,Join,Misc,Meta}*.cs`, tudo em `Geo.*`):
+- **Conversão**: `Explode`, `Flatten`, `Combine`, `PolygonToLine` (furos → MultiLineString),
+  `LineToPolygon`, `Polygonize` (via NTS `Polygonizer` interino na `NtsBridge`).
+- **Joins**: `PointsWithinPolygon`/`Tag` (reusam `BooleanPointInPolygon` — fronteira do @turf).
+- **Misc**: `NearestPoint`, `LineSlice` (via `NearestPointOnLine`), `LineSliceAlong`,
+  `LineChunk`, `Kinks` (interseção de segmento).
+- **Meta** (agora públicos): `CoordEach`/`CoordReduce`, `SegmentEach`/`SegmentReduce`,
+  `FeatureEach`, `GeomEach`, `PropEach`, `FlattenEach` — **ordem e índices iguais ao @turf**
+  (porte fiel do `coordEach`; teste prova `coordIndex` global e `segmentIndex`).
+
+**Onda de alto reuso**: a maior parte compõe os helpers das Ondas A/B/C
+(`BooleanPointInPolygon`/`Along`/`NearestPointOnLine`/`Distance`/`Length`/`SegmentsIntersect`/
+`EachPosition`/`FlattenGeometry`) — confirmou o valor da fachada `Geo` única.
+
+Follow-ups conscientes (não bloqueiam): `polygonize` usa o NTS interino (a ordem dos
+vértices do anel pode diferir do `@turf`; a forma casa); a matriz completa de tipos de
+algumas conversões pode ser refinada com as fixtures completas quando houver demanda.
 
 ---
 

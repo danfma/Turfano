@@ -103,11 +103,11 @@ meta) (FR-002, SC-001/002).
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
-- [ ] T016 Verificação final (SC-005): build `Turfano.slnx` (0 erros, net8/9/10) + suíte
+- [X] T016 Verificação final (SC-005): build `Turfano.slnx` (0 erros, net8/9/10) + suíte
   (215 + novos, 0 falhas) + smoke AOT (0 warnings IL) +
   `git diff --stat main -- 'src/Turfano/Turf.*.cs'` vazio.
-- [ ] T017 [P] Remover o harness efêmero `reference/_features.mjs`.
-- [ ] T018 Atualizar `plans/turfjs-parity-redesign.md`: Fase 7 (Onda D) → `Complete` +
+- [X] T017 [P] Remover o harness efêmero `reference/_features.mjs`.
+- [X] T018 Atualizar `plans/turfjs-parity-redesign.md`: Fase 7 (Onda D) → `Complete` +
   Phase Summary.
 
 ---
