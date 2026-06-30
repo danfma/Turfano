@@ -46,15 +46,15 @@ meta) (FR-002, SC-001/002).
 
 **Independent Test**: comparação estrutural com o `@turf` por função.
 
-- [ ] T003 [P] [US1] `Geo.Explode` + `Geo.Flatten` em `src/Turfano/Parity/Convert.Explode.cs`
+- [X] T003 [P] [US1] `Geo.Explode` + `Geo.Flatten` em `src/Turfano/Parity/Convert.Explode.cs`
   (reusar `EachPosition`/`FlattenGeometry`).
-- [ ] T004 [P] [US1] `Geo.PolygonToLine` + `Geo.LineToPolygon` em
+- [X] T004 [P] [US1] `Geo.PolygonToLine` + `Geo.LineToPolygon` em
   `src/Turfano/Parity/Convert.PolyLine.cs` (reshape de anéis/linhas).
-- [ ] T005 [P] [US1] `Geo.Combine` em `src/Turfano/Parity/Convert.Combine.cs`
+- [X] T005 [P] [US1] `Geo.Combine` em `src/Turfano/Parity/Convert.Combine.cs`
   (Point/LineString/Polygon → Multi*).
 - [ ] T006 [US1] `Geo.Polygonize` em `src/Turfano/Parity/Convert.Polygonize.cs` (tentar
   `NtsBridge` NTS Polygonizer e **validar vs `@turf`**; senão portar `@turf/polygonize`).
-- [ ] T007 [US1] Testes vs `@turf` em `tests/Turfano.Tests/Parity/ConvertTests.cs`.
+- [X] T007 [US1] Testes vs `@turf` em `tests/Turfano.Tests/Parity/ConvertTests.cs`.
 
 **Checkpoint**: conversões fiéis ao `@turf` (MVP).
 
