@@ -25,14 +25,14 @@ meta) (FR-002, SC-001/002).
 
 ## Phase 1: Setup
 
-- [ ] T001 Confirmar baseline `dotnet build Turfano.slnx -c Debug` (0 erros) + suíte 215/0;
+- [X] T001 Confirmar baseline `dotnet build Turfano.slnx -c Debug` (0 erros) + suíte 215/0;
   reusar `src/Turfano/Parity/` e `tests/Turfano.Tests/Parity/`.
 
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-- [ ] T002 Criar o harness Bun `reference/_features.mjs` que emite, por função/fixture, a
+- [X] T002 Criar o harness Bun `reference/_features.mjs` que emite, por função/fixture, a
   saída do `@turf` (geometrias/coleções serializadas p/ comparação estrutural; números p/
   distâncias; **sequências de coord/índices** para `coordEach`/`segmentEach`/`flattenEach`).
 
