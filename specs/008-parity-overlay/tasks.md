@@ -91,11 +91,11 @@ assinaturas. Harness (T002) foundational. Nada de produção atual é removido (
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
-- [ ] T010 Verificação final (SC-004/005): build `Turfano.slnx` (0 erros, net8/9/10) + suíte
+- [X] T010 Verificação final (SC-004/005): build `Turfano.slnx` (0 erros, net8/9/10) + suíte
   (226 + novos, 0 falhas) + smoke AOT da **serialização** (0 warnings IL) +
   `git diff --stat main -- 'src/Turfano/Turf.*.cs'` vazio.
-- [ ] T011 [P] Remover o harness efêmero `reference/_overlay.mjs`.
-- [ ] T012 Atualizar `plans/turfjs-parity-redesign.md`: Fase 8 (Onda E) → `Complete` + Phase
+- [X] T011 [P] Remover o harness efêmero `reference/_overlay.mjs`.
+- [X] T012 Atualizar `plans/turfjs-parity-redesign.md`: Fase 8 (Onda E) → `Complete` + Phase
   Summary (registrar overlay/buffer = NTS-interino; `bboxClip` portado).
 
 ---
