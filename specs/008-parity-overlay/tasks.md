@@ -80,9 +80,9 @@ assinaturas. Harness (T002) foundational. Nada de produção atual é removido (
 
 **Independent Test**: comparação estrutural com o `@turf`.
 
-- [ ] T008 [US3] `Geo.BBoxClip` em `src/Turfano/Parity/Clip.BBoxClip.cs` (portar Cohen-
+- [X] T008 [US3] `Geo.BBoxClip` em `src/Turfano/Parity/Clip.BBoxClip.cs` (portar Cohen-
   Sutherland; re-tipar do `Turf.BBoxClip.cs` e **validar vs `@turf`/`lineclip`**; sem NTS).
-- [ ] T009 [US3] Testes estruturais vs `@turf` em
+- [X] T009 [US3] Testes estruturais vs `@turf` em
   `tests/Turfano.Tests/Parity/BBoxClipTests.cs`.
 
 **Checkpoint**: clipping conforme o `@turf`.
