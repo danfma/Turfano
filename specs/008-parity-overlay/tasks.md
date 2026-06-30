@@ -47,12 +47,12 @@ assinaturas. Harness (T002) foundational. Nada de produção atual é removido (
 
 **Independent Test**: comparar a área do resultado com o `@turf` (reusar `Geo.Area`).
 
-- [ ] T003 [US1] `Geo.Union` + `Geo.Difference` + `Geo.Intersect` em
+- [X] T003 [US1] `Geo.Union` + `Geo.Difference` + `Geo.Intersect` em
   `src/Turfano/Parity/Overlay.cs` (via `NtsBridge`: `FromNts(ToNts(a).Union/Difference/
   Intersection(ToNts(b)))`; vazio → `null`).
-- [ ] T004 [US1] `Geo.Dissolve` em `src/Turfano/Parity/Overlay.cs` (Union dos polígonos da
+- [X] T004 [US1] `Geo.Dissolve` em `src/Turfano/Parity/Overlay.cs` (Union dos polígonos da
   coleção via NTS + achatar).
-- [ ] T005 [US1] Testes de **área** vs `@turf` em
+- [X] T005 [US1] Testes de **área** vs `@turf` em
   `tests/Turfano.Tests/Parity/OverlayTests.cs` (union/intersect/difference ~`1e-5`, SC-002).
 
 **Checkpoint**: overlay batendo em área com o `@turf` (MVP).
