@@ -1,0 +1,50 @@
+using G = Turfano.GeoJson.Geo;
+using GeoJson = Turfano.GeoJson;
+using Pos = Turfano.GeoJson.Position;
+
+namespace Turfano.Tests;
+
+// US3 — meta-iteração; ordem e índices iguais aos do @turf (reference/_meta.mjs).
+public class MetaTests
+{
+    [Test]
+    public async Task CoordEach_OrderAndIndex_MatchTurf()
+    {
+        var poly = new GeoJson.Polygon(
+            new[] { new[] { new Pos(0, 0), new Pos(1, 0), new Pos(1, 1), new Pos(0, 0) } }
+        );
+        var visited = new List<(Pos coord, int index)>();
+        G.CoordEach(poly, (c, ci, _, _, _) => visited.Add((c, ci)));
+
+        // @turf: [([0,0],0),([1,0],1),([1,1],2),([0,0],3)] — índice global incl. fechamento
+        await Assert.That(visited.Count).IsEqualTo(4);
+        await Assert.That(visited[0]).IsEqualTo((new Pos(0, 0), 0));
+        await Assert.That(visited[2]).IsEqualTo((new Pos(1, 1), 2));
+        await Assert.That(visited[3]).IsEqualTo((new Pos(0, 0), 3));
+
+        // MultiPoint: índices 0,1,2
+        var mp = new GeoJson.MultiPoint(new[] { new Pos(0, 0), new Pos(1, 1), new Pos(2, 2) });
+        var indices = new List<int>();
+        G.CoordEach(mp, (_, ci, _, _, _) => indices.Add(ci));
+        await Assert.That(indices).IsEquivalentTo(new[] { 0, 1, 2 });
+    }
+
+    [Test]
+    public async Task SegmentEach_Index_MatchTurf()
+    {
+        var poly = new GeoJson.Polygon(
+            new[] { new[] { new Pos(0, 0), new Pos(1, 0), new Pos(1, 1), new Pos(0, 0) } }
+        );
+        var segIndices = new List<int>();
+        G.SegmentEach(poly, (_, _, _, _, si) => segIndices.Add(si));
+        await Assert.That(segIndices).IsEquivalentTo(new[] { 0, 1, 2 }); // 3 segmentos
+    }
+
+    [Test]
+    public async Task CoordReduce_Sum_Works()
+    {
+        var line = new GeoJson.LineString(new[] { new Pos(1, 0), new Pos(2, 0), new Pos(3, 0) });
+        var sum = G.CoordReduce(line, (acc, c, _) => acc + c.Lon, 0.0);
+        await Assert.That(sum).IsEqualTo(6.0).Within(1e-9);
+    }
+}
