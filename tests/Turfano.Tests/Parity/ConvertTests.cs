@@ -56,4 +56,26 @@ public class ConvertTests
         );
         await Assert.That(poly.Coordinates[0].Length).IsEqualTo(4);
     }
+
+    [Test]
+    public async Task Polygonize_MatchesTurf()
+    {
+        // 4 linhas formando um quadrado → 1 polígono (forma igual ao @turf; ordem pode diferir)
+        var lines = new GeoJson.FeatureCollection(
+            new[]
+            {
+                new GeoJson.Feature(new GeoJson.LineString(new[] { new Pos(0, 0), new Pos(4, 0) })),
+                new GeoJson.Feature(new GeoJson.LineString(new[] { new Pos(4, 0), new Pos(4, 4) })),
+                new GeoJson.Feature(new GeoJson.LineString(new[] { new Pos(4, 4), new Pos(0, 4) })),
+                new GeoJson.Feature(new GeoJson.LineString(new[] { new Pos(0, 4), new Pos(0, 0) })),
+            }
+        );
+        var result = G.Polygonize(lines);
+        await Assert.That(result.Features.Length).IsEqualTo(1);
+        var ring = ((GeoJson.Polygon)result.Features[0].Geometry!).Coordinates[0];
+        await Assert.That(ring.Length).IsEqualTo(5); // 4 vértices + fechamento
+        var vertices = ring.Take(4).ToHashSet();
+        await Assert.That(vertices.Contains(new Pos(0, 0))).IsTrue();
+        await Assert.That(vertices.Contains(new Pos(4, 4))).IsTrue();
+    }
 }

@@ -52,7 +52,7 @@ meta) (FR-002, SC-001/002).
   `src/Turfano/Parity/Convert.PolyLine.cs` (reshape de anéis/linhas).
 - [X] T005 [P] [US1] `Geo.Combine` em `src/Turfano/Parity/Convert.Combine.cs`
   (Point/LineString/Polygon → Multi*).
-- [ ] T006 [US1] `Geo.Polygonize` em `src/Turfano/Parity/Convert.Polygonize.cs` (tentar
+- [X] T006 [US1] `Geo.Polygonize` em `src/Turfano/Parity/Convert.Polygonize.cs` (tentar
   `NtsBridge` NTS Polygonizer e **validar vs `@turf`**; senão portar `@turf/polygonize`).
 - [X] T007 [US1] Testes vs `@turf` em `tests/Turfano.Tests/Parity/ConvertTests.cs`.
 
