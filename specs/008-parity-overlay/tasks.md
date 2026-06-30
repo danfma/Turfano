@@ -65,9 +65,9 @@ assinaturas. Harness (T002) foundational. Nada de produção atual é removido (
 
 **Independent Test**: comparar a área do buffer com o `@turf`.
 
-- [ ] T006 [US2] `Geo.Buffer` em `src/Turfano/Parity/Overlay.Buffer.cs` (via `NtsBridge`:
+- [X] T006 [US2] `Geo.Buffer` em `src/Turfano/Parity/Overlay.Buffer.cs` (via `NtsBridge`:
   `NTS Geometry.Buffer(raio)`; **conferir a conversão raio→graus do `@turf`** e validar a área).
-- [ ] T007 [US2] Testes de área vs `@turf` em
+- [X] T007 [US2] Testes de área vs `@turf` em
   `tests/Turfano.Tests/Parity/BufferTests.cs`.
 
 **Checkpoint**: buffer batendo com o `@turf`.
