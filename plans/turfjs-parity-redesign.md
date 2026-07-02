@@ -553,11 +553,11 @@ e AOT-limpo, com o NTS sobrevivendo apenas num pacote satélite de UMA função 
   **rejeitado**: pessimizaria as ~99 funções nativas (heap por vértice, perda da semântica
   de record e do AOT da lib inteira) para poupar duas cópias O(n) em 1 função.
 
-- [ ] Portar o **`polyclip-ts`** (MIT, 1.137 linhas) sobre os tipos próprios →
+- [x] Portar o **`polyclip-ts`** (MIT, 1.137 linhas) sobre os tipos próprios →
   `Geo.Union`/`Difference`/`Intersect`/`Dissolve` nativos (fidelidade por construção: é o
   motor que o `@turf` executa). Manter atribuição (licença MIT no NOTICE).
-- [ ] Portar o **`@turf/polygonize`** (635 linhas) → `Geo.Polygonize` nativo.
-- [ ] **`Turfano.Buffer`** (pacote satélite): mover `Geo.Buffer` para um pacote próprio que
+- [x] Portar o **`@turf/polygonize`** (635 linhas) → `Geo.Polygonize` nativo.
+- [x] **`Turfano.Buffer`** (pacote satélite): mover `Geo.Buffer` para um pacote próprio que
   referencia o NTS (o core perde a dependência). Pipeline (projeção AEQD própria → NTS
   Buffer → desprojeção) permanece — é o mesmo pedágio que o `@turf` paga com o JSTS.
   **Escada de otimização da fronteira** (verificada na API pública do NTS 2.5 em
@@ -577,7 +577,7 @@ e AOT-limpo, com o NTS sobrevivendo apenas num pacote satélite de UMA função 
      update do NTS vira `MissingFieldException` em runtime. Se algum dia usado: NTS com
      versão pinada no satélite + checagem que falha alto na inicialização + caminho de
      fallback via API pública.
-- [ ] Tornar a **`NtsBridge` pública** (`ToNts`/`FromNts`) para interop na borda
+- [x] Tornar a **`NtsBridge` pública** (`ToNts`/`FromNts`) para interop na borda
   (EF Core spatial etc.) — conversão única, não por operação.
 - [ ] **Deletar a superfície legada `Turf.*`** (72 arquivos, NTS/UnitsNet nas assinaturas —
   a fonte real de "induzir o dev ao erro") + remover a dependência **UnitsNet** do core.

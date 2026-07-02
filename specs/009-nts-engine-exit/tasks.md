@@ -132,7 +132,7 @@ bridge preserva furos/Z; teste confirma sequência empacotada.
   satélite) + suíte (232 + novos, 0 falhas) + smoke AOT serialização (0 warnings IL) +
   `git diff --stat main -- 'src/Turfano/Turf.*.cs'` vazio + `NOTICE` presente.
 - [X] T018 [P] Remover harnesses efêmeros (`reference/_polyclip.mjs` etc.).
-- [ ] T019 Atualizar `plans/turfjs-parity-redesign.md`: marcar os itens da leva 1 na Fase
+- [X] T019 Atualizar `plans/turfjs-parity-redesign.md`: marcar os itens da leva 1 na Fase
   11 + registrar a otimização futura (caminho double + fallback exato) e o que resta para
   a leva 2 (pós-F/G).
 
