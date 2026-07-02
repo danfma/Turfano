@@ -73,3 +73,35 @@
 
 Mesma disciplina das ondas: fonte lida por inteiro antes de portar; motores com estado
 global → instância; ordem de estruturas (rbush) preservada 1:1; GT antes do código.
+
+---
+
+## Implementation Notes (PAUSA em 2026-07-02 — estado para retomada)
+
+Estado ao pausar (branch `011-parity-remaining`, árvore LIMPA, tudo commitado):
+
+- **US2 ✅ (T001–T006)**: projection/mask/ellipse/sector/lineArc — ShapeProjectionTests
+  4/4. O pré-requisito da leva 2 (projection na fachada) está CUMPRIDO.
+- **US1 ✅ (T007–T016)**: rbush+quickselect e sweepline-intersections portados 1:1 em
+  `Parity/Spatial/`; lineSegment/Intersect/Overlap/Split, angle, nearestPointToLine,
+  shortestPath (A*), unkinkPolygon (simplepolygon) — LineOpsTests 8/8 de primeira.
+  Suíte completa: **270/0**.
+- **Harness `reference/_waveg.mjs` EXISTE na árvore** (efêmero, gitignored? NÃO — está
+  untracked de propósito; remover só no T029).
+
+Falta (retomar nesta ordem):
+1. **US3 (T017–T021)**: GT das 8 funções de estatística → portes (center-mean 30,
+   center-median 79, directional-mean 199, distance-weight 79, moran-index 75,
+   nearest-neighbor-analysis 56, quadrat-analysis 113, standard-deviational-ellipse 86)
+   → StatTests.
+2. **US4 (T022–T027)**: GT (kmeans é DETERMINÍSTICO: centroides = k primeiros pontos,
+   R3) → KMeans interno (~100 linhas do skmeans, só o caminho com centroides dados) +
+   clustersKmeans → clustersDbscan (usa o RBushIndex JÁ PORTADO) → helpers de cluster +
+   collect → random/sample (Random.Shared, testes estruturais R6) → RandomClusterTests.
+3. **Polish (T028–T029)**: re-rodar o cruzamento de cobertura (script em research.md R1);
+   verificação final (suíte/AOT/grep NTS/legado/NOTICE); remover `_waveg.mjs`; plano-mãe
+   Fase 10 (checkboxes + Phase Summary); merge na main.
+
+Lições novas da sessão (para tasks/lessons.md se recorrerem): padrões `is Tipo`/`case
+Tipo:` colidem com os métodos-fábrica do Geo → usar `Tipo _`; sorts do JS em pares de
+coordenadas usam comparação de STRING (lineOverlap/unkink) → chave "R,R" ordinal.
