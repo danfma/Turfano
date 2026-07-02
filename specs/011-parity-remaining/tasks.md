@@ -9,7 +9,7 @@
 
 ## Phase 1: Setup
 
-- [ ] T001 Atualizar `NOTICE` com rbush (MIT © Vladimir Agafonkin) e sweepline-intersections (MIT © Rowan Winsemius); atribuição do skmeans parcial (MIT).
+- [X] T001 Atualizar `NOTICE` com rbush (MIT © Vladimir Agafonkin) e sweepline-intersections (MIT © Rowan Winsemius); atribuição do skmeans parcial (MIT).
 
 ## Phase 2: Foundational
 
@@ -19,11 +19,11 @@
 
 **Goal**: `ToMercator`/`ToWgs84` (leva 2!), `Mask` (polyclip nativo), `Ellipse`, `Sector`.
 
-- [ ] T002 [US2] GT via `reference/_waveg.mjs`: projection round-trip + valores, mask (área/anéis), ellipse/sector (vértices).
-- [ ] T003 [P] [US2] Portar `@turf/projection` (54) → `src/Turfano/Parity/Projection.cs` (`ToMercator`/`ToWgs84`).
-- [ ] T004 [P] [US2] Portar `@turf/mask` (69) sobre o `OperationRun` nativo → `src/Turfano/Parity/Overlay.Mask.cs`.
-- [ ] T005 [P] [US2] Portar `@turf/ellipse` (91) → `src/Turfano/Parity/Shape.Ellipse.cs` e `@turf/sector` (41, usa lineArc — trazer o miolo junto se preciso) → `src/Turfano/Parity/Shape.Sector.cs`.
-- [ ] T006 [US2] `tests/Turfano.Tests/Parity/ShapeProjectionTests.cs` (projection/mask/ellipse/sector); suíte verde. (`UnkinkPolygon` fica na US1, depende do rbush.)
+- [X] T002 [US2] GT via `reference/_waveg.mjs`: projection round-trip + valores, mask (área/anéis), ellipse/sector (vértices).
+- [X] T003 [P] [US2] Portar `@turf/projection` (54) → `src/Turfano/Parity/Projection.cs` (`ToMercator`/`ToWgs84`).
+- [X] T004 [P] [US2] Portar `@turf/mask` (69) sobre o `OperationRun` nativo → `src/Turfano/Parity/Overlay.Mask.cs`.
+- [X] T005 [P] [US2] Portar `@turf/ellipse` (91) → `src/Turfano/Parity/Shape.Ellipse.cs` e `@turf/sector` (41, usa lineArc — trazer o miolo junto se preciso) → `src/Turfano/Parity/Shape.Sector.cs`.
+- [X] T006 [US2] `tests/Turfano.Tests/Parity/ShapeProjectionTests.cs` (projection/mask/ellipse/sector); suíte verde. (`UnkinkPolygon` fica na US1, depende do rbush.)
 
 ## Phase 4: US1 — Operações de linha (P1)
 

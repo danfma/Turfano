@@ -25,3 +25,17 @@ Copyright (c) 2016, Mapbox. Licensed under the ISC License.
 This product includes a C# port of d3-voronoi
 (https://github.com/d3/d3-voronoi), used by @turf/voronoi.
 Copyright (c) 2010-2016 Mike Bostock. Licensed under the BSD 3-Clause License.
+
+---
+
+This product includes a C# port of rbush
+(https://github.com/mourner/rbush), used by @turf clustering/line functions.
+Copyright (c) 2016 Vladimir Agafonkin. Licensed under the MIT License.
+
+This product includes a C# port of sweepline-intersections
+(https://github.com/rowanwins/sweepline-intersections), used by @turf/line-intersect.
+Copyright (c) 2019 Rowan Winsemius. Licensed under the MIT License.
+
+This product includes a partial C# port of skmeans
+(https://github.com/solzimer/skmeans), used by @turf/clusters-kmeans.
+Copyright (c) 2016 solzimer. Licensed under the MIT License.
