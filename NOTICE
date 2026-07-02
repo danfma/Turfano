@@ -15,3 +15,13 @@ Fonte do motor de boolean ops de polígonos (Martinez–Rueda) portado em
 ## splaytree-ts (https://github.com/luizbarboza/splaytree-ts) — BSD 3-Clause License
 Copyright (c) 2022 Luiz Felipe Machado Barboza
 Fonte da árvore splay portada em `src/Turfano/Parity/Polyclip/SplayTreeSet.cs`.
+
+---
+
+This product includes a C# port of earcut
+(https://github.com/mapbox/earcut), used by @turf/tesselate.
+Copyright (c) 2016, Mapbox. Licensed under the ISC License.
+
+This product includes a C# port of d3-voronoi
+(https://github.com/d3/d3-voronoi), used by @turf/voronoi.
+Copyright (c) 2010-2016 Mike Bostock. Licensed under the BSD 3-Clause License.
