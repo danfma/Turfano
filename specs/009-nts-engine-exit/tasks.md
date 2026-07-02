@@ -56,21 +56,21 @@ seguir a fonte. Nada do legado é tocado (suíte 232 segue verde).
 
 **Independent Test**: `OverlayTests` (Onda E) passam inalterados, sem NTS no caminho.
 
-- [ ] T004 [US1] `PolyclipPrecision` (compare/orient/snap, eps default `undefined`) em
+- [X] T004 [US1] `PolyclipPrecision` (compare/orient/snap, eps default `undefined`) em
   `src/Turfano/Parity/Polyclip/PolyclipPrecision.cs` (porte de `constant/compare/orient/
   snap/identity/precision`).
-- [ ] T005 [US1] `PolyclipVector` + `PolyclipBBox` em
+- [X] T005 [US1] `PolyclipVector` + `PolyclipBBox` em
   `src/Turfano/Parity/Polyclip/PolyclipGeometry.cs` (porte de `vector`/`bbox`:
   cross/dot/comparePoints/interseções de envelope — em `ExactDecimal`).
-- [ ] T006 [US1] `SweepEvent` em `src/Turfano/Parity/Polyclip/SweepEvent.cs` (porte de
+- [X] T006 [US1] `SweepEvent` em `src/Turfano/Parity/Polyclip/SweepEvent.cs` (porte de
   `sweep-event`: comparator de fila, link de eventos coincidentes — **atenção máxima aos
   empates**: `<` vs `<=` é onde o porte quebra silenciosamente).
-- [ ] T007 [US1] `Segment` em `src/Turfano/Parity/Polyclip/Segment.cs` (porte de `segment`:
+- [X] T007 [US1] `Segment` em `src/Turfano/Parity/Polyclip/Segment.cs` (porte de `segment`:
   comparator do status, split em interseção, flags de winding/anel).
-- [ ] T008 [US1] `RingIn/PolyIn/MultiPolyIn` (geom-in) + `SweepLine` + `PolyclipOperation`
+- [X] T008 [US1] `RingIn/PolyIn/MultiPolyIn` (geom-in) + `SweepLine` + `PolyclipOperation`
   (union/intersection/difference/xor) + `RingOut/PolyOut/MultiPolyOut` (geom-out) em
   `src/Turfano/Parity/Polyclip/{PolyclipInput,SweepLine,PolyclipOperation,PolyclipOutput}.cs`.
-- [ ] T009 [US1] REWIRE `src/Turfano/Parity/Overlay.cs`: `Geo.Union/Difference/Intersect/
+- [X] T009 [US1] REWIRE `src/Turfano/Parity/Overlay.cs`: `Geo.Union/Difference/Intersect/
   Dissolve` chamam `PolyclipOperation` (entrada `Position[][][]`, saída → `Polygon`/
   `MultiPolygon`/`null`); remover os usos da `NtsBridge`.
 - [ ] T010 [US1] Regressão + casos novos: `OverlayTests` (Onda E) passam inalterados;
