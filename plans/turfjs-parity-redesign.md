@@ -526,26 +526,49 @@ Lições novas: `JsonNode.GetValue<double>()` não coage int (helper `NumberOrNu
 ---
 
 ## Phase 10: Onda G — Pacotes restantes (paridade total)
-Status: Not started
+Status: Complete
 
 Fechar a paridade com o restante do TurfJS ainda não coberto.
 → `/speckit-specify parity-wave-remaining`.
 
-- [ ] Random: `randomPosition`, `randomPoint`, `randomLineString`, `randomPolygon`.
-- [ ] Classification/Aggregation: `clustersKmeans`, `clustersDbscan`, `clusters`,
+- [x] Random: `randomPosition`, `randomPoint`, `randomLineString`, `randomPolygon`.
+- [x] Classification/Aggregation: `clustersKmeans`, `clustersDbscan`, `clusters`,
   `collect`, `sample`.
-- [ ] Quaisquer helpers/`@turf/*` restantes identificados no cruzamento com
+- [x] Quaisquer helpers/`@turf/*` restantes identificados no cruzamento com
   `MISSING_FUNCTIONS.md` e o índice de `@turf` em `reference/`.
 
 ### Verification Plan
 - Cruzar a lista completa de funções do `@turf` (de `reference/node_modules/@turf`)
   com a API pública do Turfano: **cobertura 100%** (ou itens fora de escopo
   explicitamente listados).
+- **Resultado (2026-07-02)**: cruzamento final = **0 faltantes** (115 módulos), com as
+  exclusões explícitas `buffer` (satélite) e `geojson-rbush` (infra interna). Suíte
+  270 → **295, 0 falhas**; AOT 0 warnings; `Parity/` livre de NTS; legado intocado.
 
 ### Phase Summary
-_(escrever quando a fase concluir)_
 
----
+Concluída em 2026-07-02 na feature `011-parity-remaining` (Spec Kit completo). 27 funções
+em 4 USs — **fecha a paridade total**:
+
+- **US2 Formas/projeção**: `ToMercator`/`ToWgs84` (cumpriu o pré-requisito da leva 2),
+  `Mask` sobre o polyclip nativo, `Ellipse`, `Sector`, `LineArc`.
+- **US1 Linhas**: **rbush 3.x + quickselect** e **sweepline-intersections** portados 1:1
+  (`Parity/Spatial/` — a ordem do `Search`/heap é observável e foi preservada);
+  `LineSegment`/`LineIntersect`/`LineOverlap`/`LineSplit`, `Angle`, `NearestPointToLine`,
+  `ShortestPath` (A* do javascript-astar), `UnkinkPolygon` (simplepolygon embutido).
+- **US3 Estatística** (subagente): 8 funções; descobertas: o default REAL do
+  `directionalMean` é `planar=false` (fonte vence JSDoc); `distanceWeight` não tem
+  `bandwidth`; dois regimes de resolução de peso coexistem no @turf (falsy-0 vs
+  null-only) e foram mantidos distintos.
+- **US4 Random/clusters** (subagente): kmeans é **determinístico** (centroides = k
+  primeiros pontos → só o caminho Lloyd do skmeans foi portado); dbscan com rbush
+  `maxEntries = n` (muda a forma da árvore e a ordem de visita, que define core/edge);
+  helpers com a ordem de chaves numéricas do JS; `collect` com `null` para propriedade
+  ausente; random/sample com `Random.Shared` e testes estruturais.
+
+NOTICE ganhou rbush, sweepline-intersections e skmeans (todos MIT). Lições novas:
+padrões `is Tipo` colidem com os métodos-fábrica do `Geo` (usar `Tipo _`); sorts do JS
+sobre pares de coordenadas comparam STRINGS.
 
 ## Phase 11: Saída do NTS + limpeza da superfície legada (rumo à 1.0)
 Status: In progress
