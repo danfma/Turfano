@@ -3,10 +3,10 @@
     <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>0.8.0</Version>
+    <Version>1.0.0-rc.1</Version>
     <IsPackable>true</IsPackable>
     <Title>Turfano</Title>
-    <Description>A port of the excellent TurfJs library to .NET on top of existing libraries like NetTopologySuite and UnitsNet.</Description>
+    <Description>Faithful .NET port of TurfJS over its own GeoJSON types — zero dependencies, AOT-ready.</Description>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -16,19 +16,16 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/danfma/Turfano</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
-    <PackageTags>TurfJS NetTopologySuite UnitsNet GIS</PackageTags>
+    <PackageTags>TurfJS GeoJSON GIS Geospatial</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetTopologySuite" Version="2.5.0" />
-    <PackageReference Include="NetTopologySuite.Features" Version="2.2.0" />
-    <PackageReference Include="UnitsNet" Version="6.0.0-pre013" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Expõe a ponte interna (Turfano.Interop.NtsBridge) aos testes. -->
+    <!-- Expõe os internals (ex.: ExactDecimal, SplayTreeSet) aos testes. -->
     <InternalsVisibleTo Include="Turfano.Tests" />
   </ItemGroup>
 </Project>

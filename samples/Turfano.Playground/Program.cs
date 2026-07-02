@@ -1,20 +1,28 @@
-﻿using NetTopologySuite.Geometries;
-using Turfano;
-using UnitsNet;
+using Turfano.GeoJson;
 
-var point = new Coordinate(-216.64061942615203, -121.90886183483946);
-var reference = new Coordinate(-122.39923954010011, 37.79706837753342);
+// Exemplo mínimo sobre a fachada Geo (tipos GeoJSON próprios, zero NTS/UnitsNet).
 
-var unitX = new Coordinate(-122.39923954010011 + 10, 37.79706837753342);
-var unitY = new Coordinate(-122.39923954010011, 37.79706837753342 + 10);
+var origin = new Position(-122.4194, 37.7749);
+var destination = new Position(-122.4094, 37.7849);
 
-var lngLine = new LineString([reference, unitX]);
-var latLine = new LineString([reference, unitY]);
+var square = Geo.Polygon(
+    [new Position(0, 0), new Position(1, 0), new Position(1, 1), new Position(0, 1), new Position(0, 0)]
+);
 
-var lngPoint = Turf.WalkAlong(lngLine, Length.FromMeters(point.X));
-var latPoint = Turf.WalkAlong(latLine, Length.FromMeters(point.Y));
-var finalPoint = new Coordinate(lngPoint.X, latPoint.Y);
+var overlappingSquare = Geo.Polygon(
+    [
+        new Position(0.5, 0.5),
+        new Position(1.5, 0.5),
+        new Position(1.5, 1.5),
+        new Position(0.5, 1.5),
+        new Position(0.5, 0.5),
+    ]
+);
 
-Console.WriteLine($"Longitude point: {lngPoint}");
-Console.WriteLine($"Latitude point: {latPoint}");
-Console.WriteLine($"Final point: {finalPoint}");
+var distance = Geo.Distance(origin, destination);
+var area = Geo.Area(square);
+var union = Geo.Union(square, overlappingSquare);
+
+Console.WriteLine($"Distância entre os pontos: {distance.Kilometers:F3} km");
+Console.WriteLine($"Área do quadrado unitário: {area.SquareMeters:F1} m²");
+Console.WriteLine($"União dos dois quadrados: {Geo.GetType(union!)}");
