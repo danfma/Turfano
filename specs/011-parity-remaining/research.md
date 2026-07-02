@@ -83,3 +83,9 @@ portados 1:1 (rbush, sweepline-intersections; skmeans parcial com atribuição).
 US2 primeiro `projection`+`mask` (ganhos rápidos, leva 2), depois US1 (rbush → line-*),
 US3 (estatística), US4 (kmeans/dbscan/collect/random). GT antes de cada porte
 (`reference/_waveg.mjs`, efêmero).
+
+## R11 — Cruzamento FINAL de cobertura (T028, 2026-07-02)
+
+115 módulos `@turf` × fachada `Geo` pós-Onda G: **0 faltantes — cobertura 100%**, com as
+duas exclusões explícitas previstas: `buffer` (satélite `Turfano.NetTopologySuite`) e
+`geojson-rbush` (infra interna, portada como `GeoJsonSpatialIndex`). SC-001 cumprido.

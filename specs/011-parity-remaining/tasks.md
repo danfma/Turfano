@@ -59,8 +59,8 @@
 
 ## Phase 7: Polish & Cross-Cutting
 
-- [ ] T028 Cruzamento FINAL de cobertura (script do R1 re-rodado): 100% ou exclusões listadas (buffer/geojson-rbush); registrar no research.md.
-- [ ] T029 Verificação final: suíte completa verde; AOT 0 warnings; grep NTS em Parity/ vazio; legado intocado; NOTICE ok. Remover `reference/_waveg.mjs`; atualizar `plans/turfjs-parity-redesign.md` (Fase 10: checkboxes + Phase Summary + Verification).
+- [X] T028 Cruzamento FINAL de cobertura (script do R1 re-rodado): 100% ou exclusões listadas (buffer/geojson-rbush); registrar no research.md.
+- [X] T029 Verificação final: suíte completa verde; AOT 0 warnings; grep NTS em Parity/ vazio; legado intocado; NOTICE ok. Remover `reference/_waveg.mjs`; atualizar `plans/turfjs-parity-redesign.md` (Fase 10: checkboxes + Phase Summary + Verification).
 
 ## Dependencies & Execution Order
 
