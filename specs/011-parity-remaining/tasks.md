@@ -42,20 +42,20 @@
 
 ## Phase 5: US3 — Estatística espacial (P2)
 
-- [ ] T017 [US3] GT no harness: as 8 funções com fixtures numéricas.
-- [ ] T018 [P] [US3] Portar center-mean (30) + center-median (79) → `src/Turfano/Parity/Stat.Centers.cs`.
-- [ ] T019 [P] [US3] Portar directional-mean (199) → `src/Turfano/Parity/Stat.DirectionalMean.cs` e distance-weight (79) → `src/Turfano/Parity/Stat.DistanceWeight.cs`.
-- [ ] T020 [P] [US3] Portar moran-index (75) → `src/Turfano/Parity/Stat.MoranIndex.cs`, nearest-neighbor-analysis (56) → `src/Turfano/Parity/Stat.NearestNeighbor.cs`, quadrat-analysis (113) → `src/Turfano/Parity/Stat.Quadrat.cs`, standard-deviational-ellipse (86) → `src/Turfano/Parity/Stat.SdEllipse.cs`.
-- [ ] T021 [US3] `tests/Turfano.Tests/Parity/StatTests.cs`; suíte verde.
+- [X] T017 [US3] GT no harness: as 8 funções com fixtures numéricas.
+- [X] T018 [P] [US3] Portar center-mean (30) + center-median (79) → `src/Turfano/Parity/Stat.Centers.cs`.
+- [X] T019 [P] [US3] Portar directional-mean (199) → `src/Turfano/Parity/Stat.DirectionalMean.cs` e distance-weight (79) → `src/Turfano/Parity/Stat.DistanceWeight.cs`.
+- [X] T020 [P] [US3] Portar moran-index (75) → `src/Turfano/Parity/Stat.MoranIndex.cs`, nearest-neighbor-analysis (56) → `src/Turfano/Parity/Stat.NearestNeighbor.cs`, quadrat-analysis (113) → `src/Turfano/Parity/Stat.Quadrat.cs`, standard-deviational-ellipse (86) → `src/Turfano/Parity/Stat.SdEllipse.cs`.
+- [X] T021 [US3] `tests/Turfano.Tests/Parity/StatTests.cs`; suíte verde.
 
 ## Phase 6: US4 — Aleatórios, clusters e agregação (P2)
 
-- [ ] T022 [US4] GT no harness: kmeans (determinístico — R3), dbscan, collect, cluster helpers (exatos); random/sample só estrutura de referência.
-- [ ] T023 [P] [US4] Portar o caminho executado do skmeans (~100, R3) como `internal KMeans` + `@turf/clusters-kmeans` (28) → `src/Turfano/Parity/Cluster.KMeans.cs`.
-- [ ] T024 [P] [US4] Portar `@turf/clusters-dbscan` (104; rbush) → `src/Turfano/Parity/Cluster.Dbscan.cs`. Depende de T008.
-- [ ] T025 [P] [US4] Portar clusters helpers (107) → `src/Turfano/Parity/Cluster.Helpers.cs` e `@turf/collect` (43; rbush) → `src/Turfano/Parity/Join.Collect.cs`.
-- [ ] T026 [P] [US4] Portar `@turf/random` (157) → `src/Turfano/Parity/RandomShapes.cs` e `@turf/sample` (24) → `src/Turfano/Parity/Misc.Sample.cs` (`Random.Shared`, R6).
-- [ ] T027 [US4] `tests/Turfano.Tests/Parity/RandomClusterTests.cs` (exatos p/ kmeans/dbscan/collect/helpers; estruturais p/ random/sample); suíte verde.
+- [X] T022 [US4] GT no harness: kmeans (determinístico — R3), dbscan, collect, cluster helpers (exatos); random/sample só estrutura de referência.
+- [X] T023 [P] [US4] Portar o caminho executado do skmeans (~100, R3) como `internal KMeans` + `@turf/clusters-kmeans` (28) → `src/Turfano/Parity/Cluster.KMeans.cs`.
+- [X] T024 [P] [US4] Portar `@turf/clusters-dbscan` (104; rbush) → `src/Turfano/Parity/Cluster.Dbscan.cs`. Depende de T008.
+- [X] T025 [P] [US4] Portar clusters helpers (107) → `src/Turfano/Parity/Cluster.Helpers.cs` e `@turf/collect` (43; rbush) → `src/Turfano/Parity/Join.Collect.cs`.
+- [X] T026 [P] [US4] Portar `@turf/random` (157) → `src/Turfano/Parity/RandomShapes.cs` e `@turf/sample` (24) → `src/Turfano/Parity/Misc.Sample.cs` (`Random.Shared`, R6).
+- [X] T027 [US4] `tests/Turfano.Tests/Parity/RandomClusterTests.cs` (exatos p/ kmeans/dbscan/collect/helpers; estruturais p/ random/sample); suíte verde.
 
 ## Phase 7: Polish & Cross-Cutting
 
