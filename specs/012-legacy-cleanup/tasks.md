@@ -6,4 +6,4 @@
 - [X] T004 [US2] Reescrever `samples/Turfano.Playground/Program.cs` e `benchmark/TimeAndMemoryUsage` mínimos sobre a fachada `Geo` (remover refs NTS/UnitsNet desses csproj se existirem); solution inteira compila.
 - [X] T005 [US2] Suíte completa 0 falhas; AOT smoke 0 warnings.
 - [X] T006 [US3] Versão `1.0.0-rc.1` + Title/Description novos nos dois csproj; `README.md` atualizado (fachada Geo, satélite, NOTICE); `dotnet pack` dos dois ok.
-- [ ] T007 Verificação SC-001 (greps vazios no core) e polish: plano-mãe Fase 11 Complete + Phase Summary + Final Recap; merge na main.
+- [X] T007 Verificação SC-001 (greps vazios no core) e polish: plano-mãe Fase 11 Complete + Phase Summary + Final Recap; merge na main.
