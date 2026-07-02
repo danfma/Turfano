@@ -36,11 +36,11 @@
 
 **Independent Test**: triangulação idêntica; valores numéricos apertados.
 
-- [ ] T008 [US2] GT no harness: `planepoint` (ponto dentro/fora do triângulo), `tin` (fixture de pontos com z — triângulos e props `a/b/c`), `interpolate` (grade IDW pequena; gridType square e point).
-- [ ] T009 [P] [US2] Portar `@turf/planepoint` (32) → `src/Turfano/Parity/Interpolate.Planepoint.cs`.
-- [ ] T010 [P] [US2] Portar `@turf/tin` (191, Delaunay incremental com supertriângulo/circumcírculos, data-model) → `src/Turfano/Parity/Interpolate.Tin.cs`.
-- [ ] T011 [US2] Portar `@turf/interpolate` (92, IDW) → `src/Turfano/Parity/Interpolate.Idw.cs` (`gridType`/`property`/`weight`; usa as grades da US1). Depende de T003–T006 e T010.
-- [ ] T012 [US2] `tests/Turfano.Tests/Parity/InterpolateTests.cs` com os valores do T008 (tin: triangulação NÃO-leque provada); suíte verde.
+- [X] T008 [US2] GT no harness: `planepoint` (ponto dentro/fora do triângulo), `tin` (fixture de pontos com z — triângulos e props `a/b/c`), `interpolate` (grade IDW pequena; gridType square e point).
+- [X] T009 [P] [US2] Portar `@turf/planepoint` (32) → `src/Turfano/Parity/Interpolate.Planepoint.cs`.
+- [X] T010 [P] [US2] Portar `@turf/tin` (191, Delaunay incremental com supertriângulo/circumcírculos, data-model) → `src/Turfano/Parity/Interpolate.Tin.cs`.
+- [X] T011 [US2] Portar `@turf/interpolate` (92, IDW) → `src/Turfano/Parity/Interpolate.Idw.cs` (`gridType`/`property`/`weight`; usa as grades da US1). Depende de T003–T006 e T010.
+- [X] T012 [US2] `tests/Turfano.Tests/Parity/InterpolateTests.cs` com os valores do T008 (tin: triangulação NÃO-leque provada); suíte verde.
 
 **Checkpoint**: US1+US2 = MVP da onda (grades + interpolação fiéis).
 
