@@ -105,19 +105,19 @@ seguir a fonte. Nada do legado é tocado (suíte 232 segue verde).
 **Independent Test**: teste do buffer (~3.12e10) passa via a nova API; ida-e-volta da
 bridge preserva furos/Z; teste confirma sequência empacotada.
 
-- [ ] T013 [US3] Criar `src/Turfano.NetTopologySuite/Turfano.NetTopologySuite.csproj`
+- [X] T013 [US3] Criar `src/Turfano.NetTopologySuite/Turfano.NetTopologySuite.csproj`
   (multi-target net8/9/10, refs `Turfano` + `NetTopologySuite 2.5`), adicionar ao
   `Turfano.slnx`; `tests/Turfano.Tests` ganha ProjectReference ao satélite.
-- [ ] T014 [US3] `NtsConvert` público em `src/Turfano.NetTopologySuite/NtsConvert.cs`:
+- [X] T014 [US3] `NtsConvert` público em `src/Turfano.NetTopologySuite/NtsConvert.cs`:
   `ToNts`/`FromNts` (Geometry + Position) com fronteira **empacotada**
   (`GeometryFactory(PackedCoordinateSequenceFactory.DoubleFactory)`, ida via
   `PackedDoubleCoordinateSequence(double[],2,0)`, volta via `GetRawCoordinates()` fast-path
   + `GetOrdinate` fallback). SEM `UnsafeAccessor` (FR-005).
-- [ ] T015 [US3] `NtsGeometryExtensions.Buffer` em
+- [X] T015 [US3] `NtsGeometryExtensions.Buffer` em
   `src/Turfano.NetTopologySuite/NtsGeometryExtensions.cs` (pipeline AEQD → NTS Buffer →
   desprojeção, movido da Onda E; helper local de mapeamento de posições); REMOVER do core
   `src/Turfano/Parity/Overlay.Buffer.cs` e `src/Turfano/Interop/NtsBridge.cs`.
-- [ ] T016 [US3] Testes: `BufferTests` atualizados para `geometry.Buffer(...)` (+ teste de
+- [X] T016 [US3] Testes: `BufferTests` atualizados para `geometry.Buffer(...)` (+ teste de
   que a sequência do resultado NTS é `PackedDoubleCoordinateSequence`);
   `GeoJsonFactoryAndBridgeTests` migrados para o `NtsConvert` público (ida-e-volta com
   furos e Z).
@@ -128,10 +128,10 @@ bridge preserva furos/Z; teste confirma sequência empacotada.
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
-- [ ] T017 Verificação final (SC-001..005): build `Turfano.slnx` (0 erros, net8/9/10, incl.
+- [X] T017 Verificação final (SC-001..005): build `Turfano.slnx` (0 erros, net8/9/10, incl.
   satélite) + suíte (232 + novos, 0 falhas) + smoke AOT serialização (0 warnings IL) +
   `git diff --stat main -- 'src/Turfano/Turf.*.cs'` vazio + `NOTICE` presente.
-- [ ] T018 [P] Remover harnesses efêmeros (`reference/_polyclip.mjs` etc.).
+- [X] T018 [P] Remover harnesses efêmeros (`reference/_polyclip.mjs` etc.).
 - [ ] T019 Atualizar `plans/turfjs-parity-redesign.md`: marcar os itens da leva 1 na Fase
   11 + registrar a otimização futura (caminho double + fallback exato) e o que resta para
   a leva 2 (pós-F/G).

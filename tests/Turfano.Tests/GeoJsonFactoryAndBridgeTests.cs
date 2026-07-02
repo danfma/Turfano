@@ -1,11 +1,12 @@
 using System.Text.Json;
 using Turfano.GeoJson;
-using Turfano.Interop;
+using Turfano.NetTopologySuite;
 using Pos = Turfano.GeoJson.Position;
 
 namespace Turfano.Tests;
 
-// US4: helpers estilo Turf (Geo.*) + ponte interna novos-tipos ↔ NTS (NtsBridge).
+// Fase 3 (US4) + feature 009: helpers estilo Turf (Geo.*) e a bridge PÚBLICA
+// novos-tipos ↔ NTS (NtsConvert, no satélite Turfano.NetTopologySuite).
 public class GeoJsonFactoryAndBridgeTests
 {
     [Test]
@@ -24,9 +25,9 @@ public class GeoJsonFactoryAndBridgeTests
     }
 
     [Test]
-    public async Task NtsBridge_RoundTrip_PreservesCoordinates()
+    public async Task NtsConvert_RoundTrip_PreservesCoordinates()
     {
-        // Polígono com furo (shell + hole) — ida e volta pela ponte preserva a estrutura.
+        // Polígono com furo (shell + hole) — ida e volta pela bridge preserva a estrutura.
         var poly = Geo.Polygon(
             new[]
             {
@@ -35,8 +36,8 @@ public class GeoJsonFactoryAndBridgeTests
             }
         );
 
-        var nts = NtsBridge.ToNts(poly);
-        var back = NtsBridge.FromNts(nts);
+        var nts = NtsConvert.ToNts(poly);
+        var back = NtsConvert.FromNts(nts);
 
         // Compara via a serialização GeoJSON (estrutura completa).
         var ti = GeoJsonSerializerContext.Default.GeoJsonObject;
@@ -46,11 +47,11 @@ public class GeoJsonFactoryAndBridgeTests
     }
 
     [Test]
-    public async Task NtsBridge_Preserves3DPosition()
+    public async Task NtsConvert_Preserves3DPosition()
     {
         var p = Geo.Point(1, 2, 3);
-        var nts = NtsBridge.ToNts(p);
-        var back = (Turfano.GeoJson.Point)NtsBridge.FromNts(nts);
+        var nts = NtsConvert.ToNts(p);
+        var back = (Turfano.GeoJson.Point)NtsConvert.FromNts(nts);
         await Assert.That(back.Coordinates).IsEqualTo(new Pos(1, 2, 3));
     }
 }
