@@ -73,7 +73,7 @@ seguir a fonte. Nada do legado é tocado (suíte 232 segue verde).
 - [X] T009 [US1] REWIRE `src/Turfano/Parity/Overlay.cs`: `Geo.Union/Difference/Intersect/
   Dissolve` chamam `PolyclipOperation` (entrada `Position[][][]`, saída → `Polygon`/
   `MultiPolygon`/`null`); remover os usos da `NtsBridge`.
-- [ ] T010 [US1] Regressão + casos novos: `OverlayTests` (Onda E) passam inalterados;
+- [X] T010 [US1] Regressão + casos novos: `OverlayTests` (Onda E) passam inalterados;
   adicionar em `tests/Turfano.Tests/Parity/OverlayTests.cs` 2 casos com **furos** e 1 de
   **xor**(se exposto)/idênticos (GT via harness Bun `reference/_polyclip.mjs`, efêmero).
 

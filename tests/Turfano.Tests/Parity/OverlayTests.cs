@@ -44,4 +44,37 @@ public class OverlayTests
         );
         await Assert.That(G.Intersect(A(), far)).IsNull();
     }
+
+    private static GeoJson.Polygon Small() =>
+        new(new[] { new[] { new Pos(1, 1), new Pos(1, 2), new Pos(2, 2), new Pos(2, 1), new Pos(1, 1) } });
+
+    [Test]
+    public async Task Difference_ProducesHole_MatchesTurf()
+    {
+        // A − small (contido) → polígono COM FURO (2 anéis); área do @turf real
+        var result = (GeoJson.Polygon)G.Difference(A(), Small())!;
+        await Assert.That(result.Coordinates.Length).IsEqualTo(2);
+        await Assert.That(G.Area(result).SquareMeters).IsEqualTo(185308921484.57187).Within(1e4);
+    }
+
+    [Test]
+    public async Task Union_FillsHole_And_IdempotentOnSelf_MatchesTurf()
+    {
+        // (A com furo) ∪ small → furo preenchido de volta (1 anel)
+        var holed = new GeoJson.Polygon(
+            new[]
+            {
+                new[] { new Pos(0, 0), new Pos(0, 4), new Pos(4, 4), new Pos(4, 0), new Pos(0, 0) },
+                new[] { new Pos(1, 1), new Pos(1, 2), new Pos(2, 2), new Pos(2, 1), new Pos(1, 1) },
+            }
+        );
+        var filled = (GeoJson.Polygon)G.Union(holed, Small())!;
+        await Assert.That(filled.Coordinates.Length).IsEqualTo(1);
+        await Assert.That(G.Area(filled).SquareMeters).IsEqualTo(197668873521.43488).Within(1e4);
+
+        // A ∪ A = A
+        var same = (GeoJson.Polygon)G.Union(A(), A())!;
+        await Assert.That(same.Coordinates.Length).IsEqualTo(1);
+        await Assert.That(G.Area(same).SquareMeters).IsEqualTo(197668873521.43488).Within(1e4);
+    }
 }
