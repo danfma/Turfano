@@ -10,4 +10,5 @@
     <Project Path="tests\Turfano.AotSmoke\Turfano.AotSmoke.csproj" />
   </Folder>
   <Project Path="src\Turfano\Turfano.csproj" />
+  <Project Path="src\Turfano.NetTopologySuite\Turfano.NetTopologySuite.csproj" />
 </Solution>

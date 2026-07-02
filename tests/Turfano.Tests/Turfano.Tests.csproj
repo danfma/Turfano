@@ -15,5 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Turfano\Turfano.csproj" />
+    <ProjectReference Include="..\..\src\Turfano.NetTopologySuite\Turfano.NetTopologySuite.csproj" />
   </ItemGroup>
 </Project>

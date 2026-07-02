@@ -523,7 +523,23 @@ _(escrever quando a fase concluir)_
 ---
 
 ## Phase 11: Saída do NTS + limpeza da superfície legada (rumo à 1.0)
-Status: Not started
+Status: In progress
+
+**Sequenciamento em DUAS levas** (descoberto ao iniciar, 2026-07-01): a superfície legada
+`Turf.*` contém funções que o `Geo` ainda não cobre (`Isolines`, `Isobands`, projeção —
+escopo das Ondas F/G), então deletá-la agora regrediria a lib. Execução:
+- **Leva 1 — "engine exit" (feature `009-nts-engine-exit`)**: ✅ **CONCLUÍDA em 2026-07-02.**
+  Porte fiel do polyclip-ts em `Parity/Polyclip/` (`ExactDecimal` com div/sqrt a 20 casas
+  half-up + `SplayTreeSet` + sweep completo) — **regressão de primeira** nas âncoras da
+  Onda E (+ casos com furos); `@turf/polygonize` portado (grafo GEOS-style); **`Parity/` é
+  zona livre de NTS** (grep vazio); satélite **`Turfano.NetTopologySuite`** (nome final;
+  era "Turfano.Buffer" no rascunho) com `NtsConvert` público empacotado
+  (`GetRawCoordinates` fast-path, Z preservado) + `Buffer` como extension method. Suíte
+  245/0; NOTICE com MIT/BSD-3. **Otimização futura registrada**: caminho rápido em double
+  com fallback exato no sweep (o `@turf` paga o mesmo custo de decimal arbitrário — fazer
+  só com profiling).
+- **Leva 2 — "limpeza final" (DEPOIS das Ondas F/G)**: deletar a superfície legada
+  `Turf.*` + remover UnitsNet + remover a referência NTS do core + split/publicação 1.0.
 
 Decisão fechada com o usuário em 2026-07-01 (ver discussão registrada abaixo). O objetivo
 final é **uma única representação pública** (os tipos próprios), core **sem dependências**
@@ -544,11 +560,11 @@ e AOT-limpo, com o NTS sobrevivendo apenas num pacote satélite de UMA função 
   **rejeitado**: pessimizaria as ~99 funções nativas (heap por vértice, perda da semântica
   de record e do AOT da lib inteira) para poupar duas cópias O(n) em 1 função.
 
-- [ ] Portar o **`polyclip-ts`** (MIT, 1.137 linhas) sobre os tipos próprios →
+- [x] Portar o **`polyclip-ts`** (MIT, 1.137 linhas) sobre os tipos próprios →
   `Geo.Union`/`Difference`/`Intersect`/`Dissolve` nativos (fidelidade por construção: é o
   motor que o `@turf` executa). Manter atribuição (licença MIT no NOTICE).
-- [ ] Portar o **`@turf/polygonize`** (635 linhas) → `Geo.Polygonize` nativo.
-- [ ] **`Turfano.Buffer`** (pacote satélite): mover `Geo.Buffer` para um pacote próprio que
+- [x] Portar o **`@turf/polygonize`** (635 linhas) → `Geo.Polygonize` nativo.
+- [x] **`Turfano.Buffer`** (pacote satélite): mover `Geo.Buffer` para um pacote próprio que
   referencia o NTS (o core perde a dependência). Pipeline (projeção AEQD própria → NTS
   Buffer → desprojeção) permanece — é o mesmo pedágio que o `@turf` paga com o JSTS.
   **Escada de otimização da fronteira** (verificada na API pública do NTS 2.5 em
@@ -568,7 +584,7 @@ e AOT-limpo, com o NTS sobrevivendo apenas num pacote satélite de UMA função 
      update do NTS vira `MissingFieldException` em runtime. Se algum dia usado: NTS com
      versão pinada no satélite + checagem que falha alto na inicialização + caminho de
      fallback via API pública.
-- [ ] Tornar a **`NtsBridge` pública** (`ToNts`/`FromNts`) para interop na borda
+- [x] Tornar a **`NtsBridge` pública** (`ToNts`/`FromNts`) para interop na borda
   (EF Core spatial etc.) — conversão única, não por operação.
 - [ ] **Deletar a superfície legada `Turf.*`** (72 arquivos, NTS/UnitsNet nas assinaturas —
   a fonte real de "induzir o dev ao erro") + remover a dependência **UnitsNet** do core.

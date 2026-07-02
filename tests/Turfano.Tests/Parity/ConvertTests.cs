@@ -78,4 +78,18 @@ public class ConvertTests
         await Assert.That(vertices.Contains(new Pos(0, 0))).IsTrue();
         await Assert.That(vertices.Contains(new Pos(4, 4))).IsTrue();
     }
+
+    [Test]
+    public async Task Polygonize_OpenLines_IsEmpty()
+    {
+        // linhas que não fecham anel → coleção vazia (= @turf; dangles removidos)
+        var open = new GeoJson.FeatureCollection(
+            new[]
+            {
+                new GeoJson.Feature(new GeoJson.LineString(new[] { new Pos(0, 0), new Pos(4, 0) })),
+                new GeoJson.Feature(new GeoJson.LineString(new[] { new Pos(4, 0), new Pos(4, 4) })),
+            }
+        );
+        await Assert.That(G.Polygonize(open).Features.Length).IsEqualTo(0);
+    }
 }

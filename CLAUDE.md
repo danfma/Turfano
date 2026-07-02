@@ -81,10 +81,12 @@ dotnet run --project benchmark/TimeAndMemoryUsage -c Release
   `bun install`, `bun run <file>`, `bun test`.
 
 <!-- SPECKIT START -->
-Plano da feature ativa: `specs/008-parity-overlay/plan.md` (Fase 8 / Onda E — Overlay &
-Clipping; ver o plano-mãe `plans/turfjs-parity-redesign.md`; Fases 1–7 já na `main`, incl. as
-Ondas A–D na fachada `Geo`). Esta onda usa o **motor NTS interino** (via `Turfano.Interop.
-NtsBridge`) para overlay/buffer — decisão medida da Fase 2 (`docs/nts-evaluation.md`) — e
-porta só o `bboxClip`. Consulte o plano e os artefatos (`spec.md`, `research.md`,
-`data-model.md`, `contracts/`, `quickstart.md`).
+Plano da feature ativa: `specs/009-nts-engine-exit/plan.md` (Fase 11 leva 1 — saída do
+motor NTS; ver o plano-mãe `plans/turfjs-parity-redesign.md`, Fases 1–8 já na `main`).
+Porte fiel do `polyclip-ts` (+ `splaytree-ts` + decimal exato próprio) sobre os tipos
+próprios → overlay nativo sem NTS; porte do `@turf/polygonize`; satélite
+`Turfano.NetTopologySuite` (Buffer como extensão + `NtsConvert` público com fronteira
+empacotada). Decisão estratégica fechada na Fase 11 do plano-mãe (fatos medidos — não
+re-litigar). Consulte o plano e os artefatos (`spec.md`, `research.md`, `data-model.md`,
+`contracts/`, `quickstart.md`).
 <!-- SPECKIT END -->

@@ -3,32 +3,47 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Monta polígonos a partir de uma rede de linhas — `@turf/polygonize`. Usa o `Polygonizer`
-    /// do NetTopologySuite (motor interino) via a ponte `Turfano.Interop.NtsBridge`; a forma
-    /// casa com o `@turf` (a ordem dos vértices do anel pode diferir).
+    /// Monta polígonos a partir de uma rede de linhas — porte fiel do `@turf/polygonize`
+    /// (grafo de arestas estilo GEOS: remove dangles e cut-edges, extrai anéis e classifica
+    /// shells/furos). Nativo — sem NTS.
     /// </summary>
     public static FeatureCollection Polygonize(FeatureCollection lines)
     {
-        var polygonizer = new NetTopologySuite.Operation.Polygonize.Polygonizer();
-
+        var lineCoordinates = new List<Position[]>();
         foreach (var feature in lines.Features)
         {
             switch (feature.Geometry)
             {
-                case LineString ls:
-                    polygonizer.Add(Turfano.Interop.NtsBridge.ToNts(ls));
+                case LineString lineString:
+                    lineCoordinates.Add(lineString.Coordinates);
                     break;
-                case MultiLineString mls:
-                    foreach (var line in mls.Coordinates)
-                        polygonizer.Add(Turfano.Interop.NtsBridge.ToNts(new LineString(line)));
+                case MultiLineString multiLineString:
+                    lineCoordinates.AddRange(multiLineString.Coordinates);
                     break;
             }
         }
 
-        var features = new List<Feature>();
-        foreach (NetTopologySuite.Geometries.Geometry polygon in polygonizer.GetPolygons())
-            features.Add(new Feature(Turfano.Interop.NtsBridge.FromNts(polygon)));
+        var graph = PolygonizeGraph.FromLines(lineCoordinates);
+        graph.DeleteDangles();
+        graph.DeleteCutEdges();
 
-        return new FeatureCollection(features.ToArray());
+        var holes = new List<PolygonizeEdgeRing>();
+        var shells = new List<PolygonizeEdgeRing>();
+        foreach (var edgeRing in graph.GetEdgeRings())
+        {
+            if (edgeRing.IsHole())
+                holes.Add(edgeRing);
+            else
+                shells.Add(edgeRing);
+        }
+
+        // furos contidos num shell viram polígonos próprios (comportamento do @turf)
+        foreach (var hole in holes)
+        {
+            if (PolygonizeEdgeRing.FindEdgeRingContaining(hole, shells) is not null)
+                shells.Add(hole);
+        }
+
+        return new FeatureCollection(shells.Select(shell => new Feature(shell.ToPolygon())).ToArray());
     }
 }
