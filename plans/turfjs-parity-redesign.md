@@ -549,10 +549,25 @@ e AOT-limpo, com o NTS sobrevivendo apenas num pacote satélite de UMA função 
   motor que o `@turf` executa). Manter atribuição (licença MIT no NOTICE).
 - [ ] Portar o **`@turf/polygonize`** (635 linhas) → `Geo.Polygonize` nativo.
 - [ ] **`Turfano.Buffer`** (pacote satélite): mover `Geo.Buffer` para um pacote próprio que
-  referencia o NTS (o core perde a dependência). Otimização interna: `CoordinateSequence`
-  customizada envelopando `Position[]` (zero cópia na ida; a volta é cópia inevitável do
-  resultado). Pipeline atual (projeção AEQD própria → NTS Buffer → desprojeção) permanece —
-  é o mesmo pedágio que o `@turf` paga com o JSTS.
+  referencia o NTS (o core perde a dependência). Pipeline (projeção AEQD própria → NTS
+  Buffer → desprojeção) permanece — é o mesmo pedágio que o `@turf` paga com o JSTS.
+  **Escada de otimização da fronteira** (verificada na API pública do NTS 2.5 em
+  2026-07-01; resolve o problema "Coordinate é classe + cópia defensiva → pressão no GC"):
+  1. **`PackedDoubleCoordinateSequence` + `GeometryFactory(CoordinateSequenceFactory)`**
+     nos DOIS sentidos: ida = `Position[]` → `double[]` cru → sequência empacotada
+     (`ctor(double[],dim,measures)`); as operações do NTS constroem o resultado com a
+     factory da entrada → a volta lê via **`GetRawCoordinates()`** (público, devolve o
+     array interno **sem cópia**). **Zero objetos `Coordinate`** em ambos os lados; sobram
+     só as alocações internas do algoritmo (preço do noding, irremovível por fronteira).
+  2. (Opcional) subclasse de `CoordinateSequence` lendo direto do `Position[]` — elimina
+     até a cópia crua da ida (`Position` não é blittable por causa do `double? Alt`, então
+     nada de reinterpretar memória; leitura por índice).
+  3. **`UnsafeAccessor` = último recurso documentado, NÃO usar por padrão**: só se um
+     profiling futuro mostrar hotspot de fronteira que a API pública não alcança. Motivo:
+     amarra a membros privados POR NOME de assembly de terceiro → rename interno num
+     update do NTS vira `MissingFieldException` em runtime. Se algum dia usado: NTS com
+     versão pinada no satélite + checagem que falha alto na inicialização + caminho de
+     fallback via API pública.
 - [ ] Tornar a **`NtsBridge` pública** (`ToNts`/`FromNts`) para interop na borda
   (EF Core spatial etc.) — conversão única, não por operação.
 - [ ] **Deletar a superfície legada `Turf.*`** (72 arquivos, NTS/UnitsNet nas assinaturas —
