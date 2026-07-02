@@ -61,17 +61,17 @@
 
 **Independent Test**: estrutura igual ao `@turf` nas mesmas fixtures.
 
-- [ ] T017 [US4] GT no harness: `convex` (nuvem de pontos), `concave` (pontos + maxEdge, incl. caso sem solução → null), `tesselate` (polígono com furo), `voronoi` (pontos + bbox — células completas de caso pequeno).
-- [ ] T018 [P] [US4] `Convex` (monotone chain do concaveman, R2) → `src/Turfano/Parity/Hull.Convex.cs`.
-- [ ] T019 [P] [US4] `Concave` (tin + filtro maxEdge + união n-ária nativa, R3) → `src/Turfano/Parity/Hull.Concave.cs`. Depende de T010.
-- [ ] T020 [P] [US4] Portar earcut 3.x 1:1 (681, lista circular + z-order, data-model) → `src/Turfano/Parity/Tessellation/Earcut.cs` + wrapper `Tesselate` (71) → `src/Turfano/Parity/Convert.Tesselate.cs`.
-- [ ] T021 [US4] Portar d3-voronoi 1.1.2 1:1 (~1004: RB-tree, beach line, circles, clipping por extent; globais do módulo viram instância, data-model) → `src/Turfano/Parity/Tessellation/FortuneVoronoi.cs` + wrapper `Voronoi` (33) → `src/Turfano/Parity/Misc.Voronoi.cs`.
-- [ ] T022 [US4] `tests/Turfano.Tests/Parity/HullTessellationTests.cs` com os valores do T017; suíte verde.
+- [X] T017 [US4] GT no harness: `convex` (nuvem de pontos), `concave` (pontos + maxEdge, incl. caso sem solução → null), `tesselate` (polígono com furo), `voronoi` (pontos + bbox — células completas de caso pequeno).
+- [X] T018 [P] [US4] `Convex` (monotone chain do concaveman, R2) → `src/Turfano/Parity/Hull.Convex.cs`.
+- [X] T019 [P] [US4] `Concave` (tin + filtro maxEdge + união n-ária nativa, R3) → `src/Turfano/Parity/Hull.Concave.cs`. Depende de T010.
+- [X] T020 [P] [US4] Portar earcut 3.x 1:1 (681, lista circular + z-order, data-model) → `src/Turfano/Parity/Tessellation/Earcut.cs` + wrapper `Tesselate` (71) → `src/Turfano/Parity/Convert.Tesselate.cs`.
+- [X] T021 [US4] Portar d3-voronoi 1.1.2 1:1 (~1004: RB-tree, beach line, circles, clipping por extent; globais do módulo viram instância, data-model) → `src/Turfano/Parity/Tessellation/FortuneVoronoi.cs` + wrapper `Voronoi` (33) → `src/Turfano/Parity/Misc.Voronoi.cs`.
+- [X] T022 [US4] `tests/Turfano.Tests/Parity/HullTessellationTests.cs` com os valores do T017; suíte verde.
 
 ## Phase 7: Polish & Cross-Cutting
 
-- [ ] T023 Verificação final: suíte completa verde (245 + novos); AOT smoke 0 warnings IL; `grep -rn "NetTopologySuite" src/Turfano/Parity/` vazio; `git diff main -- 'src/Turfano/Turf.*.cs'` vazio (legado intocado); NOTICE atualizado.
-- [ ] T024 Remover `reference/_wavef.mjs`; atualizar `plans/turfjs-parity-redesign.md` (Fase 9: checkboxes + Phase Summary + Verification result).
+- [X] T023 Verificação final: suíte completa verde (245 + novos); AOT smoke 0 warnings IL; `grep -rn "NetTopologySuite" src/Turfano/Parity/` vazio; `git diff main -- 'src/Turfano/Turf.*.cs'` vazio (legado intocado); NOTICE atualizado.
+- [X] T024 Remover `reference/_wavef.mjs`; atualizar `plans/turfjs-parity-redesign.md` (Fase 9: checkboxes + Phase Summary + Verification result).
 
 ## Dependencies & Execution Order
 
