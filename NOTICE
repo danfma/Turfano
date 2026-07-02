@@ -1,0 +1,17 @@
+# NOTICE — atribuições de terceiros
+
+O Turfano porta algoritmos das seguintes bibliotecas de código aberto. Os ports em C#
+preservam a lógica das fontes originais; os avisos de copyright abaixo se aplicam.
+
+## TurfJS (https://github.com/Turfjs/turf) — MIT License
+Copyright (c) 2019 Morgan Herlocker
+Fonte dos algoritmos das funções de paridade (fachada `Geo`), incluindo `@turf/polygonize`.
+
+## polyclip-ts (https://github.com/luizbarboza/polyclip-ts) — MIT License
+Copyright (c) 2022 Luiz Felipe Machado Barboza
+Fonte do motor de boolean ops de polígonos (Martinez–Rueda) portado em
+`src/Turfano/Parity/Polyclip/`.
+
+## splaytree-ts (https://github.com/luizbarboza/splaytree-ts) — BSD 3-Clause License
+Copyright (c) 2022 Luiz Felipe Machado Barboza
+Fonte da árvore splay portada em `src/Turfano/Parity/Polyclip/SplayTreeSet.cs`.

@@ -26,7 +26,7 @@ seguir a fonte. Nada do legado é tocado (suíte 232 segue verde).
 
 ## Phase 1: Setup
 
-- [ ] T001 Confirmar baseline `dotnet build Turfano.slnx -c Debug` (0 erros) + suíte 232/0;
+- [X] T001 Confirmar baseline `dotnet build Turfano.slnx -c Debug` (0 erros) + suíte 232/0;
   criar `src/Turfano/Parity/Polyclip/` e o arquivo `NOTICE` na raiz (MIT `polyclip-ts` ©
   2022 Luiz Felipe Machado Barboza; BSD-3 `splaytree-ts` © 2022 idem; MIT TurfJS).
 
@@ -34,13 +34,13 @@ seguir a fonte. Nada do legado é tocado (suíte 232 segue verde).
 
 ## Phase 2: Foundational (Blocking Prerequisites — as fundações do motor)
 
-- [ ] T002 `ExactDecimal` em `src/Turfano/Parity/Polyclip/ExactDecimal.cs`: decimal exato
+- [X] T002 `ExactDecimal` em `src/Turfano/Parity/Polyclip/ExactDecimal.cs`: decimal exato
   (`BigInteger` mantissa + expoente) com `Add/Subtract/Multiply/CompareTo/Abs/Square/
   IsZero/FromDouble/ToDouble` — as únicas operações que o bundle usa (research Decisão 1).
   Se divisão/sqrt aparecer na leitura linha-a-linha, reproduzir defaults do bignumber.js e
   registrar. Testes unitários em `tests/Turfano.Tests/Parity/ExactDecimalTests.cs`
   (exatidão de +,−,×; compare com expoentes distintos; FromDouble round-trip).
-- [ ] T003 `SplayTreeSet<T>` em `src/Turfano/Parity/Polyclip/SplayTreeSet.cs`: porte 1:1 do
+- [X] T003 `SplayTreeSet<T>` em `src/Turfano/Parity/Polyclip/SplayTreeSet.cs`: porte 1:1 do
   `splaytree-ts` (687 linhas; `add/addAndReturn/delete/contains/first/last/lastBefore/
   firstAfter/iteração ordenada` — conferir na fonte o conjunto exato usado pelo polyclip).
   Testes em `tests/Turfano.Tests/Parity/SplayTreeSetTests.cs` (ordem, vizinhos, dedupe por

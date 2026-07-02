@@ -12,8 +12,12 @@ bundle). **As coordenadas fluem como `BigNumber` pelo algoritmo inteiro** (embru
 1. **`ExactDecimal`** (substitui o `bignumber.js`): decimal de precisão arbitrária com
    mantissa `System.Numerics.BigInteger` + expoente. **Verificado no bundle**: as únicas
    operações usadas são `plus/minus/times/comparedTo/abs/exponentiatedBy(2)/
-   isLessThanOrEqualTo/sqrt(?)` — **nenhum `dividedBy` encontrado** → todas as operações
-   são **exatas**, sem semântica de arredondamento a reproduzir. O polyclip **não
+   isLessThanOrEqualTo/sqrt(?)` — CORREÇÃO (leitura integral, 2026-07-01): o módulo `vector` USA `div` e `sqrt` (aliases curtos —
+   o grep por `dividedBy` não pegou): `intersection`, `sineOfAngle`/`cosineOfAngle` e `length`.
+   Logo o `ExactDecimal` PRECISA de divisão e raiz com os defaults do bignumber.js:
+   resultado arredondado a **20 casas decimais, ROUND_HALF_UP**. Soma/subtração/multiplicação
+   seguem exatas. O bbox do `MultiPolyIn` usa `±Infinity` → o decimal precisa de sentinelas
+   de infinito (só para comparação). O polyclip **não
    configura** o BigNumber (sem `BigNumber.config`). *Tarefa de verificação no porte*: se
    alguma divisão/sqrt aparecer na leitura linha-a-linha, reproduzir os defaults do
    bignumber.js (20 casas, half-up) e registrar.
