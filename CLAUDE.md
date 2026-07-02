@@ -81,11 +81,11 @@ dotnet run --project benchmark/TimeAndMemoryUsage -c Release
   `bun install`, `bun run <file>`, `bun test`.
 
 <!-- SPECKIT START -->
-Plano da feature ativa: `specs/010-parity-interpolation-grids/plan.md` (Onda F —
-Interpolation/Grids/Triangulation; ver o plano-mãe `plans/turfjs-parity-redesign.md`,
-Fases 1–8 + Fase 11 leva 1 na `main`). Grades/tin/interpolate/isolines/isobands/hulls/
-voronoi/tesselate fiéis ao @turf na fachada `Geo`; portes medidos: earcut (681) e
-d3-voronoi (~1004); isolines/isobands autocontidos; concave via Union nativo (sem
-topojson). Os 6 algoritmos ingênuos do legado ganham versão fiel. Consulte os artefatos
-(`spec.md`, `research.md`, `data-model.md`, `contracts/`, `quickstart.md`).
+Plano da feature ativa: `specs/011-parity-remaining/plan.md` (Onda G — paridade
+total, Fase 10; plano-mãe `plans/turfjs-parity-redesign.md`, Fases 1–9 + 11 leva 1 na
+`main`). 27 funções fecham 100% do índice @turf: linhas (rbush e sweepline-intersections
+portados 1:1), formas/projeção (mask via polyclip nativo; toMercator/toWgs84 desbloqueia
+a leva 2), estatística espacial, random/clusters (kmeans DETERMINÍSTICO — centroides = k
+primeiros pontos). Aleatórios: testes estruturais. Artefatos: research (R1–R10),
+data-model, contracts, quickstart.
 <!-- SPECKIT END -->
