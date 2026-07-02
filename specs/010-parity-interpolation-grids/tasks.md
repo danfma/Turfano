@@ -9,7 +9,7 @@
 
 ## Phase 1: Setup
 
-- [ ] T001 Atualizar `NOTICE` com earcut (ISC © Mapbox) e d3-voronoi (BSD-3 © Mike Bostock) — os dois portes 1:1 novos desta onda.
+- [X] T001 Atualizar `NOTICE` com earcut (ISC © Mapbox) e d3-voronoi (BSD-3 © Mike Bostock) — os dois portes 1:1 novos desta onda.
 
 ## Phase 2: Foundational
 
@@ -21,12 +21,12 @@
 
 **Independent Test**: contagem + coordenadas das células iguais ao `@turf`; mask filtra.
 
-- [ ] T002 [US1] GT das grades via harness bun efêmero `reference/_wavef.mjs`: contagens e primeiras células de `pointGrid`/`squareGrid`/`hexGrid`(hex+triangles)/`triangleGrid` numa bbox fixa, com e sem mask.
-- [ ] T003 [P] [US1] Portar `@turf/rectangle-grid` (55 linhas) → `src/Turfano/Parity/Grid.RectangleGrid.cs` (`RectangleGrid` + `SquareGrid` wrapper; mask via `BooleanIntersects`).
-- [ ] T004 [P] [US1] Portar `@turf/point-grid` (42) → `src/Turfano/Parity/Grid.PointGrid.cs` (mask via `BooleanWithin`).
-- [ ] T005 [P] [US1] Portar `@turf/hex-grid` (113) → `src/Turfano/Parity/Grid.HexGrid.cs` (hexágonos + `triangles: true`; mask via `Intersect` nativo).
-- [ ] T006 [P] [US1] Portar `@turf/triangle-grid` (133) → `src/Turfano/Parity/Grid.TriangleGrid.cs`.
-- [ ] T007 [US1] `tests/Turfano.Tests/Parity/GridTests.cs` com os valores do T002; suíte verde.
+- [X] T002 [US1] GT das grades via harness bun efêmero `reference/_wavef.mjs`: contagens e primeiras células de `pointGrid`/`squareGrid`/`hexGrid`(hex+triangles)/`triangleGrid` numa bbox fixa, com e sem mask.
+- [X] T003 [P] [US1] Portar `@turf/rectangle-grid` (55 linhas) → `src/Turfano/Parity/Grid.RectangleGrid.cs` (`RectangleGrid` + `SquareGrid` wrapper; mask via `BooleanIntersects`).
+- [X] T004 [P] [US1] Portar `@turf/point-grid` (42) → `src/Turfano/Parity/Grid.PointGrid.cs` (mask via `BooleanWithin`).
+- [X] T005 [P] [US1] Portar `@turf/hex-grid` (113) → `src/Turfano/Parity/Grid.HexGrid.cs` (hexágonos + `triangles: true`; mask via `Intersect` nativo).
+- [X] T006 [P] [US1] Portar `@turf/triangle-grid` (133) → `src/Turfano/Parity/Grid.TriangleGrid.cs`.
+- [X] T007 [US1] `tests/Turfano.Tests/Parity/GridTests.cs` com os valores do T002; suíte verde.
 
 **Checkpoint**: grades prontas — `Interpolate` (US2) desbloqueado.
 
