@@ -87,10 +87,10 @@ seguir a fonte. Nada do legado é tocado (suíte 232 segue verde).
 
 **Independent Test**: teste da Onda D (4 linhas → quadrado) inalterado; grep vazio.
 
-- [ ] T011 [US2] Porte do `@turf/polygonize` (grafo: nós/arestas, remoção de dangles e
+- [X] T011 [US2] Porte do `@turf/polygonize` (grafo: nós/arestas, remoção de dangles e
   cut-edges, extração de anéis) em `src/Turfano/Parity/Polyclip/PolygonizeGraph.cs`;
   REWIRE `src/Turfano/Parity/Convert.Polygonize.cs` (remover NTS `Polygonizer`).
-- [ ] T012 [US2] Regressão: teste da Onda D passa; confirmar
+- [X] T012 [US2] Regressão: teste da Onda D passa; confirmar
   `grep -r NetTopologySuite src/Turfano/Parity/` **vazio** (SC-002); adicionar 1 caso de
   linhas que não fecham anel (coleção vazia, GT via bun).
 
