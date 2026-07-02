@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      # O SDK do global.json (net10) compila os três TFMs (net8/9/10) via reference packs
+      # restaurados por NuGet — não é preciso instalar runtimes 8/9 separados.
+      - name: Build
+        run: dotnet build Turfano.slnx -c Release
+
+      - name: Test (TUnit / Microsoft.Testing.Platform)
+        run: dotnet run --project tests/Turfano.Tests/Turfano.Tests.csproj -c Release --no-build

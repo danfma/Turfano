@@ -1,0 +1,66 @@
+name: Release
+
+# Manual, separado do CI: NÃO publica a cada push na main.
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # commit do bump de versão + tag e criação do release no GitHub
+      id-token: write # token OIDC para o Trusted Publishing do NuGet
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # histórico completo p/ o versionize analisar conventional commits
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Install versionize
+        run: |
+          dotnet tool install --global Versionize
+          echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+
+      # versionize (na raiz) bumpa <Version> em cada csproj versionado em lockstep
+      # (Turfano + Turfano.NetTopologySuite), escreve o CHANGELOG.md, faz o commit e a tag
+      # (vX.Y.Z) localmente. O commit/tag só são empurrados APÓS um publish bem-sucedido,
+      # então um publish que falha deixa a main limpa.
+      - name: Bump version
+        run: versionize
+
+      - name: Pack
+        run: |
+          dotnet pack src/Turfano/Turfano.csproj -c Release -o artifacts
+          dotnet pack src/Turfano.NetTopologySuite/Turfano.NetTopologySuite.csproj -c Release -o artifacts
+
+      - name: NuGet login (OIDC → API key temporária)
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }} # seu nome de usuário (perfil) no nuget.org, NÃO o e-mail
+
+      - name: Publish to NuGet
+        run: >
+          dotnet nuget push artifacts/*.nupkg
+          --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate
+
+      - name: Push commit and tag
+        run: git push --follow-tags origin HEAD:main
+
+      - name: GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="$(git describe --tags --abbrev=0)"
+          gh release create "$TAG" artifacts/*.nupkg --title "$TAG" --generate-notes
