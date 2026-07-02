@@ -9,8 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="TUnit" Version="1.56.25" />
-    <PackageReference Include="NetTopologySuite.Features" Version="2.2.0" />
-    <PackageReference Include="NetTopologySuite.IO.GeoJSON4STJ" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>

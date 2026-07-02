@@ -571,7 +571,7 @@ padrões `is Tipo` colidem com os métodos-fábrica do `Geo` (usar `Tipo _`); so
 sobre pares de coordenadas comparam STRINGS.
 
 ## Phase 11: Saída do NTS + limpeza da superfície legada (rumo à 1.0)
-Status: In progress
+Status: Complete
 
 **Sequenciamento em DUAS levas** (descoberto ao iniciar, 2026-07-01): a superfície legada
 `Turf.*` contém funções que o `Geo` ainda não cobre (`Isolines`, `Isobands`, projeção —
@@ -586,7 +586,7 @@ escopo das Ondas F/G), então deletá-la agora regrediria a lib. Execução:
   245/0; NOTICE com MIT/BSD-3. **Otimização futura registrada**: caminho rápido em double
   com fallback exato no sweep (o `@turf` paga o mesmo custo de decimal arbitrário — fazer
   só com profiling).
-- **Leva 2 — "limpeza final" (DEPOIS das Ondas F/G)**: deletar a superfície legada
+- **Leva 2 — "limpeza final"**: ✅ CONCLUÍDA em 2026-07-02 (feature `012-legacy-cleanup`): deletar a superfície legada
   `Turf.*` + remover UnitsNet + remover a referência NTS do core + split/publicação 1.0.
 
 Decisão fechada com o usuário em 2026-07-01 (ver discussão registrada abaixo). O objetivo
@@ -634,9 +634,9 @@ e AOT-limpo, com o NTS sobrevivendo apenas num pacote satélite de UMA função 
      fallback via API pública.
 - [x] Tornar a **`NtsBridge` pública** (`ToNts`/`FromNts`) para interop na borda
   (EF Core spatial etc.) — conversão única, não por operação.
-- [ ] **Deletar a superfície legada `Turf.*`** (72 arquivos, NTS/UnitsNet nas assinaturas —
+- [x] **Deletar a superfície legada `Turf.*`** (72 arquivos, NTS/UnitsNet nas assinaturas —
   a fonte real de "induzir o dev ao erro") + remover a dependência **UnitsNet** do core.
-- [ ] Split de pacotes: **`Turfano`** (core, zero dependências, AOT-limpo) +
+- [x] Split de pacotes: **`Turfano`** (core, zero dependências, AOT-limpo) +
   **`Turfano.Buffer`** (NTS). Atualizar README/release notes (breaking 1.0).
 
 ### Verification Plan
@@ -647,14 +647,49 @@ e AOT-limpo, com o NTS sobrevivendo apenas num pacote satélite de UMA função 
 - Suíte completa verde; superfície legada removida do pacote público.
 
 ### Phase Summary
-_(escrever quando a fase concluir)_
+Concluída em 2026-07-02, em duas levas:
+
+- **Leva 1** (feature `009-nts-engine-exit`): porte fiel do polyclip-ts (ExactDecimal +
+  SplayTreeSet + sweep Martinez–Rueda — regressão de primeira nas âncoras da Onda E) e do
+  @turf/polygonize; `Parity/` virou zona livre de NTS; satélite
+  **`Turfano.NetTopologySuite`** com `NtsConvert` público (fronteira empacotada,
+  zero `Coordinate`) e `Buffer` como extension method.
+- **Leva 2** (feature `012-legacy-cleanup`): superfície legada REMOVIDA (76 arquivos do
+  core: 72 `Turf.*.cs` + TurfUtils/GeometryExtensions/Angles/BBox legado) + 35 testes
+  legados; `Turfano.csproj` com ZERO PackageReference externa; playground/benchmark
+  reescritos sobre a fachada `Geo`; suíte final **139/0**; AOT 0 warnings; pacotes
+  `1.0.0-rc.1` (core zero-dep + satélite) com `dotnet pack` verificado; README
+  reposicionado. Executada por subagente com verificação independente.
 
 ---
 
 ## Final Recap
-_(escrever quando todas as fases concluírem)_
+
+**Todas as 11 fases completas (2026-06-29 → 2026-07-02).** O Turfano foi reposicionado
+de "wrappers de NTS com nome de Turf" para **port fiel (funcional e numérico) do TurfJS
+sobre tipos GeoJSON próprios**:
+
+- **Fundação** (Fases 1–3): bugs corrigidos; avaliação NTS×Turf com dados (matriz de
+  divergência + benchmark 3.4×); tipos próprios (`Position` struct, records selados,
+  STJ source-generated AOT-limpo, `BBox`, unidades próprias `Length`/`Angle`/`Area`).
+- **Paridade** (Fases 4–10, Ondas A–G): fachada `Geo` cobre **100% do índice `@turf`**
+  (115 módulos; exclusões explícitas: `buffer`→satélite, `geojson-rbush`→infra), cada
+  função ancorada no `@turf` real via harness bun. Motores portados 1:1: polyclip-ts,
+  earcut, d3-voronoi, rbush+quickselect, sweepline-intersections, marching squares
+  (embutido), simplepolygon, javascript-astar, skmeans (caminho determinístico) —
+  atribuições no `NOTICE`.
+- **Saída do NTS** (Fase 11): overlay/polygonize nativos; NTS/UnitsNet fora do core
+  (zero dependências); interop opt-in no satélite.
+
+Estado final: suíte **139 testes / 0 falhas** (todos da fachada nova), AOT smoke 0
+warnings IL, `dotnet pack` gerando `Turfano 1.0.0-rc.1` (zero-dep) e
+`Turfano.NetTopologySuite 1.0.0-rc.1`.
 
 ## Deployment Plan
-_(escrever quando todas as fases concluírem — provável: bump para 1.0.0 com release
-notes de breaking changes (NTS/UnitsNet → tipos próprios), publish via
-`dotnet-releaser.toml`, e migração documentada)_
+
+1. Revisão final do dono do projeto (API pública da fachada `Geo` + README).
+2. Bump `1.0.0-rc.1` → `1.0.0` quando aprovado; release notes destacando o BREAKING
+   CHANGE (classe `Turf`/NTS/UnitsNet → fachada `Geo`/tipos próprios) e o guia de
+   migração (mapa 1:1 de nomes: `Turf.X` → `Geo.X`; unidades UnitsNet → `Turfano.Units`).
+3. Publicação NuGet dos dois pacotes (decisão e credenciais do dono do projeto;
+   `dotnet-releaser.toml` já existe no repositório como ponto de partida).
