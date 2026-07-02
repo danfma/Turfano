@@ -81,12 +81,11 @@ dotnet run --project benchmark/TimeAndMemoryUsage -c Release
   `bun install`, `bun run <file>`, `bun test`.
 
 <!-- SPECKIT START -->
-Plano da feature ativa: `specs/009-nts-engine-exit/plan.md` (Fase 11 leva 1 — saída do
-motor NTS; ver o plano-mãe `plans/turfjs-parity-redesign.md`, Fases 1–8 já na `main`).
-Porte fiel do `polyclip-ts` (+ `splaytree-ts` + decimal exato próprio) sobre os tipos
-próprios → overlay nativo sem NTS; porte do `@turf/polygonize`; satélite
-`Turfano.NetTopologySuite` (Buffer como extensão + `NtsConvert` público com fronteira
-empacotada). Decisão estratégica fechada na Fase 11 do plano-mãe (fatos medidos — não
-re-litigar). Consulte o plano e os artefatos (`spec.md`, `research.md`, `data-model.md`,
-`contracts/`, `quickstart.md`).
+Plano da feature ativa: `specs/010-parity-interpolation-grids/plan.md` (Onda F —
+Interpolation/Grids/Triangulation; ver o plano-mãe `plans/turfjs-parity-redesign.md`,
+Fases 1–8 + Fase 11 leva 1 na `main`). Grades/tin/interpolate/isolines/isobands/hulls/
+voronoi/tesselate fiéis ao @turf na fachada `Geo`; portes medidos: earcut (681) e
+d3-voronoi (~1004); isolines/isobands autocontidos; concave via Union nativo (sem
+topojson). Os 6 algoritmos ingênuos do legado ganham versão fiel. Consulte os artefatos
+(`spec.md`, `research.md`, `data-model.md`, `contracts/`, `quickstart.md`).
 <!-- SPECKIT END -->
