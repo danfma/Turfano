@@ -1,5 +1,5 @@
 [msbuild]
-project = "DotTerritory.slnx"
+project = "Turfano.slnx"
 configuration = "Release"
 
 # Os testes usam TUnit/Microsoft.Testing.Platform, que o dotnet-releaser ainda não
@@ -10,7 +10,7 @@ enable = false
 
 [github]
 user = "danfma"
-repo = "DotTerritory"
+repo = "Turfano"
 version_prefix =  "v"
 
 [changelog]

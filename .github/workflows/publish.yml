@@ -1,42 +1,83 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+# CI + release do Turfano.
+#   push/PR na main  -> build (Release, net8/9/10) + testes TUnit.
+#   tag v*           -> além do build/test, empacota e publica no NuGet via
+#                       Trusted Publishing (OIDC — sem NUGET_TOKEN de longa duração).
+#
+# A política de Trusted Publishing configurada no NuGet.org referencia ESTE arquivo
+# (`.github/workflows/publish.yml`) — se renomeá-lo, atualize a política.
 
-name: .NET
+name: CI
 
 on:
   push:
     branches:
       - "main"
     tags:
-      - '*'
+      - "v*"
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: |
-          8.0.x
-          9.0.x
-          10.0.x
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+            10.0.x
 
-    - name: Restore dependencies
-      run: dotnet restore DotTerritory.slnx
+      - name: Restore
+        run: dotnet restore Turfano.slnx
 
-    - name: Restore tools
-      run: dotnet tool restore
+      - name: Build (Release)
+        run: dotnet build Turfano.slnx -c Release --no-restore
 
-    - name: Run tests (TUnit / Microsoft.Testing.Platform)
-      run: dotnet run --project tests/DotTerritory.Tests/DotTerritory.Tests.csproj -c Release
+      - name: Test (TUnit / Microsoft.Testing.Platform)
+        run: dotnet run --project tests/Turfano.Tests/Turfano.Tests.csproj -c Release --no-build
 
-    - name: Build, Pack and Publish (on push tag)
-      shell: bash
-      run: dotnet dotnet-releaser run --force --nuget-token "${{secrets.NUGET_TOKEN}}" --github-token "${{secrets.GITHUB_TOKEN}}" dotnet-releaser.toml
+  publish:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # exigido pelo Trusted Publishing (OIDC)
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+            10.0.x
+
+      - name: Pack
+        run: |
+          dotnet pack src/Turfano/Turfano.csproj -c Release -o ./artifacts
+          dotnet pack src/Turfano.NetTopologySuite/Turfano.NetTopologySuite.csproj -c Release -o ./artifacts
+
+      # Troca o token OIDC do GitHub por uma API key temporária do NuGet.
+      # Requer a política de Trusted Publishing criada no NuGet.org para `danfma`.
+      - name: NuGet Trusted Publishing login
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: danfma
+
+      - name: Push to NuGet
+        run: >
+          dotnet nuget push "./artifacts/*.nupkg"
+          --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate
