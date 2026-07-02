@@ -1,5 +1,9 @@
 # Turfano
 
+[![CI](https://github.com/danfma/Turfano/actions/workflows/ci.yml/badge.svg)](https://github.com/danfma/Turfano/actions/workflows/ci.yml)
+[![NuGet](https://img.shields.io/nuget/vpre/Turfano.svg?label=Turfano)](https://www.nuget.org/packages/Turfano/)
+[![NuGet](https://img.shields.io/nuget/vpre/Turfano.NetTopologySuite.svg?label=Turfano.NetTopologySuite)](https://www.nuget.org/packages/Turfano.NetTopologySuite/)
+
 A faithful .NET port of [TurfJS](https://turfjs.org) — the geospatial analysis library —
 with its own GeoJSON types, its own typed quantities, and **zero external dependencies**
 in the core package.
