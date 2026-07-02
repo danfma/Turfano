@@ -528,9 +528,16 @@ Status: In progress
 **Sequenciamento em DUAS levas** (descoberto ao iniciar, 2026-07-01): a superfície legada
 `Turf.*` contém funções que o `Geo` ainda não cobre (`Isolines`, `Isobands`, projeção —
 escopo das Ondas F/G), então deletá-la agora regrediria a lib. Execução:
-- **Leva 1 — "engine exit" (feature `009-nts-engine-exit`, AGORA)**: portar `polyclip-ts`
-  + `@turf/polygonize` (Parity/ fica livre de NTS) + pacote satélite (Buffer + `NtsBridge`
-  pública, fronteira empacotada).
+- **Leva 1 — "engine exit" (feature `009-nts-engine-exit`)**: ✅ **CONCLUÍDA em 2026-07-02.**
+  Porte fiel do polyclip-ts em `Parity/Polyclip/` (`ExactDecimal` com div/sqrt a 20 casas
+  half-up + `SplayTreeSet` + sweep completo) — **regressão de primeira** nas âncoras da
+  Onda E (+ casos com furos); `@turf/polygonize` portado (grafo GEOS-style); **`Parity/` é
+  zona livre de NTS** (grep vazio); satélite **`Turfano.NetTopologySuite`** (nome final;
+  era "Turfano.Buffer" no rascunho) com `NtsConvert` público empacotado
+  (`GetRawCoordinates` fast-path, Z preservado) + `Buffer` como extension method. Suíte
+  245/0; NOTICE com MIT/BSD-3. **Otimização futura registrada**: caminho rápido em double
+  com fallback exato no sweep (o `@turf` paga o mesmo custo de decimal arbitrário — fazer
+  só com profiling).
 - **Leva 2 — "limpeza final" (DEPOIS das Ondas F/G)**: deletar a superfície legada
   `Turf.*` + remover UnitsNet + remover a referência NTS do core + split/publicação 1.0.
 
