@@ -523,7 +523,16 @@ _(escrever quando a fase concluir)_
 ---
 
 ## Phase 11: Saída do NTS + limpeza da superfície legada (rumo à 1.0)
-Status: Not started
+Status: In progress
+
+**Sequenciamento em DUAS levas** (descoberto ao iniciar, 2026-07-01): a superfície legada
+`Turf.*` contém funções que o `Geo` ainda não cobre (`Isolines`, `Isobands`, projeção —
+escopo das Ondas F/G), então deletá-la agora regrediria a lib. Execução:
+- **Leva 1 — "engine exit" (feature `009-nts-engine-exit`, AGORA)**: portar `polyclip-ts`
+  + `@turf/polygonize` (Parity/ fica livre de NTS) + pacote satélite (Buffer + `NtsBridge`
+  pública, fronteira empacotada).
+- **Leva 2 — "limpeza final" (DEPOIS das Ondas F/G)**: deletar a superfície legada
+  `Turf.*` + remover UnitsNet + remover a referência NTS do core + split/publicação 1.0.
 
 Decisão fechada com o usuário em 2026-07-01 (ver discussão registrada abaixo). O objetivo
 final é **uma única representação pública** (os tipos próprios), core **sem dependências**
