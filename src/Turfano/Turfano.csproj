@@ -7,6 +7,7 @@
     <IsPackable>true</IsPackable>
     <Title>Turfano</Title>
     <Description>Faithful .NET port of TurfJS over its own GeoJSON types — zero dependencies, AOT-ready.</Description>
+    <IsAotCompatible>true</IsAotCompatible>
   </PropertyGroup>
 
   <PropertyGroup>
