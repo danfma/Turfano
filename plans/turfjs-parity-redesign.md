@@ -25,7 +25,9 @@ removendo o NetTopologySuite (NTS) onde ele diverge do TurfJS.
 - **Bugs:** corrigidos **primeiro**, em entrega independente do redesign.
 - **Escopo:** **paridade total** do TurfJS, entregue em **ondas por categoria**.
   Quebra da API atual (NTS-based) é aceitável rumo a 1.0.
-- **Interop NTS** (Turfano↔NTS): **fora de escopo** neste plano.
+- **Interop NTS** (Turfano↔NTS): a ponte `NtsBridge` será **pública** na 1.0 (`ToNts`/
+  `FromNts`) para converter **uma vez na borda** (ex.: EF Core spatial) — decisão revista
+  em 2026-07-01 (antes: fora de escopo).
 - **Multi-targeting:** manter `net8.0;net9.0;net10.0` (source-gen STJ funciona em todos).
 - **Referência canônica:** `reference/node_modules/@turf` (código real do TurfJS) é a
   fonte de verdade para algoritmos e para fixtures numéricas de teste.
@@ -514,6 +516,56 @@ Fechar a paridade com o restante do TurfJS ainda não coberto.
 - Cruzar a lista completa de funções do `@turf` (de `reference/node_modules/@turf`)
   com a API pública do Turfano: **cobertura 100%** (ou itens fora de escopo
   explicitamente listados).
+
+### Phase Summary
+_(escrever quando a fase concluir)_
+
+---
+
+## Phase 11: Saída do NTS + limpeza da superfície legada (rumo à 1.0)
+Status: Not started
+
+Decisão fechada com o usuário em 2026-07-01 (ver discussão registrada abaixo). O objetivo
+final é **uma única representação pública** (os tipos próprios), core **sem dependências**
+e AOT-limpo, com o NTS sobrevivendo apenas num pacote satélite de UMA função (`buffer`).
+
+**Fatos medidos que fundamentam a decisão** (não re-litigar sem dados novos):
+- NTS 2.5.0 = **721 tipos** (BSD-3-Clause). O fecho de dependências de overlay+buffer+
+  polygonize ≈ **300+ tipos** (OverlayNG 36, Buffer 23, Noding 55, Algorithm 38,
+  GeometriesGraph+Index 63, Geometries ~130) — vendorizar "só essa parte" = metade do NTS,
+  operando sobre o modelo `Coordinate`/`Geometry` deles (a 2ª representação continuaria
+  existindo, só escondida). **Vendoring rejeitado.**
+- O motor real do `@turf` para union/difference/intersect é o **`polyclip-ts`** (MIT,
+  **1.137 linhas** num arquivo, opera direto sobre anéis de coordenadas = `Position[][]`).
+  `@turf/polygonize` = **635 linhas** (grafo puro). O **buffer** não tem algoritmo pequeno:
+  o próprio `@turf` embute o JTS inteiro (`@turf/jsts`, **1,1 MB** traduzido por máquina).
+- Modelo próprio vs NTS (benchmark Fase 2): structs alocam **3,4× menos** e rodam **3,4×
+  mais rápido** (`Area`: 352→104 B, 105→31 ns). Design "casca própria, miolo NTS"
+  **rejeitado**: pessimizaria as ~99 funções nativas (heap por vértice, perda da semântica
+  de record e do AOT da lib inteira) para poupar duas cópias O(n) em 1 função.
+
+- [ ] Portar o **`polyclip-ts`** (MIT, 1.137 linhas) sobre os tipos próprios →
+  `Geo.Union`/`Difference`/`Intersect`/`Dissolve` nativos (fidelidade por construção: é o
+  motor que o `@turf` executa). Manter atribuição (licença MIT no NOTICE).
+- [ ] Portar o **`@turf/polygonize`** (635 linhas) → `Geo.Polygonize` nativo.
+- [ ] **`Turfano.Buffer`** (pacote satélite): mover `Geo.Buffer` para um pacote próprio que
+  referencia o NTS (o core perde a dependência). Otimização interna: `CoordinateSequence`
+  customizada envelopando `Position[]` (zero cópia na ida; a volta é cópia inevitável do
+  resultado). Pipeline atual (projeção AEQD própria → NTS Buffer → desprojeção) permanece —
+  é o mesmo pedágio que o `@turf` paga com o JSTS.
+- [ ] Tornar a **`NtsBridge` pública** (`ToNts`/`FromNts`) para interop na borda
+  (EF Core spatial etc.) — conversão única, não por operação.
+- [ ] **Deletar a superfície legada `Turf.*`** (72 arquivos, NTS/UnitsNet nas assinaturas —
+  a fonte real de "induzir o dev ao erro") + remover a dependência **UnitsNet** do core.
+- [ ] Split de pacotes: **`Turfano`** (core, zero dependências, AOT-limpo) +
+  **`Turfano.Buffer`** (NTS). Atualizar README/release notes (breaking 1.0).
+
+### Verification Plan
+- `Union`/`Intersect`/`Difference` portados batem em ÁREA com o `@turf` nos mesmos casos da
+  Onda E (mesmos testes, sem NTS no core); `Polygonize` reproduz o teste da Onda D.
+- `dotnet publish` AOT do core sem warnings; `grep NetTopologySuite src/Turfano/` vazio
+  (dependência só em `Turfano.Buffer`).
+- Suíte completa verde; superfície legada removida do pacote público.
 
 ### Phase Summary
 _(escrever quando a fase concluir)_
