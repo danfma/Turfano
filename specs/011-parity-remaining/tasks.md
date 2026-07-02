@@ -29,16 +29,16 @@
 
 **Goal**: motores espaciais + as 8 funções de linha + unkink.
 
-- [ ] T007 [US1] GT no harness: lineSegment/lineIntersect/lineOverlap/lineSplit/lineArc/angle/nearestPointToLine/shortestPath/unkinkPolygon (fixtures pequenas, saídas completas).
-- [ ] T008 [US1] Portar rbush 3.x 1:1 (574, ordem do `Search` preservada — R2) → `src/Turfano/Parity/Spatial/RBushIndex.cs` + wrapper geojson-rbush (R5) → `src/Turfano/Parity/Spatial/GeoJsonSpatialIndex.cs`; teste de unidade da ordem vs GT pequeno.
-- [ ] T009 [P] [US1] Portar `@turf/line-segment` (60) → `src/Turfano/Parity/Line.Segment.cs`.
-- [ ] T010 [P] [US1] Portar sweepline-intersections 1:1 (~530, R4) → `src/Turfano/Parity/Spatial/SweeplineIntersections.cs` + `@turf/line-intersect` (47) → `src/Turfano/Parity/Line.Intersect.cs`.
-- [ ] T011 [US1] Portar `@turf/line-overlap` (80; usa geojson-rbush + lineSegment + nearestPointOnLine + booleanPointOnLine + fast-deep-equal inline) → `src/Turfano/Parity/Line.Overlap.cs`. Depende de T008/T009.
-- [ ] T012 [US1] Portar `@turf/line-split` (140; geojson-rbush + lineIntersect + lineSegment...) → `src/Turfano/Parity/Line.Split.cs`. Depende de T008–T010.
-- [ ] T013 [P] [US1] Portar `@turf/line-arc` (42) → `src/Turfano/Parity/Line.Arc.cs`, `@turf/angle` (40) → `src/Turfano/Parity/Measure.Angle.cs`, `@turf/nearest-point-to-line` (73) → `src/Turfano/Parity/Measure.NearestPointToLine.cs`.
-- [ ] T014 [US1] Portar `@turf/shortest-path` (390; só reusa a fachada — R10) → `src/Turfano/Parity/Line.ShortestPath.cs`.
-- [ ] T015 [US1] Portar `@turf/unkink-polygon` (571, simplepolygon embutido; rbush) → `src/Turfano/Parity/Mutate.UnkinkPolygon.cs`. Depende de T008.
-- [ ] T016 [US1] `tests/Turfano.Tests/Parity/LineOpsTests.cs` com o GT do T007; suíte verde.
+- [X] T007 [US1] GT no harness: lineSegment/lineIntersect/lineOverlap/lineSplit/lineArc/angle/nearestPointToLine/shortestPath/unkinkPolygon (fixtures pequenas, saídas completas).
+- [X] T008 [US1] Portar rbush 3.x 1:1 (574, ordem do `Search` preservada — R2) → `src/Turfano/Parity/Spatial/RBushIndex.cs` + wrapper geojson-rbush (R5) → `src/Turfano/Parity/Spatial/GeoJsonSpatialIndex.cs`; teste de unidade da ordem vs GT pequeno.
+- [X] T009 [P] [US1] Portar `@turf/line-segment` (60) → `src/Turfano/Parity/Line.Segment.cs`.
+- [X] T010 [P] [US1] Portar sweepline-intersections 1:1 (~530, R4) → `src/Turfano/Parity/Spatial/SweeplineIntersections.cs` + `@turf/line-intersect` (47) → `src/Turfano/Parity/Line.Intersect.cs`.
+- [X] T011 [US1] Portar `@turf/line-overlap` (80; usa geojson-rbush + lineSegment + nearestPointOnLine + booleanPointOnLine + fast-deep-equal inline) → `src/Turfano/Parity/Line.Overlap.cs`. Depende de T008/T009.
+- [X] T012 [US1] Portar `@turf/line-split` (140; geojson-rbush + lineIntersect + lineSegment...) → `src/Turfano/Parity/Line.Split.cs`. Depende de T008–T010.
+- [X] T013 [P] [US1] Portar `@turf/line-arc` (42) → `src/Turfano/Parity/Line.Arc.cs`, `@turf/angle` (40) → `src/Turfano/Parity/Measure.Angle.cs`, `@turf/nearest-point-to-line` (73) → `src/Turfano/Parity/Measure.NearestPointToLine.cs`.
+- [X] T014 [US1] Portar `@turf/shortest-path` (390; só reusa a fachada — R10) → `src/Turfano/Parity/Line.ShortestPath.cs`.
+- [X] T015 [US1] Portar `@turf/unkink-polygon` (571, simplepolygon embutido; rbush) → `src/Turfano/Parity/Mutate.UnkinkPolygon.cs`. Depende de T008.
+- [X] T016 [US1] `tests/Turfano.Tests/Parity/LineOpsTests.cs` com o GT do T007; suíte verde.
 
 ## Phase 5: US3 — Estatística espacial (P2)
 
