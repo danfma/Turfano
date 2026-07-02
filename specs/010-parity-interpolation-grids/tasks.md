@@ -50,10 +50,10 @@
 
 **Independent Test**: contornos estruturalmente iguais nas mesmas fixtures de grade.
 
-- [ ] T013 [US3] GT no harness: grade regular (ex.: `pointGrid` com z conhecido) → `isolines(breaks)` e `isobands(breaks)`; capturar multilinhas/multipolígonos completos de um caso pequeno + contagens de um caso maior.
-- [ ] T014 [US3] Portar `@turf/isolines` (315, autocontido) → `src/Turfano/Parity/Contour.Isolines.cs` (grade z[y][x] + marching squares embutido + reescala p/ bbox; `zProperty`).
-- [ ] T015 [US3] Portar `@turf/isobands` (508, autocontido) → `src/Turfano/Parity/Contour.Isobands.cs` (pares de breaks; `groupNestedPolygons` com `BooleanPointInPolygon`).
-- [ ] T016 [US3] `tests/Turfano.Tests/Parity/ContourTests.cs` com os valores do T013; suíte verde.
+- [X] T013 [US3] GT no harness: grade regular (ex.: `pointGrid` com z conhecido) → `isolines(breaks)` e `isobands(breaks)`; capturar multilinhas/multipolígonos completos de um caso pequeno + contagens de um caso maior.
+- [X] T014 [US3] Portar `@turf/isolines` (315, autocontido) → `src/Turfano/Parity/Contour.Isolines.cs` (grade z[y][x] + marching squares embutido + reescala p/ bbox; `zProperty`).
+- [X] T015 [US3] Portar `@turf/isobands` (508, autocontido) → `src/Turfano/Parity/Contour.Isobands.cs` (pares de breaks; `groupNestedPolygons` com `BooleanPointInPolygon`).
+- [X] T016 [US3] `tests/Turfano.Tests/Parity/ContourTests.cs` com os valores do T013; suíte verde.
 
 ## Phase 6: US4 — Hulls e tesselação (P2)
 
