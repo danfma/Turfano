@@ -481,22 +481,47 @@ quando houver demanda.
 ---
 
 ## Phase 9: Onda F — Interpolation, Grids, Triangulation (paridade)
-Status: Not started
+Status: Complete
 
 Aqui moram os algoritmos hoje **ingênuos/quebrados** (`tin`, `voronoi`, `concave`,
 `tesselate`, `isobands`). Port fiel ao Turf.
 → `/speckit-specify parity-wave-interpolation-grids`.
 
-- [ ] Interpolation: `interpolate`, `isolines`, `isobands`, `planepoint`, `tin`.
-- [ ] Triangulation/hulls: `voronoi`, `concave`, `convex`, `tesselate`.
-- [ ] Grids: `pointGrid`, `hexGrid`, `squareGrid`, `triangleGrid`.
+- [x] Interpolation: `interpolate`, `isolines`, `isobands`, `planepoint`, `tin`.
+- [x] Triangulation/hulls: `voronoi`, `concave`, `convex`, `tesselate`.
+- [x] Grids: `pointGrid`, `hexGrid`, `squareGrid`, `triangleGrid`.
 
 ### Verification Plan
 - Fixtures do Turf; `tin`/`voronoi`/`tesselate` produzem triangulações/células
   equivalentes às do Turf (não mais o leque ingênuo).
+- **Resultado (2026-07-02)**: suíte 245 → **258, 0 falhas** (13 testes novos, todos
+  ancorados no `@turf` real via bun); `tin` = Delaunay exato (não-leque provado),
+  `voronoi` = células exatas do d3, `tesselate` = triângulos exatos do earcut; AOT 0
+  warnings; `Parity/` segue livre de NTS; legado intocado.
 
 ### Phase Summary
-_(escrever quando a fase concluir)_
+
+Concluída em 2026-07-02 na feature `010-parity-interpolation-grids` (Spec Kit completo).
+13 funções na fachada `Geo` — os **6 ingênuos do legado substituídos por portes fiéis**:
+
+- **Grades** (US1): `PointGrid`/`SquareGrid`+`RectangleGrid`/`HexGrid`(+triangles)/
+  `TriangleGrid` — semânticas de conversão distintas por módulo portadas exatamente
+  (equivalente angular vs razão de distâncias); masks via `BooleanWithin`/
+  `BooleanIntersects`/`Intersect` nativo.
+- **Interpolação** (US2): `Planepoint`, `Tin` (Delaunay incremental do @turf com dedup de
+  arestas por referência e sort descendente estável), `Interpolate` (IDW).
+- **Contornos** (US3): `Isolines`/`Isobands` — o marching squares vem **embutido** nos
+  bundles do @turf (315/508 linhas; a lib `marchingsquares` NÃO precisou de porte);
+  isobands com fechamento pelas bordas da matriz e agrupamento de furos por contenção.
+- **Hulls/tesselação** (US4): `Convex` = fastConvexHull do concaveman (fecho de ~1.050
+  linhas evitado — `concavity=Infinity` nunca escava); `Concave` = tin + união n-ária
+  **nativa** (fecho topojson de 1.343 linhas evitado); `Tesselate` = **earcut 3.x portado
+  1:1** (681, ISC); `Voronoi` = **d3-voronoi 1.1.2 portado 1:1** (~1.004, BSD-3, Fortune
+  com red-black tree; globais → instância). NOTICE atualizado.
+
+Lições novas: `JsonNode.GetValue<double>()` não coage int (helper `NumberOrNull`);
+`Math.round` do JS ≠ `Math.Round` do C# (half-up emulado); o anel do concaveman começa no
+ÚLTIMO nó da lista circular.
 
 ---
 
