@@ -183,3 +183,32 @@ feature.
 - **Nomes .NET** sem acrônimos crípticos; `UnsafeAccessor` proibido (FR-005).
 - Fora de escopo: leva 2 (deletar legado, UnitsNet, referência NTS do core, split 1.0),
   Ondas F/G, otimização de desempenho do sweep.
+
+## Implementation Notes (PAUSA em 2026-07-01 — estado para retomada)
+
+- **Commitado e verde (`06dc5a5`)**: T001–T003 — `NOTICE`, `ExactDecimal` (5 testes,
+  valores via Python Decimal) e `SplayTreeSet` (4 testes, incl. stress 2000 ops vs
+  `SortedDictionary`). Suíte 241/0 (232 + 9).
+- **Na árvore de trabalho, NÃO commitado (untracked)**:
+  `src/Turfano/Parity/Polyclip/PolyclipGeometry.cs` — T005 pronto (SweepPoint com
+  identidade referencial + ExactVector + ExactBounds + ExactVectorMath com div/sqrt),
+  **mas referencia `SweepEvent` (T006, ainda não escrito) → o build do core fica vermelho
+  até a T006 existir**. Retomar escrevendo T004 (`PolyclipPrecision`) e T006 em seguida.
+- **O bundle do polyclip foi lido INTEGRALMENTE** (1.137 linhas). Achados essenciais já
+  aplicados/decididos (não re-derivar):
+  - `div`/`sqrt` existem (módulo `vector`) → `ExactDecimal` já implementa 20 casas half-up.
+  - O comparator da fila (`SweepEvent.compare`) tem EFEITO COLATERAL: chama `a.link(b)`
+    quando os pontos empatam mas são objetos distintos — preservar no porte.
+  - `SweepEvent.comparePoints` é comparação EXATA de coordenadas (não usa `precision`).
+  - `splice(i)` do JS trunca do índice ao FIM (RingOut.factory) → `GetRange`+`RemoveRange`.
+  - `availableLEs.sort(...)` é estável (ES2019) → usar `OrderBy` (List.Sort é instável).
+  - Bbox do `MultiPolyIn` inicia com `±Infinity` → sentinelas do `ExactDecimal` prontas.
+  - DECISÃO: o singleton global mutável `operation` (type/numMultiPolys/segmentId) vira
+    uma instância `OperationRun` por execução (thread-safe; ids por run são equivalentes,
+    só servem de tiebreak no `Segment.compare`). Segments recebem a referência via ctor.
+  - `precision` default = exato (eps undefined); usar instância estática `Exact`; snap
+    identidade; caminho com eps portado mas sem `setPrecision` público.
+- **Faltam**: T004 `PolyclipPrecision.cs` → T006 `SweepEvent.cs` → T007 `Segment.cs` →
+  T008 `PolyclipInput/SweepLine/PolyclipOperation/PolyclipOutput` → T009 rewire de
+  `Overlay.cs` → T010 regressão (âncoras Onda E + casos com furos) → US2 (polygonize) →
+  US3 (satélite) → polish.
