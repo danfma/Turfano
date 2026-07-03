@@ -6,14 +6,15 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Ângulo médio direcional de um conjunto de linhas (tendência) — `@turf/directional-mean`.
-    /// Funciona tanto no plano (<paramref name="planar"/> = true, aritmética cartesiana) quanto
-    /// geodésico (padrão — rumos via <see cref="Bearing"/>); com <paramref name="segment"/> =
-    /// true trata cada segmento da linha isoladamente, em vez da linha inteira.
+    /// Directional mean angle of a set of lines (trend) — `@turf/directional-mean`. Works
+    /// both in the plane (<paramref name="planar"/> = true, Cartesian arithmetic) and
+    /// geodesically (default — bearings via <see cref="Bearing"/>); with <paramref name="segment"/>
+    /// = true, each line segment is treated in isolation instead of the whole line.
     /// <para>
-    /// **Nota de fidelidade**: a documentação do @turf (JSDoc) afirma `planar` default `true`,
-    /// mas o código-fonte real usa `!!options.planar` — ou seja, o default de fato é `false`
-    /// (geodésico). Este porte segue o comportamento real (confirmado via GT), não a doc.
+    /// **Fidelity note**: @turf's documentation (JSDoc) states `planar` defaults to `true`,
+    /// but the actual source code uses `!!options.planar` — i.e., the real default is
+    /// `false` (geodesic). This port follows the actual behavior (confirmed via ground
+    /// truth), not the docs.
     /// </para>
     /// </summary>
     public static Feature DirectionalMean(FeatureCollection lines, bool planar = false, bool segment = false)

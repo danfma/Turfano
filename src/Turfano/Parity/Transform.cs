@@ -5,9 +5,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Escala uma geometria por um fator, **geodesicamente** — `@turf/transform-scale`. Cada
-    /// ponto é reposicionado por `rhumbDestination(origem, rhumbDistance*fator, rhumbBearing)`.
-    /// Origem default = centroide. (A versão NTS é cartesiana — esta segue o @turf.)
+    /// Scales a geometry by a factor, **geodesically** — `@turf/transform-scale`. Each
+    /// point is repositioned via `rhumbDestination(origin, rhumbDistance*factor, rhumbBearing)`.
+    /// Default origin = centroid. (The NTS version is Cartesian — this one follows @turf.)
     /// </summary>
     public static Geometry TransformScale(Geometry geometry, double factor, Position? origin = null)
     {
@@ -29,7 +29,7 @@ public static partial class Geo
         );
     }
 
-    /// <summary>Move cada ponto por distância/rumo (linha de rumo) — `@turf/transform-translate`.</summary>
+    /// <summary>Moves each point by distance/bearing (rhumb line) — `@turf/transform-translate`.</summary>
     public static Geometry TransformTranslate(
         Geometry geometry,
         Units.Length distance,
@@ -37,8 +37,8 @@ public static partial class Geo
     ) => MapPositions(geometry, p => RhumbDestination(p, distance, direction).Coordinates);
 
     /// <summary>
-    /// Rotaciona uma geometria por um ângulo em torno de um pivô — `@turf/transform-rotate`.
-    /// Pivô default = centroide.
+    /// Rotates a geometry by an angle around a pivot — `@turf/transform-rotate`.
+    /// Default pivot = centroid.
     /// </summary>
     public static Geometry TransformRotate(Geometry geometry, Units.Angle angle, Position? pivot = null)
     {
@@ -60,6 +60,6 @@ public static partial class Geo
         );
     }
 
-    /// <summary>Cópia profunda da geometria (arrays de coordenadas novos) — `@turf/clone`.</summary>
+    /// <summary>Deep copy of the geometry (new coordinate arrays) — `@turf/clone`.</summary>
     public static Geometry Clone(Geometry geometry) => MapPositions(geometry, p => p);
 }

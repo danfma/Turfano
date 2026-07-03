@@ -3,8 +3,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Arco de círculo entre dois rumos — `@turf/line-arc`. Rumos iguais (mod 360) viram o
-    /// círculo completo como linha.
+    /// Circle arc between two bearings — `@turf/line-arc`. Equal bearings (mod 360) become
+    /// the full circle as a line.
     /// </summary>
     public static LineString LineArc(
         Point center,

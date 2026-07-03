@@ -3,10 +3,10 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Geometria válida — `@turf/boolean-valid`. Checa as condições principais: linhas com ≥2
-    /// pontos; anéis de polígono com ≥4 pontos e fechados. NOTA: o `@turf` **não** detecta
-    /// auto-interseção do anel externo (um "laço" retorna `true`); spikes/punctures e
-    /// interseção furo×externo ficam como refinamento futuro.
+    /// Valid geometry — `@turf/boolean-valid`. Checks the main conditions: lines with ≥2
+    /// points; polygon rings with ≥4 points and closed. NOTE: `@turf` does **not** detect
+    /// self-intersection of the outer ring (a "loop" returns `true`); spikes/punctures and
+    /// hole×outer intersection are left as future refinements.
     /// </summary>
     public static bool BooleanValid(Geometry geometry) =>
         geometry switch

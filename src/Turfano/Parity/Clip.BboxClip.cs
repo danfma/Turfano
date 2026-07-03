@@ -3,8 +3,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Recorta uma geometria por uma bounding box — `@turf/bbox-clip` (porte do `lineclip`:
-    /// Cohen-Sutherland p/ linhas, Sutherland-Hodgman p/ polígonos). Sem NTS.
+    /// Clips a geometry by a bounding box — `@turf/bbox-clip` (port of `lineclip`:
+    /// Cohen-Sutherland for lines, Sutherland-Hodgman for polygons). No NTS.
     /// </summary>
     public static Geometry BboxClip(Geometry geometry, BBox bbox)
     {

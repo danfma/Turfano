@@ -4,7 +4,7 @@ namespace Turfano.GeoJson;
 
 public static partial class Geo
 {
-    /// <summary>Distância great-circle (haversine) entre duas posições — `@turf/distance`.</summary>
+    /// <summary>Great-circle (haversine) distance between two positions — `@turf/distance`.</summary>
     public static Units.Length Distance(Position from, Position to)
     {
         var dLat = (to.Lat - from.Lat) * RadiansPerDegree;
@@ -20,7 +20,7 @@ public static partial class Geo
         return Units.Length.FromRadians(radians);
     }
 
-    /// <summary>Rumo (inicial ou final) de `from` para `to`, em graus — `@turf/bearing`.</summary>
+    /// <summary>Bearing (initial or final) from `from` to `to`, in degrees — `@turf/bearing`.</summary>
     public static Units.Angle Bearing(Position from, Position to, bool final = false)
     {
         if (final)
@@ -40,7 +40,7 @@ public static partial class Geo
         return Units.Angle.FromRadians(Math.Atan2(a, b));
     }
 
-    /// <summary>Comprimento total de uma linha (soma das distâncias) — `@turf/length`.</summary>
+    /// <summary>Total length of a line (sum of the distances) — `@turf/length`.</summary>
     public static Units.Length Length(LineString line)
     {
         var total = Units.Length.Zero;
@@ -50,7 +50,7 @@ public static partial class Geo
         return total;
     }
 
-    /// <summary>Comprimento total de uma multilinha.</summary>
+    /// <summary>Total length of a multi-line.</summary>
     public static Units.Length Length(MultiLineString lines)
     {
         var total = Units.Length.Zero;

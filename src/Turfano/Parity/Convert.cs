@@ -2,7 +2,7 @@ namespace Turfano.GeoJson;
 
 public static partial class Geo
 {
-    /// <summary>Cada vértice da geometria como um `Point` numa `FeatureCollection` — `@turf/explode`.</summary>
+    /// <summary>Each vertex of the geometry as a `Point` in a `FeatureCollection` — `@turf/explode`.</summary>
     public static FeatureCollection Explode(Geometry geometry)
     {
         var features = new List<Feature>();
@@ -10,11 +10,11 @@ public static partial class Geo
         return new FeatureCollection(features.ToArray());
     }
 
-    /// <summary>Achata `Multi*`/`GeometryCollection` em partes simples — `@turf/flatten`.</summary>
+    /// <summary>Flattens `Multi*`/`GeometryCollection` into simple parts — `@turf/flatten`.</summary>
     public static FeatureCollection Flatten(Geometry geometry) =>
         new(FlattenGeometry(geometry).Select(g => new Feature(g)).ToArray());
 
-    /// <summary>Agrupa `Point`/`LineString`/`Polygon` da coleção em `Multi*` — `@turf/combine`.</summary>
+    /// <summary>Groups `Point`/`LineString`/`Polygon` from the collection into `Multi*` — `@turf/combine`.</summary>
     public static FeatureCollection Combine(FeatureCollection collection)
     {
         var points = new List<Position>();
@@ -56,7 +56,7 @@ public static partial class Geo
         return new FeatureCollection(result.ToArray());
     }
 
-    /// <summary>Anéis de um polígono como linha(s) — `@turf/polygon-to-line`.</summary>
+    /// <summary>Rings of a polygon as line(s) — `@turf/polygon-to-line`.</summary>
     public static Geometry PolygonToLine(Geometry polygon)
     {
         switch (polygon)
@@ -72,7 +72,7 @@ public static partial class Geo
         }
     }
 
-    /// <summary>Linha (fechando se preciso) como polígono — `@turf/line-to-polygon`.</summary>
+    /// <summary>Line (closing it if needed) as a polygon — `@turf/line-to-polygon`.</summary>
     public static Geometry LineToPolygon(Geometry line)
     {
         switch (line)

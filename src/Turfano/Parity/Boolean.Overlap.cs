@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Geometrias do mesmo tipo que se sobrepõem — `@turf/boolean-overlap`. Idênticas → false.
-    /// Polígonos: algum par de segmentos se intersecta (inclui tocar-se num canto). Linhas:
-    /// algum par de segmentos é colinear e se sobrepõe. MultiPoint: compartilham algum ponto.
+    /// Geometries of the same type that overlap — `@turf/boolean-overlap`. Identical → false.
+    /// Polygons: some pair of segments intersects (including touching at a corner). Lines:
+    /// some pair of segments is collinear and overlaps. MultiPoint: they share some point.
     /// </summary>
     public static bool BooleanOverlap(Geometry a, Geometry b)
     {

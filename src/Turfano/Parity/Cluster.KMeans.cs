@@ -10,10 +10,11 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Particiona os pontos em clusters via k-means — `@turf/clusters-kmeans`. Cada ponto
-    /// ganha `cluster` (índice do cluster) e `centroid` (`[lon, lat]` do centro do cluster).
-    /// Sem <paramref name="numberOfClusters"/>, usa `round(sqrt(n/2))` (arredondamento do
-    /// `Math.round` do JS); valores maiores que a contagem de pontos são reduzidos a ela.
+    /// Partitions the points into clusters via k-means — `@turf/clusters-kmeans`. Each
+    /// point gets `cluster` (the cluster index) and `centroid` (`[lon, lat]` of the
+    /// cluster center). Without <paramref name="numberOfClusters"/>, uses
+    /// `round(sqrt(n/2))` (JS `Math.round` rounding); values greater than the point count
+    /// are reduced to it.
     /// </summary>
     public static FeatureCollection ClustersKmeans(FeatureCollection points, int? numberOfClusters = null)
     {
@@ -55,9 +56,9 @@ public static partial class Geo
 }
 
 /// <summary>
-/// Porte do ÚNICO caminho do `skmeans` (pacote npm) que o `@turf/clusters-kmeans` invoca:
-/// Lloyd puro com centroides iniciais dados (o pacote real também oferece inicialização
-/// aleatória e k-means++, nunca usadas pelo @turf — não portadas).
+/// Port of the ONLY path of `skmeans` (npm package) that `@turf/clusters-kmeans` invokes:
+/// pure Lloyd with given initial centroids (the real package also offers random
+/// initialization and k-means++, never used by @turf — not ported).
 /// </summary>
 internal static class KMeans
 {
@@ -159,5 +160,5 @@ internal static class KMeans
     }
 }
 
-/// <summary>Saída do <see cref="KMeans.Run"/>: cluster de cada ponto e centroides finais.</summary>
+/// <summary>Output of <see cref="KMeans.Run"/>: each point's cluster and the final centroids.</summary>
 internal sealed record KMeansResult(int[] Idxs, double[][] Centroids);

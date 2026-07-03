@@ -3,8 +3,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Geometrias que se cruzam — `@turf/boolean-crosses`. Linha×polígono: a linha intersecta
-    /// a borda do polígono. Cobre Line/Polygon e Line/Line; MultiPoint fica para depois.
+    /// Geometries that cross — `@turf/boolean-crosses`. Line×polygon: the line intersects
+    /// the polygon boundary. Covers Line/Polygon and Line/Line; MultiPoint is left for later.
     /// </summary>
     public static bool BooleanCrosses(Geometry a, Geometry b) =>
         (a, b) switch

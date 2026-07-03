@@ -3,8 +3,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Setor circular entre dois rumos — `@turf/sector` (centro + arco + centro). Rumos
-    /// iguais (mod 360) viram o círculo completo.
+    /// Circular sector between two bearings — `@turf/sector` (center + arc + center).
+    /// Equal bearings (mod 360) yield the full circle.
     /// </summary>
     public static Polygon Sector(
         Point center,

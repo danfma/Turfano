@@ -5,8 +5,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Polígono circular de `steps` lados em torno de um centro — `@turf/circle`. Cada vértice
-    /// é `Destination(centro, raio, rumo = i·-360/steps)`.
+    /// Circular polygon with `steps` sides around a center — `@turf/circle`. Each vertex
+    /// is `Destination(center, radius, bearing = i·-360/steps)`.
     /// </summary>
     public static Polygon Circle(Point center, Units.Length radius, int steps = 64)
     {

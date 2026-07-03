@@ -5,8 +5,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Desloca uma linha por uma distância (perpendicular) — `@turf/line-offset`. Cada segmento
-    /// é deslocado e as junções são resolvidas pela interseção dos segmentos deslocados.
+    /// Offsets a line by a (perpendicular) distance — `@turf/line-offset`. Each segment
+    /// is offset, and joints are resolved by intersecting the offset segments.
     /// </summary>
     public static LineString LineOffset(LineString line, Units.Length distance)
     {

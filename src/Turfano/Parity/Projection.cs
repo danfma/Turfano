@@ -11,7 +11,7 @@ public static partial class Geo
     /// <summary>Web Mercator (EPSG:3857) → WGS84 — `@turf/projection.toWgs84`.</summary>
     public static Geometry ToWgs84(Geometry geojson) => MapPositions(geojson, PositionToWgs84);
 
-    /// <summary>Posição WGS84 → Web Mercator (com o clamp de extensão da fonte).</summary>
+    /// <summary>WGS84 position → Web Mercator (with the source's extent clamp).</summary>
     public static Position PositionToMercator(Position lonLat)
     {
         var adjusted = Math.Abs(lonLat.Lon) <= 180 ? lonLat.Lon : lonLat.Lon - Math.Sign(lonLat.Lon) * 360;
@@ -30,7 +30,7 @@ public static partial class Geo
         return new Position(x, y, lonLat.Alt);
     }
 
-    /// <summary>Posição Web Mercator → WGS84.</summary>
+    /// <summary>Web Mercator position → WGS84.</summary>
     public static Position PositionToWgs84(Position xy)
     {
         var degreesPerRadian = 180 / Math.PI;

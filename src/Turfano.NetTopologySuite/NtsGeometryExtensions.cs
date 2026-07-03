@@ -4,15 +4,16 @@ using Units = Turfano.Units;
 namespace Turfano.NetTopologySuite;
 
 /// <summary>
-/// Extensões NTS-backed sobre os tipos do Turfano. O `Buffer` reproduz o `@turf/buffer`:
-/// projeta para azimutal-equidistante centrada na geometria (equivalente great-circle via
-/// `Geo.Distance`/`Bearing`/`Destination`), roda o buffer do NTS no plano em metros (o
-/// buffer do `@turf` é o JTS = NTS) e desprojeta. Vive no satélite porque `partial class
-/// Geo` não atravessa assemblies — e é a única função NTS-bound do Turfano.
+/// NTS-backed extensions over Turfano's types. `Buffer` reproduces `@turf/buffer`:
+/// it projects to an azimuthal-equidistant plane centered on the geometry (a great-circle
+/// equivalent via `Geo.Distance`/`Bearing`/`Destination`), runs NTS's planar buffer in meters
+/// (the `@turf` buffer is JTS = NTS), then unprojects. It lives in the satellite package
+/// because `partial class Geo` cannot span assemblies — this is Turfano's only NTS-bound
+/// function.
 /// </summary>
 public static class NtsGeometryExtensions
 {
-    /// <summary>Expande/contrai a geometria por um raio — `@turf/buffer`. `null` se vazio.</summary>
+    /// <summary>Expands/contracts the geometry by a radius — `@turf/buffer`. `null` if empty.</summary>
     public static GeoJson.Geometry? Buffer(this GeoJson.Geometry geometry, Units.Length radius, int steps = 8)
     {
         var center = GeoJson.Geo.Center(geometry).Coordinates;

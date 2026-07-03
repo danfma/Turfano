@@ -3,9 +3,10 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Arco de grande círculo entre dois pontos como linha de `npoints` — `@turf/great-circle`
-    /// (porte da interpolação da lib `arc`). O tratamento de offset/antimeridiano (que produz
-    /// MultiLineString) fica para depois — aqui devolve uma `LineString` (caso sem cruzamento).
+    /// Great-circle arc between two points as an `npoints`-vertex line — `@turf/great-circle`
+    /// (port of the `arc` library's interpolation). Offset/antimeridian handling (which
+    /// produces a MultiLineString) is left for later — this returns a `LineString` (the
+    /// no-crossing case).
     /// </summary>
     public static LineString GreatCircle(Position start, Position end, int npoints = 100)
     {

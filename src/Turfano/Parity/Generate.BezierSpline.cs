@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Curva spline suave passando pelos pontos de uma linha — `@turf/bezier-spline` (porte da
-    /// classe `Spline` da lib: base cúbica + amostragem por tempo). `resolution`/`sharpness`
-    /// seguem os defaults do `@turf` (10000 / 0.85).
+    /// Smooth spline curve passing through the points of a line — `@turf/bezier-spline` (port of
+    /// the library's `Spline` class: cubic basis + time-based sampling). `resolution`/`sharpness`
+    /// follow the `@turf` defaults (10000 / 0.85).
     /// </summary>
     public static LineString BezierSpline(LineString line, double resolution = 10000, double sharpness = 0.85)
     {

@@ -5,9 +5,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Trechos sobrepostos entre duas linhas — porte fiel do `@turf/line-overlap`: os
-    /// segmentos de `line1` vão para o índice espacial; cada segmento de `line2` procura
-    /// matches (na ORDEM da árvore) e a sobreposição é encadeada segmento a segmento.
+    /// Overlapping stretches between two lines — faithful port of `@turf/line-overlap`: the
+    /// segments of `line1` go into the spatial index; each segment of `line2` looks for
+    /// matches (in the tree's ORDER) and the overlap is chained segment by segment.
     /// </summary>
     public static FeatureCollection LineOverlap(Geometry line1, Geometry line2, Units.Length? tolerance = null)
     {
@@ -106,7 +106,7 @@ public static partial class Geo
         return sorted;
     }
 
-    /// <summary>Anexa o segmento à ponta compatível; null se não toca as pontas.</summary>
+    /// <summary>Appends the segment to the matching endpoint; null if it touches neither endpoint.</summary>
     private static List<Position>? ConcatSegment(List<Position> line, Position[] segment)
     {
         var start = line[0];

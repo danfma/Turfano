@@ -3,10 +3,10 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Divide uma linha por um divisor (ponto, multiponto, linha ou polígono) —
-    /// porte fiel do `@turf/line-split`: o divisor é truncado (precisão 7), linhas/polígonos
-    /// viram os pontos de `LineIntersect`, e a divisão acontece ponto a ponto pelo segmento
-    /// mais próximo (índice espacial na ordem da árvore).
+    /// Splits a line by a splitter (point, multipoint, line, or polygon) — faithful port of
+    /// `@turf/line-split`: the splitter is truncated (precision 7), lines/polygons turn into
+    /// the points from `LineIntersect`, and the split happens point by point via the closest
+    /// segment (spatial index in tree order).
     /// </summary>
     public static FeatureCollection LineSplit(Feature line, Feature splitter)
     {

@@ -5,10 +5,10 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// TIN (Delaunay) a partir de pontos — porte fiel do `@turf/tin` (algoritmo incremental
-    /// com supertriângulo e circumcírculos; substitui o "leque" ingênuo do legado). O valor
-    /// `z` de cada vértice vem de `properties[z]` ou, quando <paramref name="z"/> é nulo,
-    /// da 3ª coordenada.
+    /// TIN (Delaunay) from points — faithful port of `@turf/tin` (incremental algorithm with
+    /// a super-triangle and circumcircles; replaces the legacy's naive "fan"). The `z` value
+    /// of each vertex comes from `properties[z]` or, when <paramref name="z"/> is null, from
+    /// the 3rd coordinate.
     /// </summary>
     public static FeatureCollection Tin(FeatureCollection points, string? z = null)
     {
@@ -100,7 +100,7 @@ public static partial class Geo
         }
     }
 
-    /// <summary>Remove pares de arestas duplicadas (comparação por REFERÊNCIA, como a fonte).</summary>
+    /// <summary>Removes pairs of duplicate edges (compared by REFERENCE, as in the source).</summary>
     private static void DedupTinEdges(List<TinVertex> edges)
     {
         var j = edges.Count;

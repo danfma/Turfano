@@ -6,10 +6,10 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Decompõe polígonos com auto-interseção em polígonos simples — porte fiel do
-    /// `@turf/unkink-polygon` (simplepolygon de M. Fraeye embutido no bundle): grafo de
-    /// pseudo-vértices nas interseções (achadas via rbush) e caminhada pelos anéis.
-    /// As propriedades de cada feature de entrada são preservadas nas saídas.
+    /// Decomposes self-intersecting polygons into simple polygons — faithful port of
+    /// `@turf/unkink-polygon` (M. Fraeye's simplepolygon bundled within it): a graph of
+    /// pseudo-vertices at the intersections (found via rbush) and a walk over the rings.
+    /// The properties of each input feature are preserved in the outputs.
     /// </summary>
     public static FeatureCollection UnkinkPolygon(Geometry geojson)
     {
@@ -22,7 +22,7 @@ public static partial class Geo
         return new FeatureCollection(features.ToArray());
     }
 
-    /// <summary>Sobrecarga para coleções (propriedades preservadas por feature).</summary>
+    /// <summary>Overload for collections (properties preserved per feature).</summary>
     public static FeatureCollection UnkinkPolygon(FeatureCollection collection)
     {
         var features = new List<Feature>();
@@ -95,8 +95,8 @@ public static partial class Geo
         bool Unique
     );
 
-    /// <summary>simplepolygon: anéis simples resultantes (só as coordenadas — as
-    /// propriedades parent/winding do lib são descartadas pelo @turf/unkink-polygon).</summary>
+    /// <summary>simplepolygon: the resulting simple rings (coordinates only — the
+    /// library's parent/winding properties are discarded by @turf/unkink-polygon).</summary>
     private static List<Position[]> SimplePolygonRings(Polygon polygonInput)
     {
         // fecha anéis se necessário (cópia, sem mutar a entrada)
@@ -321,8 +321,8 @@ public static partial class Geo
         return outputRings;
     }
 
-    /// <summary>Auto-interseções (interiores) por aresta, na ordem da varredura da fonte
-    /// (busca rbush por aresta; dedup por coordenada-string).</summary>
+    /// <summary>Self-intersections (interior) per edge, in the source's scan order
+    /// (rbush search per edge; dedup by coordinate string).</summary>
     private static List<SelfIntersection> FindSelfIntersections(Position[][] rings)
     {
         var output = new List<SelfIntersection>();
@@ -385,8 +385,8 @@ public static partial class Geo
         );
     }
 
-    /// <summary>Interseção das RETAS (frac filtra para o interior depois); null se paralelas
-    /// ou compartilham endpoint (as MESMAS checagens da fonte, incluindo a assimétrica).</summary>
+    /// <summary>Intersection of the infinite LINES (frac filters to the interior afterward); null if
+    /// parallel or sharing an endpoint (the SAME checks as the source, including the asymmetric one).</summary>
     private static Position? InfiniteLineIntersect(Position start0, Position end0, Position start1, Position end1)
     {
         if (start0 == start1 || start0 == end1 || end0 == start1 || end1 == start1)

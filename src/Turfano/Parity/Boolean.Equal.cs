@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Geometrias iguais — `@turf/boolean-equal`. Mesmo tipo e mesmas coordenadas (na ordem,
-    /// dentro de precisão). NOTA: o `geojson-equality` do @turf também normaliza rotação/
-    /// direção de anéis — isso fica como refinamento futuro; aqui é comparação ordenada.
+    /// Equal geometries — `@turf/boolean-equal`. Same type and same coordinates (in order,
+    /// within precision). NOTE: `@turf`'s `geojson-equality` also normalizes ring rotation/
+    /// direction — that is left as a future refinement; this is an ordered comparison.
     /// </summary>
     public static bool BooleanEqual(Geometry a, Geometry b, double tolerance = 1e-9)
     {

@@ -4,7 +4,7 @@ namespace Turfano.GeoJson;
 
 public static partial class Geo
 {
-    /// <summary>Ponto de destino (great-circle) a partir de origem, distância e rumo — `@turf/destination`.</summary>
+    /// <summary>Destination point (great-circle) from an origin, distance, and bearing — `@turf/destination`.</summary>
     public static Point Destination(Position origin, Units.Length distance, Units.Angle bearing)
     {
         var lon1 = origin.Lon * RadiansPerDegree;
@@ -25,7 +25,7 @@ public static partial class Geo
         return new Point(new Position(lon2 / RadiansPerDegree, lat2 / RadiansPerDegree));
     }
 
-    /// <summary>Ponto médio geodésico entre dois pontos — `@turf/midpoint`.</summary>
+    /// <summary>Geodesic midpoint between two points — `@turf/midpoint`.</summary>
     public static Point Midpoint(Point a, Point b)
     {
         var dist = Distance(a.Coordinates, b.Coordinates);
@@ -33,7 +33,7 @@ public static partial class Geo
         return Destination(a.Coordinates, dist / 2, bearing);
     }
 
-    /// <summary>Centro da bounding box de uma geometria — `@turf/center`.</summary>
+    /// <summary>Center of a geometry's bounding box — `@turf/center`.</summary>
     public static Point Center(Geometry geometry)
     {
         var b = Bbox(geometry).Values;
@@ -41,9 +41,9 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Centro de massa — `@turf/center-of-mass`. Para `Point`/`Polygon` reproduz o algoritmo
-    /// do @turf (shoelace ponderado em torno do `centroid`); para outros tipos cai em
-    /// `Centroid` (o caminho de convex hull do @turf fica para a onda de transformação).
+    /// Center of mass — `@turf/center-of-mass`. For `Point`/`Polygon`, reproduces @turf's
+    /// algorithm (shoelace weighted around the `centroid`); for other types, falls back to
+    /// `Centroid` (@turf's convex-hull path is deferred to the transformation wave).
     /// </summary>
     public static Point CenterOfMass(Geometry geometry)
     {
@@ -81,7 +81,7 @@ public static partial class Geo
         return new Point(new Position(tx + areaFactor * sx, ty + areaFactor * sy));
     }
 
-    /// <summary>Ponto a uma distância ao longo de uma linha — `@turf/along`.</summary>
+    /// <summary>Point at a given distance along a line — `@turf/along`.</summary>
     public static Point Along(LineString line, Units.Length distance)
     {
         var coords = line.Coordinates;
@@ -108,7 +108,7 @@ public static partial class Geo
         return new Point(coords[^1]);
     }
 
-    /// <summary>Destino ao longo de uma linha de rumo constante — `@turf/rhumb-destination`.</summary>
+    /// <summary>Destination along a constant-bearing (rhumb) line — `@turf/rhumb-destination`.</summary>
     public static Point RhumbDestination(Position origin, Units.Length distance, Units.Angle bearing)
     {
         var phi1 = origin.Lat * RadiansPerDegree;

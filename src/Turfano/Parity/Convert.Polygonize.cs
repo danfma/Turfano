@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Monta polígonos a partir de uma rede de linhas — porte fiel do `@turf/polygonize`
-    /// (grafo de arestas estilo GEOS: remove dangles e cut-edges, extrai anéis e classifica
-    /// shells/furos). Nativo — sem NTS.
+    /// Builds polygons from a network of lines — a faithful port of `@turf/polygonize`
+    /// (GEOS-style edge graph: removes dangles and cut-edges, extracts rings, and classifies
+    /// shells/holes). Native — no NTS.
     /// </summary>
     public static FeatureCollection Polygonize(FeatureCollection lines)
     {

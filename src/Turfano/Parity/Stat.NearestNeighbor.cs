@@ -6,13 +6,13 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Análise do vizinho mais próximo — `@turf/nearest-neighbor-analysis`. Retorna a área de
-    /// estudo (informada ou a bbox do conjunto) com a estatística anexada em
-    /// `properties.nearestNeighborAnalysis` (mesmos campos do @turf: `units`, `arealUnits`,
+    /// Nearest neighbor analysis — `@turf/nearest-neighbor-analysis`. Returns the study
+    /// area (provided or the bbox of the dataset) with the statistics attached under
+    /// `properties.nearestNeighborAnalysis` (same fields as @turf: `units`, `arealUnits`,
     /// `observedMeanDistance`, `expectedMeanDistance`, `nearestNeighborIndex`,
-    /// `numberOfPoints`, `zScore`). **Nota fiel ao @turf**: se <paramref name="studyArea"/> for
-    /// informado, suas `properties` originais são SUBSTITUÍDAS (não mescladas) por
-    /// <paramref name="properties"/> + a estatística — é o que a fonte faz
+    /// `numberOfPoints`, `zScore`). **Note, faithful to @turf**: if <paramref name="studyArea"/>
+    /// is provided, its original `properties` are REPLACED (not merged) with
+    /// <paramref name="properties"/> + the statistics — this is what the source does
     /// (`studyArea.properties = properties`).
     /// </summary>
     public static Feature NearestNeighborAnalysis(

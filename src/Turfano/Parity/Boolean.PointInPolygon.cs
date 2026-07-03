@@ -3,8 +3,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Ponto dentro de um polígono — `@turf/boolean-point-in-polygon` (algoritmo Hao, que
-    /// detecta a **borda**). Com `ignoreBoundary`, ponto na borda conta como fora.
+    /// Point inside a polygon — `@turf/boolean-point-in-polygon` (Hao's algorithm, which
+    /// detects the **boundary**). With `ignoreBoundary`, a point on the boundary counts as outside.
     /// </summary>
     public static bool BooleanPointInPolygon(Point point, Geometry polygon, bool ignoreBoundary = false)
     {

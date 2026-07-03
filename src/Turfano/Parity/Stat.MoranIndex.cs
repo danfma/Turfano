@@ -1,15 +1,15 @@
 namespace Turfano.GeoJson;
 
-/// <summary>Resultado de <see cref="Geo.MoranIndex"/> — mesmos 4 campos do @turf.</summary>
+/// <summary>Result of <see cref="Geo.MoranIndex"/> — same 4 fields as @turf.</summary>
 public sealed record MoranIndexResult(double MoranIndex, double ExpectedMoranIndex, double StdNorm, double ZNorm);
 
 public static partial class Geo
 {
     /// <summary>
-    /// Índice I de Moran (autocorrelação espacial) — `@turf/moran-index`. &gt; 0: padrão
-    /// agrupado; &lt; 0: disperso; ≈ 0: aleatório. Usa <see cref="DistanceWeight"/> como
-    /// matriz de pesos (nota: aqui `standardization` tem default `true`, diferente do
-    /// `DistanceWeight` isolado, e `threshold` default é 100000 — mesmos defaults do @turf).
+    /// Moran's I index (spatial autocorrelation) — `@turf/moran-index`. &gt; 0: clustered
+    /// pattern; &lt; 0: dispersed; ≈ 0: random. Uses <see cref="DistanceWeight"/> as the
+    /// weights matrix (note: here `standardization` defaults to `true`, unlike standalone
+    /// `DistanceWeight`, and `threshold` defaults to 100000 — same defaults as @turf).
     /// </summary>
     public static MoranIndexResult MoranIndex(
         FeatureCollection fc,

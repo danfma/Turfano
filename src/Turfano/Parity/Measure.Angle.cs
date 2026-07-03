@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Ângulo (em graus) no vértice `midPoint` entre `startPoint` e `endPoint` —
-    /// `@turf/angle`. Com <paramref name="mercator"/> os azimutes vêm do rumo constante
-    /// (rhumb); <paramref name="explementary"/> devolve 360 − ângulo.
+    /// Angle (in degrees) at the vertex `midPoint` between `startPoint` and `endPoint` —
+    /// `@turf/angle`. With <paramref name="mercator"/> the azimuths come from the rhumb
+    /// (constant bearing); <paramref name="explementary"/> returns 360 - angle.
     /// </summary>
     public static double Angle(
         Position startPoint,

@@ -5,11 +5,12 @@ using GeoJson = Turfano.GeoJson;
 namespace Turfano.NetTopologySuite;
 
 /// <summary>
-/// Conversão na borda entre os tipos GeoJSON do Turfano e o NetTopologySuite (ex.: EF Core
-/// spatial). A fronteira usa sequências EMPACOTADAS (`PackedDoubleCoordinateSequence`):
-/// nenhum objeto `Coordinate` é materializado por vértice — na ida os doubles crus viram a
-/// sequência; na volta o fast-path lê `GetRawCoordinates()` (o array interno, sem cópia),
-/// com fallback por ordinal para geometrias de terceiros com qualquer factory.
+/// Boundary conversion between Turfano's GeoJSON types and NetTopologySuite (e.g., EF Core
+/// spatial). The boundary uses PACKED sequences (`PackedDoubleCoordinateSequence`): no
+/// `Coordinate` object is materialized per vertex — going in, the raw doubles become the
+/// sequence directly; coming back, the fast path reads `GetRawCoordinates()` (the internal
+/// array, no copy), with an ordinal-based fallback for third-party geometries built with any
+/// factory.
 /// </summary>
 public static class NtsConvert
 {
@@ -19,17 +20,17 @@ public static class NtsConvert
         PackedCoordinateSequenceFactory.DoubleFactory
     );
 
-    /// <summary>Posição GeoJSON → `Coordinate` (com Z quando houver altitude).</summary>
+    /// <summary>GeoJSON position → `Coordinate` (with Z when altitude is present).</summary>
     public static Coordinate ToNts(GeoJson.Position position) =>
         position.Alt is { } alt
             ? new CoordinateZ(position.Lon, position.Lat, alt)
             : new Coordinate(position.Lon, position.Lat);
 
-    /// <summary>`Coordinate` → posição GeoJSON (Z NaN vira ausência de altitude).</summary>
+    /// <summary>`Coordinate` → GeoJSON position (a NaN Z becomes an absent altitude).</summary>
     public static GeoJson.Position FromNts(Coordinate coordinate) =>
         new(coordinate.X, coordinate.Y, double.IsNaN(coordinate.Z) ? null : coordinate.Z);
 
-    /// <summary>Geometria GeoJSON do Turfano → geometria NTS (sequências empacotadas).</summary>
+    /// <summary>Turfano GeoJSON geometry → NTS geometry (packed sequences).</summary>
     public static Geometry ToNts(GeoJson.Geometry geometry) =>
         geometry switch
         {
@@ -49,7 +50,7 @@ public static class NtsConvert
             _ => throw new ArgumentException($"Geometria não suportada: {geometry.Type}", nameof(geometry)),
         };
 
-    /// <summary>Geometria NTS → geometria GeoJSON do Turfano.</summary>
+    /// <summary>NTS geometry → Turfano GeoJSON geometry.</summary>
     public static GeoJson.Geometry FromNts(Geometry geometry) =>
         geometry switch
         {
@@ -98,7 +99,7 @@ public static class NtsConvert
         return rings.ToArray();
     }
 
-    /// <summary>Ida: `Position[]` → sequência empacotada (doubles crus; dimensão 3 se houver Z).</summary>
+    /// <summary>Forward: `Position[]` → packed sequence (raw doubles; dimension 3 if Z is present).</summary>
     private static CoordinateSequence PackPositions(GeoJson.Position[] positions)
     {
         var hasAltitude = positions.Any(p => p.Alt is not null);
@@ -114,7 +115,7 @@ public static class NtsConvert
         return new PackedDoubleCoordinateSequence(raw, dimension, 0);
     }
 
-    /// <summary>Volta: fast-path pelo array interno quando empacotada; fallback por ordinal.</summary>
+    /// <summary>Return: fast path via the internal array when packed; ordinal-based fallback otherwise.</summary>
     private static GeoJson.Position[] UnpackPositions(CoordinateSequence sequence)
     {
         var count = sequence.Count;

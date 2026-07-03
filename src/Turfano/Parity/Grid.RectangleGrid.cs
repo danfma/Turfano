@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Grade de células retangulares sobre uma bbox — `@turf/rectangle-grid`. As dimensões
-    /// viram graus via o equivalente angular (`convertLength(→degrees)` do @turf) e a grade
-    /// é centrada na bbox. <paramref name="mask"/> filtra por interseção.
+    /// Grid of rectangular cells over a bbox — `@turf/rectangle-grid`. Dimensions
+    /// are converted to degrees via the angular equivalent (`convertLength(→degrees)` from @turf), and the grid
+    /// is centered on the bbox. <paramref name="mask"/> filters by intersection.
     /// </summary>
     public static FeatureCollection RectangleGrid(
         BBox bbox,
@@ -59,7 +59,7 @@ public static partial class Geo
         return new FeatureCollection(results.ToArray());
     }
 
-    /// <summary>Grade de células quadradas — `@turf/square-grid` (= rectangleGrid com lado igual).</summary>
+    /// <summary>Grid of square cells — `@turf/square-grid` (= rectangleGrid with equal sides).</summary>
     public static FeatureCollection SquareGrid(BBox bbox, Units.Length cellSide, Geometry? mask = null) =>
         RectangleGrid(bbox, cellSide, cellSide, mask);
 }

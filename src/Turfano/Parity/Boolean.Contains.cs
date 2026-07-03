@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// `a` contém `b` — `@turf/boolean-contains`. Cobre os combos núcleo (Point/Point,
-    /// Polygon/Point, Polygon/Polygon); combinações com MultiPoint/LineString-em-polígono
-    /// ficam para um incremento futuro.
+    /// `a` contains `b` — `@turf/boolean-contains`. Covers the core combinations (Point/Point,
+    /// Polygon/Point, Polygon/Polygon); combinations with MultiPoint/LineString-in-polygon
+    /// are left for a future increment.
     /// </summary>
     public static bool BooleanContains(Geometry a, Geometry b) =>
         (a, b) switch
@@ -17,8 +17,8 @@ public static partial class Geo
         };
 
     /// <summary>
-    /// `a` está dentro de `b` — `@turf/boolean-within` (dual de contains). Cobre os combos
-    /// núcleo (Point/Polygon, Polygon/Polygon).
+    /// `a` is within `b` — `@turf/boolean-within` (dual of contains). Covers the core
+    /// combinations (Point/Polygon, Polygon/Polygon).
     /// </summary>
     public static bool BooleanWithin(Geometry a, Geometry b) =>
         (a, b) switch

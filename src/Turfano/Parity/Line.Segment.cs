@@ -3,8 +3,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Decompõe a geometria em segmentos de 2 vértices — `@turf/line-segment` (LineString,
-    /// MultiLineString, Polygon e MultiPolygon; anéis incluídos).
+    /// Breaks the geometry down into 2-vertex segments — `@turf/line-segment` (LineString,
+    /// MultiLineString, Polygon, and MultiPolygon; rings included).
     /// </summary>
     public static FeatureCollection LineSegment(Geometry geojson)
     {
@@ -17,7 +17,7 @@ public static partial class Geo
         return new FeatureCollection(results.ToArray());
     }
 
-    /// <summary>Sequências lineares (linhas e anéis) da geometria, na ordem do flattenEach.</summary>
+    /// <summary>Linear sequences (lines and rings) of the geometry, in flattenEach order.</summary>
     internal static IEnumerable<Position[]> LinearParts(Geometry geometry)
     {
         switch (geometry)

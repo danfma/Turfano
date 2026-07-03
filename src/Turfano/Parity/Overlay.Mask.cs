@@ -5,9 +5,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// "Mundo menos o polígono" — `@turf/mask`: o anel do mundo (ou da máscara custom)
-    /// ganha como furos os anéis EXTERIORES da união do polígono de entrada. A união usa o
-    /// motor polyclip nativo (o mesmo que o @turf executa).
+    /// "World minus the polygon" — `@turf/mask`: the world ring (or the custom mask)
+    /// gains the EXTERIOR rings of the input polygon's union as holes. The union uses the
+    /// native polyclip engine (the same one @turf runs).
     /// </summary>
     public static Polygon Mask(Geometry polygon, Polygon? mask = null)
     {

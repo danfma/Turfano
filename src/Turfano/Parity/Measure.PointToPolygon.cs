@@ -5,9 +5,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Distância (sinalizada) de um ponto a um polígono — `@turf/point-to-polygon-distance`.
-    /// Positiva fora, negativa dentro. Mínimo das `PointToLineDistance` a cada anel + sinal por
-    /// point-in-polygon. (O caminho com furos do @turf é simplificado para o mínimo direto.)
+    /// Signed distance from a point to a polygon — `@turf/point-to-polygon-distance`.
+    /// Positive outside, negative inside. Minimum of `PointToLineDistance` over each ring, signed
+    /// via point-in-polygon. (@turf's hole-aware path is simplified here to the direct minimum.)
     /// </summary>
     public static Units.Length PointToPolygonDistance(Point point, Polygon polygon)
     {
@@ -24,8 +24,8 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Ponto garantidamente sobre a superfície da feature — `@turf/point-on-feature`. Para
-    /// `Polygon`: o centro da bbox se estiver dentro; senão o ponto mais próximo na borda.
+    /// A point guaranteed to lie on the feature's surface — `@turf/point-on-feature`. For
+    /// `Polygon`: the bbox center if it lies inside; otherwise the nearest point on the boundary.
     /// </summary>
     public static Point PointOnFeature(Geometry geometry)
     {
@@ -45,7 +45,7 @@ public static partial class Geo
         return center;
     }
 
-    /// <summary>Ray-casting: ponto dentro do anel externo e fora de todos os furos.</summary>
+    /// <summary>Ray-casting: point inside the outer ring and outside all holes.</summary>
     private static bool PointInPolygon(Position pt, Polygon polygon)
     {
         var rings = polygon.Coordinates;

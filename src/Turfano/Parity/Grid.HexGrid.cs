@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Grade hexagonal (flat-top, offset em colunas ímpares) sobre uma bbox —
-    /// `@turf/hex-grid`. Com <paramref name="triangles"/> = true, cada hexágono vira seus
-    /// 6 triângulos. <paramref name="mask"/> filtra por interseção (overlay nativo).
+    /// Hexagonal grid (flat-top, offset on odd columns) over a bbox —
+    /// `@turf/hex-grid`. With <paramref name="triangles"/> = true, each hexagon becomes its
+    /// 6 triangles. <paramref name="mask"/> filters by intersection (native overlay).
     /// </summary>
     public static FeatureCollection HexGrid(
         BBox bbox,

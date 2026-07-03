@@ -5,10 +5,10 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Diagrama de Voronoi dos pontos, cortado pela bbox — `@turf/voronoi` (porte do
-    /// d3-voronoi). Uma célula por ponto, na ordem de entrada, com as propriedades do ponto
-    /// clonadas; células totalmente fora do extent são omitidas (no @turf viram buracos
-    /// `undefined` na coleção).
+    /// Voronoi diagram of the points, clipped to the bbox — `@turf/voronoi` (port of
+    /// d3-voronoi). One cell per point, in input order, with the point's properties
+    /// cloned; cells entirely outside the extent are omitted (in @turf they become
+    /// `undefined` holes in the collection).
     /// </summary>
     public static FeatureCollection Voronoi(FeatureCollection points, BBox bbox)
     {

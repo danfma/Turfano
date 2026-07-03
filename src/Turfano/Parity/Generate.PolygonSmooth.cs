@@ -3,8 +3,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Suaviza um polígono por corte de cantos (Chaikin) — `@turf/polygon-smooth`. Cada aresta
-    /// (p0→p1) gera os pontos `0.75·p0 + 0.25·p1` e `0.25·p0 + 0.75·p1`.
+    /// Smooths a polygon using corner cutting (Chaikin's algorithm) — `@turf/polygon-smooth`. Each edge
+    /// (p0→p1) produces the points `0.75·p0 + 0.25·p1` and `0.25·p0 + 0.75·p1`.
     /// </summary>
     public static Polygon PolygonSmooth(Polygon polygon, int iterations = 1)
     {

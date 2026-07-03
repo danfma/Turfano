@@ -12,8 +12,8 @@ public static partial class Geo
     private const double AreaFactor = EarthRadiusMeters * EarthRadiusMeters / 2.0;
 
     /// <summary>
-    /// Lê um número de um <see cref="System.Text.Json.Nodes.JsonNode"/> aceitando qualquer
-    /// tipo numérico (JS não distingue int de double; `GetValue&lt;double&gt;()` não coage).
+    /// Reads a number from a <see cref="System.Text.Json.Nodes.JsonNode"/>, accepting any
+    /// numeric type (JS does not distinguish int from double; `GetValue&lt;double&gt;()` does not coerce).
     /// </summary>
     private static double? NumberOrNull(System.Text.Json.Nodes.JsonNode? node)
     {
@@ -31,9 +31,9 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Enumera as posições de uma geometria. Com <paramref name="excludeWrapCoord"/> = true,
-    /// pula o vértice de fechamento dos anéis de Polygon/MultiPolygon (semântica do
-    /// `coordEach(..., excludeWrapCoord = true)` do TurfJS, usada por `centroid`).
+    /// Enumerates the positions of a geometry. With <paramref name="excludeWrapCoord"/> = true,
+    /// skips the closing vertex of Polygon/MultiPolygon rings (matching the semantics of
+    /// TurfJS's `coordEach(..., excludeWrapCoord = true)`, used by `centroid`).
     /// </summary>
     private static void EachPosition(
         Geometry geometry,

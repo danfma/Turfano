@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Valor interpolado no plano de um triângulo — `@turf/planepoint`. Os valores dos
-    /// vértices vêm das propriedades `a`/`b`/`c` da feature ou, na ausência, da 3ª
-    /// coordenada de cada vértice.
+    /// Value interpolated on the plane of a triangle — `@turf/planepoint`. Vertex values come
+    /// from the feature's `a`/`b`/`c` properties or, when absent, from the 3rd coordinate of
+    /// each vertex.
     /// </summary>
     public static double Planepoint(Point point, Feature triangle)
     {

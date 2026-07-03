@@ -7,20 +7,20 @@ namespace Turfano.GeoJson;
 // regressão pelas âncoras de área da Onda E (valores do @turf pinados nos testes).
 public static partial class Geo
 {
-    /// <summary>União de duas geometrias — `@turf/union` (motor polyclip portado).</summary>
+    /// <summary>Union of two geometries — `@turf/union` (ported polyclip engine).</summary>
     public static Geometry? Union(Geometry a, Geometry b) =>
         RunOverlay(PolyclipOperationType.Union, a, b);
 
-    /// <summary>Diferença `a` − `b` — `@turf/difference` (motor polyclip portado).</summary>
+    /// <summary>Difference `a` − `b` — `@turf/difference` (ported polyclip engine).</summary>
     public static Geometry? Difference(Geometry a, Geometry b) =>
         RunOverlay(PolyclipOperationType.Difference, a, b);
 
-    /// <summary>Interseção de duas geometrias — `@turf/intersect` (motor polyclip portado).</summary>
+    /// <summary>Intersection of two geometries — `@turf/intersect` (ported polyclip engine).</summary>
     public static Geometry? Intersect(Geometry a, Geometry b) =>
         RunOverlay(PolyclipOperationType.Intersection, a, b);
 
-    /// <summary>Une os polígonos de uma coleção que se tocam — `@turf/dissolve` (união n-ária
-    /// do polyclip, como o @turf faz).</summary>
+    /// <summary>Unions the touching polygons of a collection — `@turf/dissolve` (n-ary union
+    /// of the polyclip engine, as @turf does).</summary>
     public static Geometry Dissolve(FeatureCollection polygons)
     {
         var geometries = new List<Position[][][]>();
