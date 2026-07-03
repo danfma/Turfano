@@ -8,6 +8,11 @@
     <Title>Turfano</Title>
     <Description>Faithful .NET port of TurfJS over its own GeoJSON types — zero dependencies, AOT-ready.</Description>
     <IsAotCompatible>true</IsAotCompatible>
+    <!-- Publica os XML docs no pacote (IntelliSense); CS1591 silencia o aviso de membros
+         ainda sem summary (ex.: propriedades dos records) sem impedir o envio dos docs existentes. -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -23,6 +28,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>

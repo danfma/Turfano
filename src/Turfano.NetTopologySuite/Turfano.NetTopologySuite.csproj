@@ -7,10 +7,29 @@
     <IsPackable>true</IsPackable>
     <Title>Turfano.NetTopologySuite</Title>
     <Description>NetTopologySuite interop for Turfano: the NtsConvert boundary bridge (packed, zero-Coordinate) and the NTS-backed Buffer extension.</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Copyright>Daniel Ferreira Monteiro Alves</Copyright>
+    <Authors>Daniel Ferreira Monteiro Alves</Authors>
+    <PackageProjectUrl>https://github.com/danfma/Turfano</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/danfma/Turfano</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageTags>TurfJS GeoJSON GIS Geospatial NetTopologySuite NTS Buffer</PackageTags>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Turfano\Turfano.csproj" />
     <PackageReference Include="NetTopologySuite" Version="2.5.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>

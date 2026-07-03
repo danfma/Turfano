@@ -49,7 +49,10 @@ var square = Geo.Polygon(
 var area = Geo.Area(square); // Turfano.Units.Area
 Console.WriteLine($"{area.SquareMeters:F1} m²");
 
-var union = Geo.Union(square, otherSquare); // Turfano.GeoJson.Geometry?
+var overlappingSquare = Geo.Polygon(
+    [new Position(0.5, 0.5), new Position(1.5, 0.5), new Position(1.5, 1.5), new Position(0.5, 1.5), new Position(0.5, 0.5)]
+);
+var union = Geo.Union(square, overlappingSquare); // Turfano.GeoJson.Geometry?
 ```
 
 ## Interop with NetTopologySuite
