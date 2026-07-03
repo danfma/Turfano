@@ -22,6 +22,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Habilita o GitHub Pages (build type = GitHub Actions) automaticamente, evitando
+      # o passo manual em Settings → Pages. Requer `pages: write` (já concedido acima).
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:

@@ -22,4 +22,6 @@ dependencies** in the core package.
 - [Concepts](articles/concepts.md) — the `Geo` facade, own GeoJSON types, and units.
 - [NetTopologySuite interop](articles/nts-interop.md) — the satellite package.
 - [API Reference](api/Turfano.GeoJson.Geo.yml) — every public function and type.
-- Documentação em **português**: [Comece aqui](articles-pt-br/introducao.md).
+- Documentação em **português**: [Introdução](articles-pt-br/introducao.md),
+  [Conceitos](articles-pt-br/conceitos.md),
+  [Interoperabilidade com NTS](articles-pt-br/interop-nts.md).
