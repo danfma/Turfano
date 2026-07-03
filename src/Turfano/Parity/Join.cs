@@ -4,7 +4,7 @@ namespace Turfano.GeoJson;
 
 public static partial class Geo
 {
-    /// <summary>Filtra os pontos que estão dentro do polígono — `@turf/points-within-polygon`.</summary>
+    /// <summary>Filters the points that are inside the polygon — `@turf/points-within-polygon`.</summary>
     public static FeatureCollection PointsWithinPolygon(FeatureCollection points, Geometry polygon)
     {
         var inside = points
@@ -13,7 +13,7 @@ public static partial class Geo
         return new FeatureCollection(inside);
     }
 
-    /// <summary>Atribui a cada ponto a propriedade `field` do polígono que o contém — `@turf/tag`.</summary>
+    /// <summary>Assigns each point the `field` property of the polygon that contains it — `@turf/tag`.</summary>
     public static FeatureCollection Tag(
         FeatureCollection points,
         FeatureCollection polygons,

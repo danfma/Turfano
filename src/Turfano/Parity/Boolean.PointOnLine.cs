@@ -3,8 +3,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Ponto sobre uma linha — `@turf/boolean-point-on-line`. `ignoreEndVertices` exclui os
-    /// vértices inicial/final; `epsilon` é a tolerância de colinearidade.
+    /// Point on a line — `@turf/boolean-point-on-line`. `ignoreEndVertices` excludes the
+    /// start/end vertices; `epsilon` is the collinearity tolerance.
     /// </summary>
     public static bool BooleanPointOnLine(
         Point point,

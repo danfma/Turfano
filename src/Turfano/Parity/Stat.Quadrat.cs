@@ -2,7 +2,7 @@ using Units = Turfano.Units;
 
 namespace Turfano.GeoJson;
 
-/// <summary>Resultado de <see cref="Geo.QuadratAnalysis"/> — mesmos 4 campos do @turf.</summary>
+/// <summary>Result of <see cref="Geo.QuadratAnalysis"/> — same 4 fields as @turf.</summary>
 public sealed record QuadratAnalysisResult(
     double CriticalValue,
     bool IsRandom,
@@ -25,9 +25,10 @@ public static partial class Geo
         };
 
     /// <summary>
-    /// Análise de quadrats — `@turf/quadrat-analysis`. Sobrepõe uma grade quadrada à área de
-    /// estudo, conta pontos por célula e compara a distribuição observada com a de Poisson
-    /// (teste de Kolmogorov-Smirnov) para inferir se o padrão é aleatório.
+    /// Quadrat analysis — `@turf/quadrat-analysis`. Overlays a square grid onto the study
+    /// area, counts points per cell, and compares the observed distribution against the
+    /// Poisson distribution (Kolmogorov-Smirnov test) to infer whether the pattern is
+    /// random.
     /// </summary>
     public static QuadratAnalysisResult QuadratAnalysis(
         FeatureCollection pointFeatureSet,

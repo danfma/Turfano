@@ -4,7 +4,7 @@ namespace Turfano.GeoJson;
 
 public static partial class Geo
 {
-    /// <summary>Fatia a linha entre os pontos (projetados nela) `start` e `stop` — `@turf/line-slice`.</summary>
+    /// <summary>Slices the line between the points (projected onto it) `start` and `stop` — `@turf/line-slice`.</summary>
     public static LineString LineSlice(Point start, Point stop, LineString line)
     {
         var startVertex = NearestPointOnLine(line, start);
@@ -19,7 +19,7 @@ public static partial class Geo
         return new LineString(clip.ToArray());
     }
 
-    /// <summary>Fatia a linha entre duas distâncias ao longo dela — `@turf/line-slice-along`.</summary>
+    /// <summary>Slices the line between two distances along it — `@turf/line-slice-along`.</summary>
     public static LineString LineSliceAlong(LineString line, Units.Length start, Units.Length stop)
     {
         var coords = line.Coordinates;

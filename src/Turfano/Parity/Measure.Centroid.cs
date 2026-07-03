@@ -3,9 +3,10 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Centroide (média aritmética dos vértices), idêntico ao `@turf/centroid`. **Conserto da
-    /// Fase 2**: exclui o vértice de fechamento dos anéis, então
-    /// `[[0,0],[0,2],[1,1],[2,2],[2,0],[0,0]]` dá `[1,1]` (e não `[0.833,0.833]` do NTS).
+    /// Centroid (arithmetic mean of the vertices), identical to `@turf/centroid`. **Phase 2
+    /// fix**: excludes the closing vertex of rings, so
+    /// `[[0,0],[0,2],[1,1],[2,2],[2,0],[0,0]]` gives `[1,1]` (rather than NTS's
+    /// `[0.833,0.833]`).
     /// </summary>
     public static Point Centroid(Geometry geometry)
     {

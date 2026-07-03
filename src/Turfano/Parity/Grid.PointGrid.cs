@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Grade de pontos sobre uma bbox — `@turf/point-grid`. O passo em graus vem da RAZÃO
-    /// entre o lado da célula e as distâncias great-circle das bordas da bbox (semântica da
-    /// fonte — diferente do rectangle-grid). <paramref name="mask"/> filtra por `within`.
+    /// Point grid over a bbox — `@turf/point-grid`. The step in degrees comes from the RATIO
+    /// between the cell side and the great-circle distances of the bbox edges (source
+    /// semantics — different from rectangle-grid). <paramref name="mask"/> filters by `within`.
     /// </summary>
     public static FeatureCollection PointGrid(BBox bbox, Units.Length cellSide, Geometry? mask = null)
     {

@@ -3,8 +3,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Simplifica uma geometria (Douglas-Peucker planar) — `@turf/simplify` (`simplify-js`).
-    /// Sem `highQuality`, aplica antes um pré-passo de distância radial.
+    /// Simplifies a geometry (planar Douglas-Peucker) — `@turf/simplify` (`simplify-js`).
+    /// Without `highQuality`, a radial-distance pre-pass is applied first.
     /// </summary>
     public static Geometry Simplify(Geometry geometry, double tolerance = 1, bool highQuality = false) =>
         geometry switch

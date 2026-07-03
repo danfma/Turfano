@@ -4,14 +4,14 @@ using System.Text.Json.Serialization;
 namespace Turfano.GeoJson;
 
 /// <summary>
-/// Uma posição GeoJSON (RFC 7946): longitude, latitude e altitude opcional. Struct de
-/// valor imutável (sem alocação nos caminhos quentes). Serializa como array JSON
-/// `[lon, lat]` ou `[lon, lat, alt]`.
+/// A GeoJSON position (RFC 7946): longitude, latitude, and optional altitude. Immutable
+/// value struct (no allocation on hot paths). Serializes as a JSON array
+/// `[lon, lat]` or `[lon, lat, alt]`.
 /// </summary>
 [JsonConverter(typeof(PositionConverter))]
 public readonly record struct Position(double Lon, double Lat, double? Alt = null);
 
-/// <summary>Serializa <see cref="Position"/> como array JSON `[lon, lat]`/`[lon, lat, alt]`.</summary>
+/// <summary>Serializes <see cref="Position"/> as a JSON array `[lon, lat]`/`[lon, lat, alt]`.</summary>
 public sealed class PositionConverter : JsonConverter<Position>
 {
     public override Position Read(ref Utf8JsonReader r, Type t, JsonSerializerOptions o)

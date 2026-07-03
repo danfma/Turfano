@@ -1,6 +1,6 @@
 namespace Turfano.Units;
 
-/// <summary>Unidades de ângulo.</summary>
+/// <summary>Angle units.</summary>
 public enum AngleUnit
 {
     Degrees,
@@ -8,7 +8,7 @@ public enum AngleUnit
 }
 
 /// <summary>
-/// Ângulo/rumo como struct de valor imutável. Conversões e azimute reproduzem o TurfJS
+/// Angle/bearing as an immutable value struct. Conversions and azimuth reproduce TurfJS
 /// (`degreesToRadians`/`radiansToDegrees`/`bearingToAzimuth`).
 /// </summary>
 public readonly record struct Angle(double Value, AngleUnit Unit)
@@ -22,8 +22,8 @@ public readonly record struct Angle(double Value, AngleUnit Unit)
     public static Angle FromRadians(double v) => new(v, AngleUnit.Radians);
 
     /// <summary>
-    /// Converte um rumo (-180..180, positivo horário do norte) em azimute 0..360
-    /// (`bearingToAzimuth` do @turf).
+    /// Converts a bearing (-180..180, clockwise-positive from north) into an azimuth 0..360
+    /// (@turf's `bearingToAzimuth`).
     /// </summary>
     public Angle ToAzimuth()
     {

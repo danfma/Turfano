@@ -7,14 +7,14 @@ namespace Turfano.GeoJson;
 // próximo ângulo, não `Math.atan`/`atan2` — preservado por fidelidade).
 public static partial class Geo
 {
-    /// <summary>Posição aleatória dentro de uma bbox (todo o globo, se omitida) — `@turf/random randomPosition`.</summary>
+    /// <summary>Random position inside a bbox (the whole globe, if omitted) — `@turf/random randomPosition`.</summary>
     public static Position RandomPosition(BBox? bbox = null)
     {
         CheckRandomBBox(bbox);
         return RandomPositionUnchecked(bbox);
     }
 
-    /// <summary>`count` pontos aleatórios dentro de uma bbox — `@turf/random randomPoint`.</summary>
+    /// <summary>`count` random points inside a bbox — `@turf/random randomPoint`.</summary>
     public static FeatureCollection RandomPoint(int count = 1, BBox? bbox = null)
     {
         CheckRandomBBox(bbox);
@@ -25,10 +25,10 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// `count` linhas aleatórias com <paramref name="numVertices"/> vértices — `@turf/random
-    /// randomLineString`. Cada vértice segue o anterior por até <paramref name="maxLength"/>
-    /// (graus decimais) num ângulo derivado do segmento anterior, girado em até
-    /// ±<paramref name="maxRotation"/> radianos.
+    /// `count` random lines with <paramref name="numVertices"/> vertices — `@turf/random
+    /// randomLineString`. Each vertex follows the previous one by up to <paramref name="maxLength"/>
+    /// (decimal degrees) at an angle derived from the previous segment, rotated by up to
+    /// ±<paramref name="maxRotation"/> radians.
     /// </summary>
     public static FeatureCollection RandomLineString(
         int count = 1,
@@ -78,10 +78,10 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// `count` polígonos aleatórios (anéis com <paramref name="numVertices"/> + 1 posições,
-    /// já fechados) — `@turf/random randomPolygon`. Cada vértice fica a até
-    /// <paramref name="maxRadialLength"/> graus decimais do centro (sorteado dentro da bbox
-    /// encolhida por esse raio, para o polígono inteiro caber nela).
+    /// `count` random polygons (rings with <paramref name="numVertices"/> + 1 positions,
+    /// already closed) — `@turf/random randomPolygon`. Each vertex is at most
+    /// <paramref name="maxRadialLength"/> decimal degrees from the center (drawn inside the
+    /// bbox shrunk by that radius, so the whole polygon fits inside it).
     /// </summary>
     public static FeatureCollection RandomPolygon(
         int count = 1,

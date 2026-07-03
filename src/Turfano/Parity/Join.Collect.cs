@@ -8,12 +8,12 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Agrega, em cada polígono, os valores de <paramref name="inProperty"/> dos pontos que
-    /// caem dentro dele, como um array em <paramref name="outProperty"/> — `@turf/collect`.
-    /// Um ponto sem <paramref name="inProperty"/> ainda entra no array (como `null` — o
-    /// equivalente ao `undefined` que o JS empilharia; ao serializar em JSON, o JS também
-    /// vira `null`). A ordem dos valores segue a travessia do índice espacial (rbush), não
-    /// a ordem de inserção dos pontos.
+    /// Aggregates, for each polygon, the <paramref name="inProperty"/> values of the points
+    /// that fall inside it, as an array in <paramref name="outProperty"/> — `@turf/collect`.
+    /// A point without <paramref name="inProperty"/> still gets pushed onto the array (as
+    /// `null` — the equivalent of the `undefined` that JS would push; when serialized to
+    /// JSON, JS also turns it into `null`). The order of the values follows the spatial
+    /// index (rbush) traversal, not the insertion order of the points.
     /// </summary>
     public static FeatureCollection Collect(
         FeatureCollection polygons,

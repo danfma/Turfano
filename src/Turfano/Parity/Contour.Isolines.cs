@@ -5,9 +5,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Isolinhas de uma grade de pontos com valores — porte fiel do `@turf/isolines`
-    /// (marching squares embutido no bundle; um `MultiLineString` por break, reescalado
-    /// do espaço da matriz para a bbox da grade).
+    /// Isolines from a grid of points with values — faithful port of `@turf/isolines`
+    /// (marching squares bundled inline; one `MultiLineString` per break, rescaled
+    /// from matrix space to the grid's bbox).
     /// </summary>
     public static FeatureCollection Isolines(
         FeatureCollection pointGrid,

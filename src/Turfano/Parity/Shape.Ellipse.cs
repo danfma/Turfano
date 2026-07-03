@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Elipse geodésica — porte fiel do `@turf/ellipse`: os parâmetros angulares dos
-    /// quadrantes são espaçados por comprimento de arco aproximado (a integração
-    /// incremental da fonte), e cada vértice sai por `destination(r(θ), θ)`.
+    /// Geodesic ellipse — faithful port of `@turf/ellipse`: the quadrants' angular
+    /// parameters are spaced by approximate arc length (the source's incremental
+    /// integration), and each vertex is derived via `destination(r(θ), θ)`.
     /// </summary>
     public static Polygon Ellipse(
         Point center,

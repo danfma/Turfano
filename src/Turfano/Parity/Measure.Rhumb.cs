@@ -4,7 +4,7 @@ namespace Turfano.GeoJson;
 
 public static partial class Geo
 {
-    /// <summary>Rumo (rhumb line) entre duas posições, em graus (-180..180) — `@turf/rhumb-bearing`.</summary>
+    /// <summary>Rhumb-line bearing between two positions, in degrees (-180..180) — `@turf/rhumb-bearing`.</summary>
     public static Units.Angle RhumbBearing(Position from, Position to, bool final = false)
     {
         var bear360 = final ? CalcRhumbBearing(to, from) : CalcRhumbBearing(from, to);
@@ -27,7 +27,7 @@ public static partial class Geo
         return (theta / RadiansPerDegree + 360) % 360;
     }
 
-    /// <summary>Distância ao longo de uma linha de rumo constante — `@turf/rhumb-distance`.</summary>
+    /// <summary>Distance along a constant-bearing (rhumb) line — `@turf/rhumb-distance`.</summary>
     public static Units.Length RhumbDistance(Position from, Position to)
     {
         var phi1 = from.Lat * RadiansPerDegree;

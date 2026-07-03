@@ -29,7 +29,7 @@ public static partial class Geo
         return new BBox(west, south, east, north);
     }
 
-    /// <summary>Polígono retangular a partir de uma bbox — `@turf/bbox-polygon`.</summary>
+    /// <summary>Rectangular polygon from a bbox — `@turf/bbox-polygon`.</summary>
     public static Polygon BboxPolygon(BBox bbox)
     {
         var v = bbox.Values;
@@ -48,10 +48,10 @@ public static partial class Geo
         return new Polygon(new[] { ring });
     }
 
-    /// <summary>Polígono envelope (bbox como polígono) — `@turf/envelope`.</summary>
+    /// <summary>Envelope polygon (bbox as a polygon) — `@turf/envelope`.</summary>
     public static Polygon Envelope(Geometry geometry) => BboxPolygon(Bbox(geometry));
 
-    /// <summary>Quadra a bbox em torno do centro do lado maior — `@turf/square`.</summary>
+    /// <summary>Squares the bbox around the center of its longer side — `@turf/square`.</summary>
     public static BBox Square(BBox bbox)
     {
         var v = bbox.Values;

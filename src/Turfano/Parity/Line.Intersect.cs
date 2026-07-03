@@ -5,9 +5,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Pontos de interseção entre duas geometrias lineares — `@turf/line-intersect`
-    /// (sweepline-intersections portado; auto-interseções ignoradas e duplicatas removidas
-    /// por default, como a fonte).
+    /// Intersection points between two linear geometries — `@turf/line-intersect` (ported
+    /// sweepline-intersections; self-intersections ignored and duplicates removed by
+    /// default, as in the source).
     /// </summary>
     public static FeatureCollection LineIntersect(
         Geometry line1,

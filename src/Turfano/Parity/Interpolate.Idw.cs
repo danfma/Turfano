@@ -5,9 +5,10 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Interpolação IDW (inverse distance weighting) sobre uma grade — `@turf/interpolate`.
-    /// <paramref name="gridType"/>: `GridType.Square` (default), `Point`, `Hex` ou `Triangle`.
-    /// O valor de cada amostra vem de `properties[property]` ou da 3ª coordenada.
+    /// IDW (inverse distance weighting) interpolation over a grid — `@turf/interpolate`.
+    /// <paramref name="gridType"/>: `GridType.Square` (default), `Point`, `Hex`, or `Triangle`.
+    /// The value of each sample comes from `properties[property]` or, failing that, the 3rd
+    /// coordinate.
     /// </summary>
     public static FeatureCollection Interpolate(
         FeatureCollection points,

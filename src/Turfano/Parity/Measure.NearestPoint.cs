@@ -2,7 +2,7 @@ using Units = Turfano.Units;
 
 namespace Turfano.GeoJson;
 
-/// <summary>Resultado de <see cref="Geo.NearestPointOnLine"/>: ponto, índice do segmento e distâncias.</summary>
+/// <summary>Result of <see cref="Geo.NearestPointOnLine"/>: point, segment index, and distances.</summary>
 public sealed record NearestPointOnLineResult(
     Point Point,
     int Index,
@@ -15,9 +15,9 @@ public static partial class Geo
     private readonly record struct Vector3(double X, double Y, double Z);
 
     /// <summary>
-    /// Ponto mais próximo de uma linha a um ponto — porte fiel do `@turf/nearest-point-on-line`
-    /// (cross-track geodésico via vetores 3D na esfera unitária; NÃO a projeção planar do
-    /// código NTS existente, que diverge do @turf).
+    /// Closest point on a line to a given point — faithful port of `@turf/nearest-point-on-line`
+    /// (geodesic cross-track via 3D vectors on the unit sphere; NOT the planar projection of
+    /// the existing NTS code, which diverges from @turf).
     /// </summary>
     public static NearestPointOnLineResult NearestPointOnLine(LineString line, Point inputPoint)
     {
@@ -66,7 +66,7 @@ public static partial class Geo
         );
     }
 
-    /// <summary>Distância mínima de um ponto a uma linha — `@turf/point-to-line-distance` (geodésico).</summary>
+    /// <summary>Minimum distance from a point to a line — `@turf/point-to-line-distance` (geodesic).</summary>
     public static Units.Length PointToLineDistance(Point point, LineString line) =>
         NearestPointOnLine(line, point).Distance;
 

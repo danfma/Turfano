@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Tessela um polígono em triângulos — `@turf/tesselate` (earcut portado). Aceita
-    /// Polygon ou MultiPolygon; a fonte achata com dim=3 (z ausente vira slot vazio — aqui,
-    /// NaN) e monta um triângulo por trio de índices.
+    /// Tessellates a polygon into triangles — `@turf/tesselate` (ported earcut). Accepts a
+    /// Polygon or MultiPolygon; the source flattens with dim=3 (a missing z becomes an empty
+    /// slot — here, NaN) and builds one triangle per index triple.
     /// </summary>
     public static FeatureCollection Tesselate(Geometry polygon)
     {

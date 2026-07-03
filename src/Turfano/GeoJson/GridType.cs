@@ -1,17 +1,17 @@
 namespace Turfano.GeoJson;
 
-/// <summary>Tipo de grade usado por `Geo.Interpolate` — `@turf/interpolate` (gridType).</summary>
+/// <summary>Grid type used by `Geo.Interpolate` — `@turf/interpolate` (gridType).</summary>
 public enum GridType
 {
-    /// <summary>Grade de polígonos quadrados.</summary>
+    /// <summary>Grid of square polygons.</summary>
     Square,
 
-    /// <summary>Grade de pontos.</summary>
+    /// <summary>Grid of points.</summary>
     Point,
 
-    /// <summary>Grade de hexágonos.</summary>
+    /// <summary>Grid of hexagons.</summary>
     Hex,
 
-    /// <summary>Grade de triângulos.</summary>
+    /// <summary>Grid of triangles.</summary>
     Triangle,
 }

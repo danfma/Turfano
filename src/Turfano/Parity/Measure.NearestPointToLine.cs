@@ -5,9 +5,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// O ponto da coleção mais próximo da linha — `@turf/nearest-point-to-line`. A feature
-    /// devolvida carrega a distância em `properties["dist"]` (km, como o default do @turf),
-    /// preservando as demais propriedades do ponto.
+    /// The point in the collection closest to the line — `@turf/nearest-point-to-line`. The
+    /// returned feature carries the distance in `properties["dist"]` (km, matching the @turf
+    /// default), preserving the point's other properties.
     /// </summary>
     public static Feature NearestPointToLine(FeatureCollection points, LineString line)
     {

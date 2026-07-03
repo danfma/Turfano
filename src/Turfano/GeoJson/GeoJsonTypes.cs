@@ -11,7 +11,7 @@ namespace Turfano.GeoJson;
 // FeatureArrayConverter para o caso que o embutido não cobre (Feature[] é tipo concreto).
 // Os valores do discriminador usam nameof(Tipo) para ficarem à prova de refactor.
 
-/// <summary>Base de todos os objetos GeoJSON (RFC 7946).</summary>
+/// <summary>Base type for all GeoJSON objects (RFC 7946).</summary>
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
 [JsonDerivedType(typeof(Point), nameof(Point))]
 [JsonDerivedType(typeof(MultiPoint), nameof(MultiPoint))]
@@ -24,18 +24,18 @@ namespace Turfano.GeoJson;
 [JsonDerivedType(typeof(FeatureCollection), nameof(FeatureCollection))]
 public abstract record GeoJsonObject
 {
-    /// <summary>Discriminador GeoJSON. Não vai ao fio aqui (o `type` é emitido pelo polimorfismo).</summary>
+    /// <summary>GeoJSON discriminator. Not serialized here (the `type` is emitted by polymorphism).</summary>
     [JsonIgnore]
     public abstract string Type { get; }
 
-    /// <summary>Bounding box opcional (RFC 7946).</summary>
+    /// <summary>Optional bounding box (RFC 7946).</summary>
     [JsonPropertyName("bbox")]
     [JsonPropertyOrder(100)]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public BBox? Bbox { get; init; }
 }
 
-/// <summary>Base das 7 geometrias GeoJSON.</summary>
+/// <summary>Base type for the 7 GeoJSON geometries.</summary>
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
 [JsonDerivedType(typeof(Point), nameof(Point))]
 [JsonDerivedType(typeof(MultiPoint), nameof(MultiPoint))]
@@ -103,8 +103,8 @@ public sealed record GeometryCollection(
 }
 
 /// <summary>
-/// Feature GeoJSON. `properties` é um <see cref="JsonObject"/> flexível (estilo Turf,
-/// AOT-friendly); `id` pode ser string ou número (RFC 7946).
+/// GeoJSON Feature. `properties` is a flexible <see cref="JsonObject"/> (Turf-style,
+/// AOT-friendly); `id` can be a string or a number (RFC 7946).
 /// </summary>
 public sealed record Feature(
     [property: JsonPropertyName("geometry"), JsonPropertyOrder(2)] Geometry? Geometry = null,
@@ -131,10 +131,11 @@ public sealed record FeatureCollection(
 }
 
 /// <summary>
-/// Único ponto que o `[JsonPolymorphic]` embutido não cobre: <c>Feature[]</c> é tipo
-/// concreto (folha) e não emitiria o discriminador. Este converter serializa/desserializa
-/// cada item COMO a base (<see cref="GeoJsonObject"/>), de forma AOT-safe (usa o
-/// <see cref="JsonTypeInfo"/> do source-gen, não os overloads reflexivos).
+/// The one spot the built-in `[JsonPolymorphic]` doesn't cover: <c>Feature[]</c> is a
+/// concrete (leaf) type and wouldn't emit the discriminator. This converter
+/// serializes/deserializes each item AS the base type (<see cref="GeoJsonObject"/>), in an
+/// AOT-safe way (using the source-generated <see cref="JsonTypeInfo"/>, not the
+/// reflection-based overloads).
 /// </summary>
 public sealed class FeatureArrayConverter : JsonConverter<Feature[]>
 {

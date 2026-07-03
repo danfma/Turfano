@@ -5,7 +5,7 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Área esférica de uma geometria, idêntica ao `@turf/area` (mesma fórmula de anel e
+    /// Spherical area of a geometry, identical to `@turf/area` (same ring formula and
     /// `earthRadius = 6371008.8`).
     /// </summary>
     public static Units.Area Area(Geometry geometry) =>

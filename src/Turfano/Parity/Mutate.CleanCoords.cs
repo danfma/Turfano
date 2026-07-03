@@ -3,7 +3,7 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Remove pontos redundantes (duplicados consecutivos e colineares) — `@turf/clean-coords`.
+    /// Removes redundant points (consecutive duplicates and collinear points) — `@turf/clean-coords`.
     /// </summary>
     public static Geometry CleanCoords(Geometry geometry) =>
         geometry switch

@@ -5,10 +5,10 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Isobandas de uma grade de pontos com valores — porte fiel do `@turf/isobands`: um
-    /// `MultiPolygon` por faixa `[breaks[i-1], breaks[i])`, montado do marching squares dos
-    /// dois limiares (o superior invertido), com fechamento pelas bordas da matriz e
-    /// agrupamento de anéis aninhados (furos) por contenção.
+    /// Isobands from a grid of points with values — faithful port of `@turf/isobands`: one
+    /// `MultiPolygon` per band `[breaks[i-1], breaks[i])`, built from the marching squares of
+    /// the two thresholds (the upper one reversed), closed along the matrix edges, with
+    /// nested rings (holes) grouped by containment.
     /// </summary>
     public static FeatureCollection Isobands(
         FeatureCollection pointGrid,
@@ -85,8 +85,9 @@ public static partial class Geo
         return new FeatureCollection(results.ToArray());
     }
 
-    /// <summary>`assembleRings` da fonte: encadeia e FECHA contornos abertos andando pelas
-    /// bordas da matriz (cada lado com sua preferência), descartando anéis com &lt; 4 pontos.</summary>
+    /// <summary>`assembleRings` in the source: chains and CLOSES open contours by walking
+    /// along the matrix edges (each side with its own preference), discarding rings with
+    /// &lt; 4 points.</summary>
     private static List<List<ContourVertex>> AssembleContourRings(List<ContourVertex[]> segments, double[][] matrix)
     {
         var dy = matrix.Length;
@@ -180,15 +181,15 @@ public static partial class Geo
         return match;
     }
 
-    /// <summary>Ordena anéis por área (esférica, no espaço da matriz) decrescente — a fonte
-    /// usa `turf.area`.</summary>
+    /// <summary>Sorts rings by descending area (spherical, in matrix space) — the source
+    /// uses `turf.area`.</summary>
     private static List<List<ContourVertex>> OrderRingsByArea(List<List<ContourVertex>> rings) =>
         rings
             .OrderByDescending(ring => Area(MatrixSpacePolygon(ring)).SquareMeters)
             .ToList();
 
-    /// <summary>Agrupa anéis aninhados: o maior vira exterior; contidos (e não dentro de um
-    /// furo já agrupado) viram furos — `groupNestedRings` da fonte.</summary>
+    /// <summary>Groups nested rings: the largest becomes the exterior; contained rings (not
+    /// already inside a grouped hole) become holes — `groupNestedRings` in the source.</summary>
     private static List<List<List<ContourVertex>>> GroupNestedRings(List<List<ContourVertex>> orderedRings)
     {
         var entries = orderedRings.Select(r => (Ring: r, Grouped: false)).ToArray();
@@ -234,7 +235,7 @@ public static partial class Geo
     private static Polygon MatrixSpacePolygon(List<ContourVertex> ring) =>
         new(new[] { ring.Select(v => new Position(v.X, v.Y)).ToArray() });
 
-    /// <summary>Todos os vértices de `test` dentro de `target` (`isInside` da fonte).</summary>
+    /// <summary>All vertices of `test` are inside `target` (`isInside` in the source).</summary>
     private static bool RingIsInside(Polygon test, Polygon target)
     {
         foreach (var vertex in test.Coordinates[0])

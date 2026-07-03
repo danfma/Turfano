@@ -1,6 +1,6 @@
 namespace Turfano.Units;
 
-/// <summary>Unidades de comprimento alinhadas ao TurfJS (@turf/helpers).</summary>
+/// <summary>Length units aligned with TurfJS (@turf/helpers).</summary>
 public enum LengthUnit
 {
     Meters,
@@ -17,10 +17,10 @@ public enum LengthUnit
 }
 
 /// <summary>
-/// Comprimento/distância como struct de valor imutável. As conversões reproduzem
-/// exatamente as do TurfJS (`convertLength`/`lengthToRadians`/`radiansToLength`/
-/// `lengthToDegrees`), usando os mesmos fatores de `@turf/helpers` (earthRadius =
-/// 6371008.8 m). Substitui o UnitsNet (só 3 quantidades são usadas na lib).
+/// Length/distance as an immutable value struct. Conversions exactly reproduce TurfJS's
+/// (`convertLength`/`lengthToRadians`/`radiansToLength`/`lengthToDegrees`), using the same
+/// factors from `@turf/helpers` (earthRadius = 6371008.8 m). Replaces UnitsNet (only 3
+/// quantities are used in the library).
 /// </summary>
 public readonly record struct Length(double Value, LengthUnit Unit)
 {
@@ -42,7 +42,7 @@ public readonly record struct Length(double Value, LengthUnit Unit)
             _ => throw new ArgumentOutOfRangeException(nameof(u), u, "Unidade de comprimento inválida"),
         };
 
-    /// <summary>Converte para outra unidade (idêntico ao `convertLength` do @turf).</summary>
+    /// <summary>Converts to another unit (identical to @turf's `convertLength`).</summary>
     public double As(LengthUnit unit) => Value / Factor(Unit) * Factor(unit);
 
     public double Meters => As(LengthUnit.Meters);
@@ -55,10 +55,10 @@ public readonly record struct Length(double Value, LengthUnit Unit)
     public double Centimeters => As(LengthUnit.Centimeters);
     public double Millimeters => As(LengthUnit.Millimeters);
 
-    /// <summary>Equivalente angular (great-circle) — `lengthToDegrees` do @turf.</summary>
+    /// <summary>Angular equivalent (great-circle) — @turf's `lengthToDegrees`.</summary>
     public double Degrees => As(LengthUnit.Degrees);
 
-    /// <summary>Equivalente angular (great-circle) — `lengthToRadians` do @turf.</summary>
+    /// <summary>Angular equivalent (great-circle) — @turf's `lengthToRadians`.</summary>
     public double Radians => As(LengthUnit.Radians);
 
     public static Length FromMeters(double v) => new(v, LengthUnit.Meters);
@@ -70,7 +70,7 @@ public readonly record struct Length(double Value, LengthUnit Unit)
     public static Length FromCentimeters(double v) => new(v, LengthUnit.Centimeters);
     public static Length FromMillimeters(double v) => new(v, LengthUnit.Millimeters);
 
-    /// <summary>`radiansToLength` do @turf (a partir do ângulo great-circle).</summary>
+    /// <summary>@turf's `radiansToLength` (from the great-circle angle).</summary>
     public static Length FromRadians(double v) => new(v, LengthUnit.Radians);
 
     public static readonly Length Zero = new(0, LengthUnit.Meters);

@@ -1,14 +1,14 @@
 namespace Turfano.GeoJson;
 
-/// <summary>Resultado de <see cref="Geo.PolygonTangents"/>: as tangentes direita e esquerda.</summary>
+/// <summary>Result of <see cref="Geo.PolygonTangents"/>: the right and left tangents.</summary>
 public sealed record PolygonTangentsResult(Point RightTangent, Point LeftTangent);
 
 public static partial class Geo
 {
     /// <summary>
-    /// Tangentes (direita/esquerda) de um ponto externo a um polígono — porte fiel do
-    /// `@turf/polygon-tangents` (planar, via produto vetorial `isLeft`). Caso anel externo;
-    /// a lógica de furos/MultiPolygon do @turf fica para depois.
+    /// Tangents (right/left) from an external point to a polygon — faithful port of
+    /// `@turf/polygon-tangents` (planar, via the `isLeft` cross product). Outer-ring case only;
+    /// @turf's hole/MultiPolygon logic is deferred.
     /// </summary>
     public static PolygonTangentsResult PolygonTangents(Position pt, Polygon polygon)
     {

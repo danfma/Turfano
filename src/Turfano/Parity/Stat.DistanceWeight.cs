@@ -3,10 +3,10 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Matriz de pesos espaciais (Minkowski p-norm) entre os centroides das features —
-    /// `@turf/distance-weight`. Distância calculada diretamente sobre as coordenadas
-    /// lon/lat do centroide (planar — o próprio @turf ignora a curvatura aqui). Acima de
-    /// <paramref name="threshold"/> o peso é 0; senão, `1` (binário) ou `dis^alpha`.
+    /// Spatial weights matrix (Minkowski p-norm) between the features' centroids —
+    /// `@turf/distance-weight`. Distance is computed directly over the centroid's lon/lat
+    /// coordinates (planar — @turf itself ignores curvature here). Above
+    /// <paramref name="threshold"/> the weight is 0; otherwise `1` (binary) or `dis^alpha`.
     /// </summary>
     public static double[][] DistanceWeight(
         FeatureCollection fc,
@@ -64,7 +64,7 @@ public static partial class Geo
         return weights;
     }
 
-    /// <summary>Distância de Minkowski p-norm entre dois pontos (coordenadas cruas) — `@turf/distance-weight pNormDistance`.</summary>
+    /// <summary>Minkowski p-norm distance between two points (raw coordinates) — `@turf/distance-weight pNormDistance`.</summary>
     private static double PNormDistance(Position a, Position b, double p)
     {
         var xDiff = a.Lon - b.Lon;

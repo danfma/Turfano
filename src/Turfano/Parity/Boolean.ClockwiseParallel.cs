@@ -2,7 +2,7 @@ namespace Turfano.GeoJson;
 
 public static partial class Geo
 {
-    /// <summary>Anel no sentido horário (área sinalizada &gt; 0) — `@turf/boolean-clockwise`.</summary>
+    /// <summary>Clockwise ring (signed area &gt; 0) — `@turf/boolean-clockwise`.</summary>
     public static bool BooleanClockwise(LineString ring)
     {
         var coords = ring.Coordinates;
@@ -16,7 +16,7 @@ public static partial class Geo
         return sum > 0;
     }
 
-    /// <summary>Duas linhas paralelas (segmento a segmento) — `@turf/boolean-parallel`.</summary>
+    /// <summary>Two lines are parallel (segment by segment) — `@turf/boolean-parallel`.</summary>
     public static bool BooleanParallel(LineString a, LineString b)
     {
         var s1 = a.Coordinates;

@@ -5,8 +5,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Ponto da coleção mais próximo de um alvo — `@turf/nearest-point`. Adiciona às
-    /// propriedades `featureIndex` e `distanceToPoint` (km), como o `@turf`.
+    /// The point in the collection closest to a target — `@turf/nearest-point`. Adds
+    /// `featureIndex` and `distanceToPoint` (km) to the properties, matching `@turf`.
     /// </summary>
     public static Feature NearestPoint(Point target, FeatureCollection points)
     {

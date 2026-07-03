@@ -13,8 +13,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Filtra as features cujo `properties` contém a chave <paramref name="property"/>
-    /// (qualquer valor) — `@turf/clusters getCluster` com filtro string/number.
+    /// Filters features whose `properties` contains the key <paramref name="property"/>
+    /// (any value) — `@turf/clusters getCluster` with a string/number filter.
     /// </summary>
     public static FeatureCollection GetCluster(FeatureCollection geojson, string property)
     {
@@ -23,8 +23,8 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Filtra as features cujo `properties[property]` é igual a <paramref name="value"/>
-    /// — `@turf/clusters getCluster` com filtro objeto de uma chave (ex.: `{cluster: 0}`).
+    /// Filters features whose `properties[property]` equals <paramref name="value"/>
+    /// — `@turf/clusters getCluster` with a single-key object filter (e.g., `{cluster: 0}`).
     /// </summary>
     public static FeatureCollection GetCluster(FeatureCollection geojson, string property, JsonNode? value)
     {
@@ -33,9 +33,9 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Filtra as features cujas properties casam TODAS as chaves/valores de
-    /// <paramref name="filter"/> — `@turf/clusters getCluster` com filtro objeto de várias
-    /// chaves.
+    /// Filters features whose properties match ALL the keys/values of
+    /// <paramref name="filter"/> — `@turf/clusters getCluster` with a multi-key object
+    /// filter.
     /// </summary>
     public static FeatureCollection GetCluster(FeatureCollection geojson, IReadOnlyDictionary<string, JsonNode?> filter)
     {
@@ -53,10 +53,10 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Itera cada cluster (agrupado pela propriedade <paramref name="property"/>) —
-    /// `@turf/clusters clusterEach`. `clusterValue` é a chave já stringificada, na ordem
-    /// de enumeração de `Object.keys` do JS (índices numéricos primeiro, ascendentes;
-    /// depois as demais chaves, na ordem em que apareceram).
+    /// Iterates over each cluster (grouped by the <paramref name="property"/> property) —
+    /// `@turf/clusters clusterEach`. `clusterValue` is the already-stringified key, in the
+    /// JS `Object.keys` enumeration order (numeric indices first, ascending; then the
+    /// remaining keys, in the order they appeared).
     /// </summary>
     public static void ClusterEach(FeatureCollection geojson, string property, Action<FeatureCollection, string, int> callback)
     {
@@ -72,9 +72,9 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Reduz sobre os clusters com valor inicial explícito — `@turf/clusters
-    /// clusterReduce` (ramo "com initialValue": o callback roda para TODOS os clusters,
-    /// inclusive o de índice 0).
+    /// Reduces over the clusters with an explicit initial value — `@turf/clusters
+    /// clusterReduce` (the "with initialValue" branch: the callback runs for ALL clusters,
+    /// including the one at index 0).
     /// </summary>
     public static TResult ClusterReduce<TResult>(
         FeatureCollection geojson,
@@ -93,9 +93,10 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Reduz sobre os clusters SEM valor inicial — `@turf/clusters clusterReduce` (ramo
-    /// "sem initialValue": o 1º cluster vira o acumulador diretamente, sem passar pelo
-    /// callback; a partir do 2º, o callback roda normalmente).
+    /// Reduces over the clusters WITHOUT an initial value — `@turf/clusters clusterReduce`
+    /// (the "without initialValue" branch: the 1st cluster becomes the accumulator
+    /// directly, without going through the callback; from the 2nd cluster on, the callback
+    /// runs normally).
     /// </summary>
     public static FeatureCollection ClusterReduce(
         FeatureCollection geojson,
@@ -114,10 +115,10 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Agrupa os índices das features por `properties[property]`, na ordem de enumeração
-    /// de chaves de objeto do JS (`Object.keys`): chaves "índice de array" (string que é a
-    /// forma canônica de um inteiro não-negativo, sem sinal/zero à esquerda) primeiro, em
-    /// ordem numérica ascendente; depois as demais chaves, na ordem de primeira inserção.
+    /// Groups the feature indices by `properties[property]`, in the JS object-key
+    /// enumeration order (`Object.keys`): "array index" keys (a string that is the
+    /// canonical form of a non-negative integer, with no sign or leading zero) first, in
+    /// ascending numeric order; then the remaining keys, in first-insertion order.
     /// </summary>
     private static List<(string Value, List<int> Indices)> CreateBins(FeatureCollection geojson, string property)
     {
@@ -159,7 +160,7 @@ public static partial class Geo
         return result;
     }
 
-    /// <summary>Chave "índice de array" (ECMA-262): forma canônica de um inteiro em [0, 2^32-2].</summary>
+    /// <summary>"Array index" key (ECMA-262): canonical form of an integer in [0, 2^32-2].</summary>
     private static bool IsArrayIndexKey(string key, out uint index)
     {
         index = 0;
@@ -183,7 +184,7 @@ public static partial class Geo
         return true;
     }
 
-    /// <summary>Converte um valor de propriedade na chave que o JS usaria (`String(value)`).</summary>
+    /// <summary>Converts a property value into the key that JS would use (`String(value)`).</summary>
     private static string ToJsPropertyKey(JsonNode? value)
     {
         if (value is null)

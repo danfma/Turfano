@@ -3,8 +3,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Orienta os anéis (`@turf/rewind`): por default o anel externo fica **anti-horário** e
-    /// os furos **horários** (RFC 7946); `reverse` inverte. LineStrings ficam inalteradas.
+    /// Orients the rings (`@turf/rewind`): by default the outer ring becomes **counterclockwise**
+    /// and holes **clockwise** (RFC 7946); `reverse` flips this. LineStrings are left unchanged.
     /// </summary>
     public static Geometry Rewind(Geometry geometry, bool reverse = false) =>
         geometry switch

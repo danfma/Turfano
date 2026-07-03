@@ -3,8 +3,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Reconstrói uma geometria aplicando <paramref name="map"/> a cada posição (cria arrays
-    /// novos — base de flip/truncate/transform*/clone).
+    /// Rebuilds a geometry by applying <paramref name="map"/> to each position (creates new
+    /// arrays — the basis for flip/truncate/transform*/clone).
     /// </summary>
     private static Geometry MapPositions(Geometry g, Func<Position, Position> map) =>
         g switch
@@ -27,7 +27,7 @@ public static partial class Geo
             _ => g,
         };
 
-    /// <summary>Arredonda como o `Math.round` do JS (meio para +∞), igual ao `@turf/round`.</summary>
+    /// <summary>Rounds like JS's `Math.round` (half toward +∞), same as `@turf/round`.</summary>
     private static double JsRound(double value, int precision)
     {
         var factor = Math.Pow(10, precision);

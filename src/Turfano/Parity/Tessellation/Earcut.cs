@@ -552,7 +552,7 @@ internal static class Earcut
         && (ax - px) * (by - py) >= (bx - px) * (ay - py)
         && (bx - px) * (cy - py) >= (cx - px) * (by - py);
 
-    /// <summary>Diagonal válida (interior do polígono) — precedência && sobre || da fonte.</summary>
+    /// <summary>Diagonal válida (interior do polígono) — precedência `&amp;&amp;` sobre `||` da fonte.</summary>
     private static bool IsValidDiagonal(EarcutNode a, EarcutNode b) =>
         a.Next.I != b.I
         && a.Prev.I != b.I

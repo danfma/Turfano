@@ -5,10 +5,10 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Centro médio (aritmético, ponderável) de uma coleção — `@turf/center-mean`. Cada
-    /// coordenada de cada feature entra na média, ponderada por
-    /// <paramref name="weightProperty"/> (padrão: peso 1). Features com peso ≤ 0 são
-    /// ignoradas (mesma regra do @turf: `if (weight > 0) { ... }`).
+    /// Weighted arithmetic mean center of a collection — `@turf/center-mean`. Every
+    /// coordinate of every feature contributes to the average, weighted by
+    /// <paramref name="weightProperty"/> (default: weight 1). Features with weight ≤ 0 are
+    /// ignored (same rule as @turf: `if (weight > 0) { ... }`).
     /// </summary>
     public static Feature CenterMean(
         FeatureCollection features,
@@ -46,11 +46,11 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Centro mediano (iterativo, ponderável) — `@turf/center-median`. Parte do centro médio
-    /// e refina por sucessivas médias ponderadas pelo inverso da distância (algoritmo de
-    /// Weber/Kuhn-Kuenne), até `counter` iterações ou convergência dentro de
-    /// <paramref name="tolerance"/>. As propriedades trazem `medianCandidates` (os candidatos
-    /// intermediários), como o @turf.
+    /// Weighted median center (iterative) — `@turf/center-median`. Starts from the mean
+    /// center and refines it through successive inverse-distance-weighted averages
+    /// (Weber/Kuhn-Kuenne algorithm), up to `counter` iterations or convergence within
+    /// <paramref name="tolerance"/>. The properties carry `medianCandidates` (the
+    /// intermediate candidates), same as @turf.
     /// </summary>
     public static Feature CenterMedian(
         FeatureCollection features,
@@ -155,9 +155,9 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Resolve o peso de uma feature para `centerMean`: 1 se <paramref name="weightProperty"/>
-    /// não for informado ou a propriedade estiver ausente; senão o valor numérico da
-    /// propriedade (lança se não for numérico) — `@turf` mesma regra.
+    /// Resolves a feature's weight for `centerMean`: 1 if <paramref name="weightProperty"/>
+    /// is not provided or the property is missing; otherwise the property's numeric value
+    /// (throws if it isn't numeric) — same rule as `@turf`.
     /// </summary>
     private static double ResolveWeightOrOne(JsonObject? properties, string? weightProperty, int featureIndex)
     {
@@ -172,7 +172,7 @@ public static partial class Geo
         return value.Value;
     }
 
-    /// <summary>Mesma resolução, mas sem default: `null` significa "não informado" (`center-median`).</summary>
+    /// <summary>Same resolution, but without a default: `null` means "not provided" (`center-median`).</summary>
     private static double? ResolveOptionalWeight(JsonObject? properties, string weightProperty)
     {
         var node = properties?[weightProperty];

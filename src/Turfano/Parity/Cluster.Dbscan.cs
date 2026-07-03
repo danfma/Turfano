@@ -11,9 +11,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Agrupa pontos pelo algoritmo DBSCAN — `@turf/clusters-dbscan`. Cada ponto ganha
-    /// `dbscan` (`"core"`/`"edge"`/`"noise"`) e, quando pertence a um cluster, `cluster`
-    /// (índice, 0-based, na ordem de descoberta).
+    /// Clusters points using the DBSCAN algorithm — `@turf/clusters-dbscan`. Each point gets
+    /// `dbscan` (`"core"`/`"edge"`/`"noise"`) and, when it belongs to a cluster, `cluster`
+    /// (index, 0-based, in discovery order).
     /// </summary>
     public static FeatureCollection ClustersDbscan(FeatureCollection points, Units.Length maxDistance, int minPoints = 3)
     {

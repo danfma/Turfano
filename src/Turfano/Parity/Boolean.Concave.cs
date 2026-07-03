@@ -2,7 +2,7 @@ namespace Turfano.GeoJson;
 
 public static partial class Geo
 {
-    /// <summary>Polígono côncavo (algum vértice quebra a convexidade) — `@turf/boolean-concave`.</summary>
+    /// <summary>Concave polygon (some vertex breaks convexity) — `@turf/boolean-concave`.</summary>
     public static bool BooleanConcave(Polygon polygon)
     {
         var coords = polygon.Coordinates[0];

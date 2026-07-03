@@ -6,12 +6,12 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Elipse do desvio padrão (distribuição direcional) — `@turf/standard-deviational-ellipse`.
-    /// Ajusta uma elipse em torno do centro médio (<see cref="CenterMean"/>) cujos semieixos
-    /// são os desvios padrão (~68% dos dados) ao longo dos eixos principal/secundário da
-    /// nuvem de pontos. As propriedades trazem `standardDeviationalEllipse` com
-    /// `meanCenterCoordinates`, `semiMajorAxis`, `semiMinorAxis`, `numberOfFeatures`, `angle` e
-    /// `percentageWithinEllipse` — mesmos campos do @turf.
+    /// Standard deviational ellipse (directional distribution) — `@turf/standard-deviational-ellipse`.
+    /// Fits an ellipse around the mean center (<see cref="CenterMean"/>) whose semi-axes are
+    /// the standard deviations (~68% of the data) along the principal/secondary axes of the
+    /// point cloud. The properties carry `standardDeviationalEllipse` with
+    /// `meanCenterCoordinates`, `semiMajorAxis`, `semiMinorAxis`, `numberOfFeatures`, `angle`,
+    /// and `percentageWithinEllipse` — same fields as @turf.
     /// </summary>
     public static Feature StandardDeviationalEllipse(
         FeatureCollection points,
@@ -95,8 +95,9 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Resolve o peso com a regra `|| 1` do @turf (qualquer valor falsy — ausente, `0`,
-    /// `NaN` — cai no default 1), distinta da regra `??` usada em `CenterMean`/`CenterMedian`.
+    /// Resolves the weight with @turf's `|| 1` rule (any falsy value — missing, `0`,
+    /// `NaN` — falls back to the default 1), distinct from the `??` rule used in
+    /// `CenterMean`/`CenterMedian`.
     /// </summary>
     private static double WeightOrOneIfFalsy(JsonObject? properties, string? weightProperty)
     {

@@ -3,11 +3,11 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Sorteia <paramref name="num"/> features (sem repetição) de uma coleção — `@turf/sample`
-    /// (shuffle parcial de Fisher–Yates, com `Random.Shared` no lugar do `Math.random`). Se
-    /// <paramref name="num"/> for maior que a contagem de features, devolve a coleção
-    /// inteira (a fonte, nesse caso, cai num comportamento de índice negativo do JS que
-    /// termina equivalendo a isso — reproduzido aqui de forma direta).
+    /// Draws <paramref name="num"/> features (without repetition) from a collection — `@turf/sample`
+    /// (partial Fisher–Yates shuffle, with `Random.Shared` in place of `Math.random`). If
+    /// <paramref name="num"/> is greater than the feature count, returns the whole
+    /// collection (in that case, the source falls into a JS negative-index behavior that
+    /// ends up equivalent — reproduced here directly).
     /// </summary>
     public static FeatureCollection Sample(FeatureCollection features, int num)
     {

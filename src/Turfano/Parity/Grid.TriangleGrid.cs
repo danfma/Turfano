@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Grade de triângulos retos alternados sobre uma bbox — `@turf/triangle-grid`
-    /// (a orientação alterna pela paridade de coluna/linha, exatamente como a fonte).
-    /// <paramref name="mask"/> filtra por interseção (overlay nativo).
+    /// Grid of alternating right triangles over a bbox — `@turf/triangle-grid`
+    /// (orientation alternates by column/row parity, exactly like the source).
+    /// <paramref name="mask"/> filters by intersection (native overlay).
     /// </summary>
     public static FeatureCollection TriangleGrid(BBox bbox, Units.Length cellSide, Geometry? mask = null)
     {

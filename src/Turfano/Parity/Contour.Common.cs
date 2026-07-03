@@ -7,7 +7,7 @@ public static partial class Geo
 {
     private readonly record struct ContourVertex(double X, double Y);
 
-    /// <summary>Ordena a grade de pontos em matriz z[y][x] (flip=true: lat crescente).</summary>
+    /// <summary>Sorts the point grid into a z[y][x] matrix (flip=true: ascending latitude).</summary>
     private static double[][] GridToMatrix(FeatureCollection pointGrid, string zProperty)
     {
         // agrupa por latitude EXATA; linhas por lat crescente; colunas por lon crescente
@@ -32,7 +32,7 @@ public static partial class Geo
         return matrix;
     }
 
-    /// <summary>Os 16 casos do marching squares (`getSegments`/`isoContours` da fonte).</summary>
+    /// <summary>The 16 marching squares cases (`getSegments`/`isoContours` in the source).</summary>
     private static List<ContourVertex[]> MarchingSquaresSegments(double[][] matrix, double threshold)
     {
         var segments = new List<ContourVertex[]>();
@@ -138,7 +138,7 @@ public static partial class Geo
         return segments;
     }
 
-    /// <summary>Encadeia segmentos em contornos por igualdade exata das pontas (a fonte usa ===).</summary>
+    /// <summary>Chains segments into contours by exact endpoint equality (the source uses ===).</summary>
     private static List<List<ContourVertex>> ChainContourSegments(List<ContourVertex[]> segments)
     {
         var contours = new List<List<ContourVertex>>();
@@ -174,7 +174,7 @@ public static partial class Geo
         return contours;
     }
 
-    /// <summary>Bbox (min/max lon/lat) de uma coleção de pontos.</summary>
+    /// <summary>Bbox (min/max lon/lat) of a point collection.</summary>
     private static (double West, double South, double East, double North) PointsBounds(FeatureCollection points)
     {
         double west = double.PositiveInfinity,

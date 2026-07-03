@@ -3,10 +3,10 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Casco convexo — `@turf/convex`. Porte do caminho que o @turf executa de fato: o
-    /// `fastConvexHull` do concaveman (cull pelo quadrilátero extremo + monotone chain),
-    /// pois com `concavity = Infinity` (o default do @turf) o concaveman nunca "escava"
-    /// (decisão R2 do research). `null` se degenerado.
+    /// Convex hull — `@turf/convex`. Port of the code path @turf actually executes: the
+    /// concaveman `fastConvexHull` (culling by the extreme quadrilateral + monotone chain),
+    /// since with `concavity = Infinity` (the @turf default) concaveman never "carves"
+    /// (research decision R2). `null` if degenerate.
     /// </summary>
     public static Polygon? Convex(Geometry geojson)
     {

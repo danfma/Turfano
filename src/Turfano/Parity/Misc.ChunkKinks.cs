@@ -4,7 +4,7 @@ namespace Turfano.GeoJson;
 
 public static partial class Geo
 {
-    /// <summary>Divide a linha em pedaços de comprimento `segmentLength` — `@turf/line-chunk`.</summary>
+    /// <summary>Splits the line into pieces of length `segmentLength` — `@turf/line-chunk`.</summary>
     public static FeatureCollection LineChunk(LineString line, Units.Length segmentLength)
     {
         var results = new List<Feature>();
@@ -29,7 +29,7 @@ public static partial class Geo
         return new FeatureCollection(results.ToArray());
     }
 
-    /// <summary>Pontos de auto-interseção de uma linha/polígono — `@turf/kinks`.</summary>
+    /// <summary>Self-intersection points of a line/polygon — `@turf/kinks`.</summary>
     public static FeatureCollection Kinks(Geometry geometry)
     {
         var results = new List<Feature>();

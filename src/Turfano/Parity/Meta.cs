@@ -6,8 +6,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Itera cada coordenada — `@turf/meta coordEach`. Callback recebe `(coord, coordIndex,
-    /// featureIndex, multiFeatureIndex, geometryIndex)`; `coordIndex` é global e crescente.
+    /// Iterates every coordinate — `@turf/meta coordEach`. Callback receives `(coord, coordIndex,
+    /// featureIndex, multiFeatureIndex, geometryIndex)`; `coordIndex` is global and increasing.
     /// </summary>
     public static void CoordEach(
         Geometry geometry,
@@ -20,9 +20,9 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Itera cada coordenada de um GeoJSON (Feature/FeatureCollection/Geometry) — `@turf/meta
-    /// coordEach`. Numa `FeatureCollection`, `featureIndex` é o índice REAL da feature
-    /// (0, 1, 2, ...); `coordIndex` permanece global e crescente por toda a coleção.
+    /// Iterates every coordinate of a GeoJSON object (Feature/FeatureCollection/Geometry) —
+    /// `@turf/meta coordEach`. In a `FeatureCollection`, `featureIndex` is the feature's REAL
+    /// index (0, 1, 2, ...); `coordIndex` remains global and increasing across the whole collection.
     /// </summary>
     public static void CoordEach(
         GeoJsonObject geojson,
@@ -138,7 +138,7 @@ public static partial class Geo
         }
     }
 
-    /// <summary>Reduz sobre as coordenadas — `@turf/meta coordReduce`.</summary>
+    /// <summary>Reduces over the coordinates — `@turf/meta coordReduce`.</summary>
     public static TResult CoordReduce<TResult>(
         Geometry geometry,
         Func<TResult, Position, int, TResult> callback,
@@ -154,8 +154,8 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Reduz sobre as coordenadas de um GeoJSON (Feature/FeatureCollection/Geometry) —
-    /// `@turf/meta coordReduce`, com `featureIndex` REAL ao iterar uma coleção (ver `CoordEach`).
+    /// Reduces over the coordinates of a GeoJSON object (Feature/FeatureCollection/Geometry) —
+    /// `@turf/meta coordReduce`, with the REAL `featureIndex` when iterating a collection (see `CoordEach`).
     /// </summary>
     public static TResult CoordReduce<TResult>(
         GeoJsonObject geojson,
@@ -172,7 +172,7 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Itera cada segmento — `@turf/meta segmentEach`. Callback recebe `(segment,
+    /// Iterates every segment — `@turf/meta segmentEach`. Callback receives `(segment,
     /// featureIndex, multiFeatureIndex, geometryIndex, segmentIndex)`.
     /// </summary>
     public static void SegmentEach(
@@ -181,9 +181,9 @@ public static partial class Geo
     ) => SegmentEachGeometry(geometry, callback, featureIndex: 0);
 
     /// <summary>
-    /// Itera cada segmento de um GeoJSON (Feature/FeatureCollection/Geometry) — `@turf/meta
-    /// segmentEach`. Numa `FeatureCollection`, `featureIndex` é o índice REAL da feature
-    /// (0, 1, 2, ...).
+    /// Iterates every segment of a GeoJSON object (Feature/FeatureCollection/Geometry) —
+    /// `@turf/meta segmentEach`. In a `FeatureCollection`, `featureIndex` is the feature's REAL
+    /// index (0, 1, 2, ...).
     /// </summary>
     public static void SegmentEach(
         GeoJsonObject geojson,
@@ -228,7 +228,7 @@ public static partial class Geo
             }
     }
 
-    /// <summary>Reduz sobre os segmentos — `@turf/meta segmentReduce`.</summary>
+    /// <summary>Reduces over the segments — `@turf/meta segmentReduce`.</summary>
     public static TResult SegmentReduce<TResult>(
         Geometry geometry,
         Func<TResult, (Position Start, Position End), int, TResult> callback,
@@ -245,8 +245,8 @@ public static partial class Geo
     }
 
     /// <summary>
-    /// Reduz sobre os segmentos de um GeoJSON (Feature/FeatureCollection/Geometry) —
-    /// `@turf/meta segmentReduce`, com `featureIndex` REAL ao iterar uma coleção (ver `SegmentEach`).
+    /// Reduces over the segments of a GeoJSON object (Feature/FeatureCollection/Geometry) —
+    /// `@turf/meta segmentReduce`, with the REAL `featureIndex` when iterating a collection (see `SegmentEach`).
     /// </summary>
     public static TResult SegmentReduce<TResult>(
         GeoJsonObject geojson,
@@ -295,21 +295,21 @@ public static partial class Geo
         }
     }
 
-    /// <summary>Itera cada feature de uma coleção — `@turf/meta featureEach`.</summary>
+    /// <summary>Iterates every feature of a collection — `@turf/meta featureEach`.</summary>
     public static void FeatureEach(FeatureCollection collection, Action<Feature, int> callback)
     {
         for (var i = 0; i < collection.Features.Length; i++)
             callback(collection.Features[i], i);
     }
 
-    /// <summary>Itera cada propriedade de uma coleção — `@turf/meta propEach`.</summary>
+    /// <summary>Iterates every property of a collection — `@turf/meta propEach`.</summary>
     public static void PropEach(FeatureCollection collection, Action<JsonObject?, int> callback)
     {
         for (var i = 0; i < collection.Features.Length; i++)
             callback(collection.Features[i].Properties, i);
     }
 
-    /// <summary>Itera cada geometria — `@turf/meta geomEach`. Callback `(geom, featureIndex, geometryIndex)`.</summary>
+    /// <summary>Iterates every geometry — `@turf/meta geomEach`. Callback `(geom, featureIndex, geometryIndex)`.</summary>
     public static void GeomEach(GeoJsonObject geojson, Action<Geometry, int, int> callback)
     {
         void Walk(Geometry g, int featureIndex)
@@ -346,7 +346,7 @@ public static partial class Geo
         }
     }
 
-    /// <summary>Itera cada parte simples — `@turf/meta flattenEach`. Callback `(geom, featureIndex, multiFeatureIndex)`.</summary>
+    /// <summary>Iterates every simple part — `@turf/meta flattenEach`. Callback `(geom, featureIndex, multiFeatureIndex)`.</summary>
     public static void FlattenEach(GeoJsonObject geojson, Action<Geometry, int, int> callback)
     {
         void Walk(Geometry g, int featureIndex)

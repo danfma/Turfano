@@ -3,9 +3,9 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Geometrias que se tocam (fronteiras se encontram, interiores não) —
-    /// `@turf/boolean-touches`. Cobre Polygon/Polygon e Point/Polygon; a matriz completa de
-    /// tipos (linhas, multi*) fica para um incremento futuro.
+    /// Geometries that touch (boundaries meet, interiors do not) —
+    /// `@turf/boolean-touches`. Covers Polygon/Polygon and Point/Polygon; the full type
+    /// matrix (lines, multi*) is left for a future increment.
     /// </summary>
     public static bool BooleanTouches(Geometry a, Geometry b) =>
         (a, b) switch

@@ -6,10 +6,10 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Casco côncavo — `@turf/concave`: tin dos pontos (sem duplicatas) + filtro de arestas
-    /// por <paramref name="maxEdge"/> + fusão dos triângulos. A fusão usa a UNIÃO n-ária do
-    /// motor polyclip nativo em vez do merge topojson do @turf (decisão R3 — mesma região
-    /// geométrica; validação por área/vértices). `null` quando não há solução.
+    /// Concave hull — `@turf/concave`: TIN of the points (deduplicated) + edge filtering by
+    /// <paramref name="maxEdge"/> + triangle merging. The merge uses the n-ary UNION from the
+    /// native polyclip engine instead of the @turf topojson merge (decision R3 — same
+    /// geometric region; validated by area/vertex count). `null` when there is no solution.
     /// </summary>
     public static Geometry? Concave(FeatureCollection points, Units.Length maxEdge)
     {

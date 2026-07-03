@@ -3,8 +3,8 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Verdadeiro se as geometrias **não** se tocam/intersectam — `@turf/boolean-disjoint`.
-    /// Achata multi-geometrias e exige que todos os pares sejam disjuntos.
+    /// True if the geometries **do not** touch/intersect — `@turf/boolean-disjoint`.
+    /// Flattens multi-geometries and requires that every pair be disjoint.
     /// </summary>
     public static bool BooleanDisjoint(Geometry a, Geometry b)
     {
@@ -15,7 +15,7 @@ public static partial class Geo
         return true;
     }
 
-    /// <summary>Negação de <see cref="BooleanDisjoint"/> — `@turf/boolean-intersects`.</summary>
+    /// <summary>Negation of <see cref="BooleanDisjoint"/> — `@turf/boolean-intersects`.</summary>
     public static bool BooleanIntersects(Geometry a, Geometry b) => !BooleanDisjoint(a, b);
 
     private static bool Disjoint(Geometry g1, Geometry g2) =>
@@ -82,7 +82,7 @@ public static partial class Geo
 
     // --- primitivas compartilhadas pelas relações ---
 
-    /// <summary>Algum par de segmentos de duas polilinhas se cruza (`@turf/line-intersect`).</summary>
+    /// <summary>Some pair of segments from two polylines crosses (`@turf/line-intersect`).</summary>
     private static bool LinesIntersect(Position[] a, Position[] b)
     {
         for (var i = 0; i < a.Length - 1; i++)
@@ -102,7 +102,7 @@ public static partial class Geo
         return uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1;
     }
 
-    /// <summary>Achata uma geometria em suas partes primitivas (Point/LineString/Polygon).</summary>
+    /// <summary>Flattens a geometry into its primitive parts (Point/LineString/Polygon).</summary>
     private static IEnumerable<Geometry> FlattenGeometry(Geometry g)
     {
         switch (g)

@@ -1,6 +1,6 @@
 namespace Turfano.Units;
 
-/// <summary>Unidades de área alinhadas ao TurfJS (@turf/helpers areaFactors).</summary>
+/// <summary>Area units aligned with TurfJS (@turf/helpers areaFactors).</summary>
 public enum AreaUnit
 {
     SquareMeters,
@@ -17,9 +17,9 @@ public enum AreaUnit
 }
 
 /// <summary>
-/// Área como struct de valor imutável. As conversões reproduzem o `convertArea` do TurfJS,
-/// usando os mesmos `areaFactors` de `@turf/helpers` (unidades por metro²). Alguns fatores
-/// do @turf são aproximados (ex.: miles, acres) — reproduzimos exatamente para paridade.
+/// Area as an immutable value struct. Conversions reproduce TurfJS's `convertArea`, using
+/// the same `areaFactors` from `@turf/helpers` (units per square meter). Some of @turf's
+/// factors are approximate (e.g., miles, acres) — we reproduce them exactly for parity.
 /// </summary>
 public readonly record struct Area(double Value, AreaUnit Unit)
 {
@@ -40,7 +40,7 @@ public readonly record struct Area(double Value, AreaUnit Unit)
             _ => throw new ArgumentOutOfRangeException(nameof(u), u, "Unidade de área inválida"),
         };
 
-    /// <summary>Converte para outra unidade (idêntico ao `convertArea` do @turf).</summary>
+    /// <summary>Converts to another unit (identical to @turf's `convertArea`).</summary>
     public double As(AreaUnit unit) => Value / Factor(Unit) * Factor(unit);
 
     public double SquareMeters => As(AreaUnit.SquareMeters);

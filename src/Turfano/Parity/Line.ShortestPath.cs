@@ -3,11 +3,11 @@ namespace Turfano.GeoJson;
 public static partial class Geo
 {
     /// <summary>
-    /// Caminho mais curto entre dois pontos desviando de polígonos-obstáculo —
-    /// porte fiel do `@turf/shortest-path`: grade sobre a bbox expandida (×1.15),
-    /// células dentro de obstáculo viram parede, A* (heurística manhattan, diagonais
-    /// com custo 1.41421) e `CleanCoords` no fim. <paramref name="resolution"/> é o
-    /// tamanho da célula (default 100 km, como a fonte).
+    /// Shortest path between two points avoiding obstacle polygons — faithful port of
+    /// `@turf/shortest-path`: grid over the expanded bbox (×1.15), cells inside an obstacle
+    /// become walls, A* (manhattan heuristic, diagonals with cost 1.41421), and `CleanCoords`
+    /// at the end. <paramref name="resolution"/> is the cell size (default 100 km, as in the
+    /// source).
     /// </summary>
     public static Feature ShortestPath(
         Point start,
@@ -225,7 +225,7 @@ public static partial class Geo
         }
     }
 
-    /// <summary>Heap binária do javascript-astar (score = F).</summary>
+    /// <summary>Binary heap from javascript-astar (score = F).</summary>
     private sealed class AStarHeap
     {
         private readonly List<AStarNode> content = new();
