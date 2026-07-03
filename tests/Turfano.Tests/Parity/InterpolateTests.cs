@@ -17,8 +17,15 @@ public class InterpolateTests
     {
         // triângulo (0,0)(2,0)(1,2) com a=10,b=20,c=30
         var triangle = new GeoJson.Feature(
-            new GeoJson.Polygon(new[] { new[] { new Pos(0, 0), new Pos(2, 0), new Pos(1, 2), new Pos(0, 0) } }),
-            new JsonObject { ["a"] = 10, ["b"] = 20, ["c"] = 30 }
+            new GeoJson.Polygon(
+                new[] { new[] { new Pos(0, 0), new Pos(2, 0), new Pos(1, 2), new Pos(0, 0) } }
+            ),
+            new JsonObject
+            {
+                ["a"] = 10,
+                ["b"] = 20,
+                ["c"] = 30,
+            }
         );
         await Assert.That(G.Planepoint(G.Point(1, 0.5), triangle)).IsEqualTo(18.75).Within(1e-12);
         // fora do triângulo: extrapola (o @turf não valida) → 72.5
@@ -26,7 +33,18 @@ public class InterpolateTests
 
         // z pela 3ª coordenada
         var triangleZ = new GeoJson.Feature(
-            new GeoJson.Polygon(new[] { new[] { new Pos(0, 0, 10), new Pos(2, 0, 20), new Pos(1, 2, 30), new Pos(0, 0, 10) } })
+            new GeoJson.Polygon(
+                new[]
+                {
+                    new[]
+                    {
+                        new Pos(0, 0, 10),
+                        new Pos(2, 0, 20),
+                        new Pos(1, 2, 30),
+                        new Pos(0, 0, 10),
+                    },
+                }
+            )
         );
         await Assert.That(G.Planepoint(G.Point(1, 0.5), triangleZ)).IsEqualTo(18.75).Within(1e-12);
     }
@@ -50,18 +68,18 @@ public class InterpolateTests
         await Assert.That(tin.Features.Length).IsEqualTo(4);
 
         var first = (GeoJson.Polygon)tin.Features[0].Geometry!;
-        await Assert.That(first.Coordinates[0]).IsEquivalentTo(
-            new[] { new Pos(0, 0), new Pos(0.5, 3), new Pos(1, 2), new Pos(0, 0) }
-        );
+        await Assert
+            .That(first.Coordinates[0])
+            .IsEquivalentTo(new[] { new Pos(0, 0), new Pos(0.5, 3), new Pos(1, 2), new Pos(0, 0) });
         var props0 = tin.Features[0].Properties!;
         await Assert.That(props0["a"]!.GetValue<double>()).IsEqualTo(1);
         await Assert.That(props0["b"]!.GetValue<double>()).IsEqualTo(5);
         await Assert.That(props0["c"]!.GetValue<double>()).IsEqualTo(3);
 
         var last = (GeoJson.Polygon)tin.Features[3].Geometry!;
-        await Assert.That(last.Coordinates[0]).IsEquivalentTo(
-            new[] { new Pos(2, 0), new Pos(1, 2), new Pos(3, 2), new Pos(2, 0) }
-        );
+        await Assert
+            .That(last.Coordinates[0])
+            .IsEquivalentTo(new[] { new Pos(2, 0), new Pos(1, 2), new Pos(3, 2), new Pos(2, 0) });
     }
 
     [Test]
@@ -90,7 +108,12 @@ public class InterpolateTests
         }
 
         // gridType point, weight 2: 9 pontos
-        var pointGrid = G.Interpolate(samples, Units.Length.FromKilometers(50), gridType: "point", weight: 2);
+        var pointGrid = G.Interpolate(
+            samples,
+            Units.Length.FromKilometers(50),
+            gridType: GeoJson.GridType.Point,
+            weight: 2
+        );
         await Assert.That(pointGrid.Features.Length).IsEqualTo(9);
         double[] expectedPoint = { 10.248931249415731, 21.798407515585676, 29.9170510399431 };
         for (var i = 0; i < 3; i++)

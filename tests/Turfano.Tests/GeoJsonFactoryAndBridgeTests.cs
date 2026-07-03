@@ -14,13 +14,13 @@ public class GeoJsonFactoryAndBridgeTests
     {
         var p = Geo.Point(1, 2);
         await Assert.That(p.Coordinates).IsEqualTo(new Pos(1, 2));
-        await Assert.That(Geo.GetType(p)).IsEqualTo("Point");
+        await Assert.That(Geo.GetGeoJsonType(p)).IsEqualTo("Point");
         await Assert.That(Geo.GetCoord(p)).IsEqualTo(new Pos(1, 2));
 
         var poly = Geo.Polygon(
             new[] { new[] { new Pos(0, 0), new Pos(1, 0), new Pos(1, 1), new Pos(0, 0) } }
         );
-        await Assert.That(Geo.GetType(poly)).IsEqualTo("Polygon");
+        await Assert.That(Geo.GetGeoJsonType(poly)).IsEqualTo("Polygon");
         await Assert.That(poly.Coordinates[0].Length).IsEqualTo(4);
     }
 

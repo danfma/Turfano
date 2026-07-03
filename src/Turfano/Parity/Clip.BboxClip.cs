@@ -6,7 +6,7 @@ public static partial class Geo
     /// Recorta uma geometria por uma bounding box — `@turf/bbox-clip` (porte do `lineclip`:
     /// Cohen-Sutherland p/ linhas, Sutherland-Hodgman p/ polígonos). Sem NTS.
     /// </summary>
-    public static Geometry BBoxClip(Geometry geometry, BBox bbox)
+    public static Geometry BboxClip(Geometry geometry, BBox bbox)
     {
         var box = bbox.Values;
         switch (geometry)
@@ -15,21 +15,30 @@ public static partial class Geo
             {
                 var lines = new List<Position[]>();
                 LineClip(ls.Coordinates, box, lines);
-                return lines.Count == 1 ? new LineString(lines[0]) : new MultiLineString(lines.ToArray());
+                return lines.Count == 1
+                    ? new LineString(lines[0])
+                    : new MultiLineString(lines.ToArray());
             }
             case MultiLineString mls:
             {
                 var lines = new List<Position[]>();
                 foreach (var line in mls.Coordinates)
                     LineClip(line, box, lines);
-                return lines.Count == 1 ? new LineString(lines[0]) : new MultiLineString(lines.ToArray());
+                return lines.Count == 1
+                    ? new LineString(lines[0])
+                    : new MultiLineString(lines.ToArray());
             }
             case Polygon poly:
                 return new Polygon(ClipPolygonRings(poly.Coordinates, box));
             case MultiPolygon mpoly:
-                return new MultiPolygon(mpoly.Coordinates.Select(p => ClipPolygonRings(p, box)).ToArray());
+                return new MultiPolygon(
+                    mpoly.Coordinates.Select(p => ClipPolygonRings(p, box)).ToArray()
+                );
             default:
-                throw new ArgumentException("BBoxClip suporta LineString/MultiLineString/Polygon/MultiPolygon", nameof(geometry));
+                throw new ArgumentException(
+                    "BboxClip suporta LineString/MultiLineString/Polygon/MultiPolygon",
+                    nameof(geometry)
+                );
         }
     }
 
@@ -50,11 +59,20 @@ public static partial class Geo
     private static Position ClipIntersect(Position a, Position b, int edge, double[] bbox)
     {
         if ((edge & 8) != 0)
-            return new Position(a.Lon + (b.Lon - a.Lon) * (bbox[3] - a.Lat) / (b.Lat - a.Lat), bbox[3]);
+            return new Position(
+                a.Lon + (b.Lon - a.Lon) * (bbox[3] - a.Lat) / (b.Lat - a.Lat),
+                bbox[3]
+            );
         if ((edge & 4) != 0)
-            return new Position(a.Lon + (b.Lon - a.Lon) * (bbox[1] - a.Lat) / (b.Lat - a.Lat), bbox[1]);
+            return new Position(
+                a.Lon + (b.Lon - a.Lon) * (bbox[1] - a.Lat) / (b.Lat - a.Lat),
+                bbox[1]
+            );
         if ((edge & 2) != 0)
-            return new Position(bbox[2], a.Lat + (b.Lat - a.Lat) * (bbox[2] - a.Lon) / (b.Lon - a.Lon));
+            return new Position(
+                bbox[2],
+                a.Lat + (b.Lat - a.Lat) * (bbox[2] - a.Lon) / (b.Lon - a.Lon)
+            );
         return new Position(bbox[0], a.Lat + (b.Lat - a.Lat) * (bbox[0] - a.Lon) / (b.Lon - a.Lon));
     }
 
