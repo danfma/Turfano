@@ -19,6 +19,53 @@ public static partial class Geo
         CoordEachGeometry(geometry, callback, excludeWrapCoord, featureIndex: 0, ref coordIndex);
     }
 
+    /// <summary>
+    /// Itera cada coordenada de um GeoJSON (Feature/FeatureCollection/Geometry) — `@turf/meta
+    /// coordEach`. Numa `FeatureCollection`, `featureIndex` é o índice REAL da feature
+    /// (0, 1, 2, ...); `coordIndex` permanece global e crescente por toda a coleção.
+    /// </summary>
+    public static void CoordEach(
+        GeoJsonObject geojson,
+        Action<Position, int, int, int, int> callback,
+        bool excludeWrapCoord = false
+    )
+    {
+        var coordIndex = 0;
+        switch (geojson)
+        {
+            case FeatureCollection collection:
+                for (var i = 0; i < collection.Features.Length; i++)
+                    if (collection.Features[i].Geometry is { } g)
+                        CoordEachGeometry(
+                            g,
+                            callback,
+                            excludeWrapCoord,
+                            featureIndex: i,
+                            ref coordIndex
+                        );
+                break;
+            case Feature feature:
+                if (feature.Geometry is { } fg)
+                    CoordEachGeometry(
+                        fg,
+                        callback,
+                        excludeWrapCoord,
+                        featureIndex: 0,
+                        ref coordIndex
+                    );
+                break;
+            case Geometry geometry:
+                CoordEachGeometry(
+                    geometry,
+                    callback,
+                    excludeWrapCoord,
+                    featureIndex: 0,
+                    ref coordIndex
+                );
+                break;
+        }
+    }
+
     private static void CoordEachGeometry(
         Geometry geometry,
         Action<Position, int, int, int, int> callback,
@@ -59,11 +106,11 @@ public static partial class Geo
             {
                 var wrap = excludeWrapCoord ? 1 : 0;
                 for (var j = 0; j < poly.Coordinates.Length; j++)
-                    for (var k = 0; k < poly.Coordinates[j].Length - wrap; k++)
-                    {
-                        callback(poly.Coordinates[j][k], coordIndex, featureIndex, 0, j);
-                        coordIndex++;
-                    }
+                for (var k = 0; k < poly.Coordinates[j].Length - wrap; k++)
+                {
+                    callback(poly.Coordinates[j][k], coordIndex, featureIndex, 0, j);
+                    coordIndex++;
+                }
                 break;
             }
             case MultiPolygon mpoly:
@@ -99,7 +146,28 @@ public static partial class Geo
     )
     {
         var accumulator = initial;
-        CoordEach(geometry, (coord, coordIndex, _, _, _) => accumulator = callback(accumulator, coord, coordIndex));
+        CoordEach(
+            geometry,
+            (coord, coordIndex, _, _, _) => accumulator = callback(accumulator, coord, coordIndex)
+        );
+        return accumulator;
+    }
+
+    /// <summary>
+    /// Reduz sobre as coordenadas de um GeoJSON (Feature/FeatureCollection/Geometry) —
+    /// `@turf/meta coordReduce`, com `featureIndex` REAL ao iterar uma coleção (ver `CoordEach`).
+    /// </summary>
+    public static TResult CoordReduce<TResult>(
+        GeoJsonObject geojson,
+        Func<TResult, Position, int, TResult> callback,
+        TResult initial
+    )
+    {
+        var accumulator = initial;
+        CoordEach(
+            geojson,
+            (coord, coordIndex, _, _, _) => accumulator = callback(accumulator, coord, coordIndex)
+        );
         return accumulator;
     }
 
@@ -110,13 +178,52 @@ public static partial class Geo
     public static void SegmentEach(
         Geometry geometry,
         Action<(Position Start, Position End), int, int, int, int> callback
+    ) => SegmentEachGeometry(geometry, callback, featureIndex: 0);
+
+    /// <summary>
+    /// Itera cada segmento de um GeoJSON (Feature/FeatureCollection/Geometry) — `@turf/meta
+    /// segmentEach`. Numa `FeatureCollection`, `featureIndex` é o índice REAL da feature
+    /// (0, 1, 2, ...).
+    /// </summary>
+    public static void SegmentEach(
+        GeoJsonObject geojson,
+        Action<(Position Start, Position End), int, int, int, int> callback
+    )
+    {
+        switch (geojson)
+        {
+            case FeatureCollection collection:
+                for (var i = 0; i < collection.Features.Length; i++)
+                    if (collection.Features[i].Geometry is { } g)
+                        SegmentEachGeometry(g, callback, featureIndex: i);
+                break;
+            case Feature feature:
+                if (feature.Geometry is { } fg)
+                    SegmentEachGeometry(fg, callback, featureIndex: 0);
+                break;
+            case Geometry geometry:
+                SegmentEachGeometry(geometry, callback, featureIndex: 0);
+                break;
+        }
+    }
+
+    private static void SegmentEachGeometry(
+        Geometry geometry,
+        Action<(Position Start, Position End), int, int, int, int> callback,
+        int featureIndex
     )
     {
         var segmentIndex = 0;
         foreach (var (ring, multiFeatureIndex, geometryIndex) in SegmentRings(geometry))
             for (var i = 0; i < ring.Length - 1; i++)
             {
-                callback((ring[i], ring[i + 1]), 0, multiFeatureIndex, geometryIndex, segmentIndex);
+                callback(
+                    (ring[i], ring[i + 1]),
+                    featureIndex,
+                    multiFeatureIndex,
+                    geometryIndex,
+                    segmentIndex
+                );
                 segmentIndex++;
             }
     }
@@ -129,11 +236,38 @@ public static partial class Geo
     )
     {
         var accumulator = initial;
-        SegmentEach(geometry, (segment, _, _, _, segmentIndex) => accumulator = callback(accumulator, segment, segmentIndex));
+        SegmentEach(
+            geometry,
+            (segment, _, _, _, segmentIndex) =>
+                accumulator = callback(accumulator, segment, segmentIndex)
+        );
         return accumulator;
     }
 
-    private static IEnumerable<(Position[] Ring, int MultiFeatureIndex, int GeometryIndex)> SegmentRings(Geometry g)
+    /// <summary>
+    /// Reduz sobre os segmentos de um GeoJSON (Feature/FeatureCollection/Geometry) —
+    /// `@turf/meta segmentReduce`, com `featureIndex` REAL ao iterar uma coleção (ver `SegmentEach`).
+    /// </summary>
+    public static TResult SegmentReduce<TResult>(
+        GeoJsonObject geojson,
+        Func<TResult, (Position Start, Position End), int, TResult> callback,
+        TResult initial
+    )
+    {
+        var accumulator = initial;
+        SegmentEach(
+            geojson,
+            (segment, _, _, _, segmentIndex) =>
+                accumulator = callback(accumulator, segment, segmentIndex)
+        );
+        return accumulator;
+    }
+
+    private static IEnumerable<(
+        Position[] Ring,
+        int MultiFeatureIndex,
+        int GeometryIndex
+    )> SegmentRings(Geometry g)
     {
         switch (g)
         {
@@ -150,13 +284,13 @@ public static partial class Geo
                 break;
             case MultiPolygon mpoly:
                 for (var j = 0; j < mpoly.Coordinates.Length; j++)
-                    for (var k = 0; k < mpoly.Coordinates[j].Length; k++)
-                        yield return (mpoly.Coordinates[j][k], j, k);
+                for (var k = 0; k < mpoly.Coordinates[j].Length; k++)
+                    yield return (mpoly.Coordinates[j][k], j, k);
                 break;
             case GeometryCollection gc:
                 foreach (var sub in gc.Geometries)
-                    foreach (var ring in SegmentRings(sub))
-                        yield return ring;
+                foreach (var ring in SegmentRings(sub))
+                    yield return ring;
                 break;
         }
     }

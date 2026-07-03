@@ -22,7 +22,8 @@ public static partial class Geo
     public static LineString LineString(params Position[] coordinates) => new(coordinates);
 
     /// <summary>Cria um MultiLineString a partir das linhas — `@turf/helpers.multiLineString`.</summary>
-    public static MultiLineString MultiLineString(params Position[][] coordinates) => new(coordinates);
+    public static MultiLineString MultiLineString(params Position[][] coordinates) =>
+        new(coordinates);
 
     /// <summary>Cria um Polygon a partir dos anéis (o primeiro é o exterior, os demais são furos) — `@turf/helpers.polygon`.</summary>
     public static Polygon Polygon(params Position[][] rings) => new(rings);
@@ -31,7 +32,8 @@ public static partial class Geo
     public static MultiPolygon MultiPolygon(params Position[][][] coordinates) => new(coordinates);
 
     /// <summary>Cria uma GeometryCollection a partir das geometrias — `@turf/helpers.geometryCollection`.</summary>
-    public static GeometryCollection GeometryCollection(params Geometry[] geometries) => new(geometries);
+    public static GeometryCollection GeometryCollection(params Geometry[] geometries) =>
+        new(geometries);
 
     /// <summary>Cria uma Feature com geometria e propriedades opcionais — `@turf/helpers.feature`.</summary>
     public static Feature Feature(Geometry? geometry = null, JsonObject? properties = null) =>
@@ -43,7 +45,7 @@ public static partial class Geo
     // --- Invariantes (estilo @turf/invariant) ---
 
     /// <summary>O tipo GeoJSON do objeto (`"Point"`, `"Polygon"`, ...) — `@turf/invariant.getType`.</summary>
-    public static string GetType(GeoJsonObject obj) => obj.Type;
+    public static string GetGeoJsonType(GeoJsonObject obj) => obj.Type;
 
     /// <summary>A geometria de uma Feature (ou a própria, se já for geometria); `null` caso contrário — `@turf/invariant.getGeom`.</summary>
     public static Geometry? GetGeom(GeoJsonObject obj) =>
@@ -60,6 +62,9 @@ public static partial class Geo
         {
             Point p => p.Coordinates,
             Feature { Geometry: Point p } => p.Coordinates,
-            _ => throw new ArgumentException("GetCoord espera um Point (ou Feature com Point).", nameof(obj)),
+            _ => throw new ArgumentException(
+                "GetCoord espera um Point (ou Feature com Point).",
+                nameof(obj)
+            ),
         };
 }

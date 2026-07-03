@@ -6,13 +6,13 @@ public static partial class Geo
 {
     /// <summary>
     /// Interpolação IDW (inverse distance weighting) sobre uma grade — `@turf/interpolate`.
-    /// <paramref name="gridType"/>: "square" (default), "point", "hex" ou "triangle". O valor
-    /// de cada amostra vem de `properties[property]` ou da 3ª coordenada.
+    /// <paramref name="gridType"/>: `GridType.Square` (default), `Point`, `Hex` ou `Triangle`.
+    /// O valor de cada amostra vem de `properties[property]` ou da 3ª coordenada.
     /// </summary>
     public static FeatureCollection Interpolate(
         FeatureCollection points,
         Units.Length cellSize,
-        string gridType = "square",
+        GridType gridType = GridType.Square,
         string property = "elevation",
         double weight = 1
     )
@@ -38,11 +38,15 @@ public static partial class Geo
 
         var grid = gridType switch
         {
-            "point" or "points" => PointGrid(box, cellSize),
-            "square" or "squares" => SquareGrid(box, cellSize),
-            "hex" or "hexes" => HexGrid(box, cellSize),
-            "triangle" or "triangles" => TriangleGrid(box, cellSize),
-            _ => throw new ArgumentException("invalid gridType", nameof(gridType)),
+            GridType.Point => PointGrid(box, cellSize),
+            GridType.Square => SquareGrid(box, cellSize),
+            GridType.Hex => HexGrid(box, cellSize),
+            GridType.Triangle => TriangleGrid(box, cellSize),
+            _ => throw new ArgumentOutOfRangeException(
+                nameof(gridType),
+                gridType,
+                "gridType inválido"
+            ),
         };
 
         var results = new List<Feature>();
@@ -52,10 +56,14 @@ public static partial class Geo
             var sw = 0.0;
             foreach (var sample in points.Features)
             {
-                var gridPoint = gridType is "point" or "points"
-                    ? (Point)gridFeature.Geometry!
-                    : Centroid(gridFeature.Geometry!);
-                var d = Distance(gridPoint.Coordinates, ((Point)sample.Geometry!).Coordinates).Kilometers;
+                var gridPoint =
+                    gridType == GridType.Point
+                        ? (Point)gridFeature.Geometry!
+                        : Centroid(gridFeature.Geometry!);
+                var d = Distance(
+                    gridPoint.Coordinates,
+                    ((Point)sample.Geometry!).Coordinates
+                ).Kilometers;
 
                 var zValue =
                     NumberOrNull(sample.Properties?[property])
