@@ -3,7 +3,7 @@
     <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.0.0-rc.1</Version>
+    <Version>1.0.0</Version>
     <IsPackable>true</IsPackable>
     <Title>Turfano</Title>
     <Description>Faithful .NET port of TurfJS over its own GeoJSON types — zero dependencies, AOT-ready.</Description>
