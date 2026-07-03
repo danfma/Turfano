@@ -1,0 +1,8 @@
+- name: Home
+  href: index.md
+- name: Guide (EN)
+  href: articles/
+- name: Guia (pt-BR)
+  href: articles-pt-br/
+- name: API
+  href: api/
