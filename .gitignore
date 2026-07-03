@@ -498,3 +498,7 @@ $RECYCLE.BIN/
 
 # Reference files
 reference/
+
+# DocFX (gerados)
+docs/_site/
+docs/api/
